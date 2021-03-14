@@ -23,3 +23,24 @@
 프레임웍을 배우는 난이도는 없다
 
 가스안전, 전기안전, 수도센서를 이용한 노인생활 안전관리 시스템
+
+
+##0312
+라즈베리파이와 코랄 USB 용도 및 학습
+
+구글 코랄 USB Accelerator의 용도 및 기능
+Coral의 가장 큰 특징은 TPU를 갖고있는 것으로 Twnsor 계산에 최적화된 연산장치로써 Accelerator기능을 수행할 수 있다.
+
+-코랄 USB Accelator관련 링크
+https://m.blog.naver.com/roboholic84/221850320761
+https://www.youtube.com/watch?v=mZLTtmPGyq0
+https://mazdah.tistory.com/852
+
+
+라즈베리파이를 통한 웹링크 를 띄우는 기능 (Chromium)
+설치하는 이유 : headless chrome 이 Raspberry Pi 에 설치된 32bit Ubuntu 를 지원 하지 않기 때문
+Raspbian 10의 Chromium-browser 버전은 Chromium 78.0.3904.108 Built on Raspbian , running on Raspbian 10
+
+라즈베리파이 Chromium 설치 관련 링크
+http://zerovirus79.blogspot.com/2016/07/raspberry-pi-chromium.html
+https://jjeaby.medium.com/raspberry-pi-%EC%97%90%EC%84%9C-puppeteer-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-1855651c1858
