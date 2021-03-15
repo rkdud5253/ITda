@@ -6,7 +6,7 @@
 
 
 
-### # UI / Design 설계 시 고려사항
+### # UI / Design 설계 시 고려사항🎨
 
 - 어르신들이 보는 건 `TV 화면`임을 잊지 말기
 
@@ -21,47 +21,49 @@
 
 
 
-### #1. 봄 느낌의 밝은 파스텔톤
+### #1. 봄 느낌의 밝은 파스텔톤🏡
 
-![특화PJT 디자인_001](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_001.png)
+![특화PJT 디자인_001](UI&Design.assets/특화PJT 디자인_001.png)
 
-![특화PJT 디자인_002](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_002.png)
-
-
-
-### #2. 톤 다운, 차분한 가을 느낌
-
-![특화PJT 디자인_003](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_003.png)
-
-![특화PJT 디자인_004](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_004.png)
+![특화PJT 디자인_002](UI&Design.assets/특화PJT 디자인_002.png)
 
 
 
-### #3. 원색을 포인트 컬러로
+### #2. 톤 다운, 차분한 가을 느낌🍂
 
-![특화PJT 디자인_005](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_005.png)![특화PJT 디자인_006](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_006.png)
+![특화PJT 디자인_003](UI&Design.assets/특화PJT 디자인_003.png)
 
-
-
-### #4. 분홍색과 초록색의 조화
-
-![특화PJT 디자인_007](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_007.png)
-
-![특화PJT 디자인_008](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_008.png)
+![특화PJT 디자인_004](UI&Design.assets/특화PJT 디자인_004.png)
 
 
 
-### #5. 컬러풀, 무지개 느낌
+### #3. 원색을 포인트 컬러로🍊
 
-![특화PJT 디자인_009](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_009.png)
+![특화PJT 디자인_005](UI&Design.assets/특화PJT 디자인_005.png)
 
-![특화PJT 디자인_010](C:\Users\multicampus\Documents\특화PJT 디자인\특화PJT 디자인_010.png)
+![특화PJT 디자인_006](UI&Design.assets/특화PJT 디자인_006.png)
+
+
+
+### #4. 분홍색과 초록색의 조화🦩
+
+![특화PJT 디자인_007](UI&Design.assets/특화PJT 디자인_007.png)
+
+![특화PJT 디자인_008](UI&Design.assets/특화PJT 디자인_008.png)
+
+
+
+### #5. 컬러풀, 무지개 느낌🌈
+
+![특화PJT 디자인_009](UI&Design.assets/특화PJT 디자인_009.png)
+
+![특화PJT 디자인_010](UI&Design.assets/특화PJT 디자인_010.png)
 
 
 
 ### MatterMost 채널을 통한 투표 결과
 
-![image-20210315222547703](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210315222547703.png)
+![image-20210315224749759](UI&Design.assets/image-20210315224749759.png)
 
 후보 5번이 가장 많은 표 획득!
 
@@ -69,7 +71,7 @@
 
 ### 다양한 컬러를 조합하여 Figma에서 그려본 메인 화면 
 
-![image-20210315223106000](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210315223106000.png)
+![image-20210315224838227](UI&Design.assets/image-20210315224838227.png)
 
 앞으로 와이어프레임 그리면서 고려할 점
 
