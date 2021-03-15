@@ -44,3 +44,12 @@ Raspbian 10의 Chromium-browser 버전은 Chromium 78.0.3904.108 Built on Raspbi
 라즈베리파이 Chromium 설치 관련 링크
 http://zerovirus79.blogspot.com/2016/07/raspberry-pi-chromium.html
 https://jjeaby.medium.com/raspberry-pi-%EC%97%90%EC%84%9C-puppeteer-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-1855651c1858
+
+
+##0315
+라즈베리파이를 활용한 프로젝트 활용
+TV에 설치하는것으로 확정
+
+-TTS,STT학습
+러닝의 과정 중 데이터 전처리 과정에서 아마 많은 데이터가 필요하다 생각하며 어르신들의 말과 출력값을 읽어주는 말의 정확도를 높이는 방법에 대해 더 쉬운 방법으로 생각해봐야겠다.
+명세서를 포함하며 CUDA를 올려 GPU로 기초적인 모델링 학습을 내일 이어서 해볼 예정
