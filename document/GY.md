@@ -250,3 +250,21 @@ Knowledge Base(Confluence)
   - AI + 임베디드
   - 라즈베리파이와 웹을 사용해서 만들기로 확정!
   - 프론트(2) / 백(2) / 임베디드(2)로 담당자 정하기
+
+
+
+
+
+## 0315
+
+- UI 및 디자인 회의
+
+  - 노인을 위한 UI디자인 참고하기!
+  - https://brunch.co.kr/@hailey-hyunjee/49
+  - http://www.initiondata.kr/SeniorUX/Senior%20UX_Spread.pdf
+
+- 프로젝트 컬러 정하기
+
+  ![color](GY.assets/color.JPG)
+
+  
