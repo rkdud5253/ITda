@@ -1,13 +1,31 @@
-### STT - 편지 /일정 읽기
+### 인공지능(음성) 명세서
 
-### TTS - 음성으로 오늘의 일기 작성
+- TTS
+- RNN
+- LSTM
+- Attention mechanism
 
-- STT(Speech-to-Text)
+1. 데이터셋 : {(음성, 텍스트)}의 데이터 쌍 -> train, validate, test 데이터
+2. 데이터 전처리 : character embedding -> STFT -> spectrogram -> mel filter bank -> mel-spectrogram
 
-- TTS(Text-to-Speech) : 문자열을 입력으로 받아 음성을 합성하는 기술
+3. Tacotron2 : 대표적인 TTS 모델
 
-  Tacotron2
+   a. 인코더 : text -> character embedding vector -> CNN -> LSTM -> feature vector
 
-  1. 인코더
-  2. 디코더
-  3. 보코더
+   b. 디코더 : Attention mechanism -> feature vector -> LSTM -> mel-spectrogram
+
+   c. 보코더 : mel-spectrogram -> waveform
+
+4. validate 데이터셋으로 평가
+
+5. 모델 선정
+
+
+
+TTS 재미있게 이해하기
+
+https://www.kakaobrain.com/blog/109
+
+Tacorton2 쉽게 이해하기
+
+https://medium.com/wasd/%EA%B3%A0%EB%93%B1%ED%95%99%EC%83%9D-%EC%8B%9C%EC%A0%90%EC%9C%BC%EB%A1%9C-%EB%85%BC%EB%AC%B8%EC%9D%84-%EC%9D%BD%EC%96%B4%EB%B3%B4%EC%9E%90-e6953caf4bf8
