@@ -268,3 +268,16 @@ Knowledge Base(Confluence)
   ![color](GY.assets/color.JPG)
 
   
+
+
+
+## 0316
+
+- 와이어프레임 제작 - 어르신 화면
+  - TV화면에 맞춰서 제작
+  - 어르신이 보기에 편안한 색감과 디자인으로 제작
+- 와이어프레임 제작 - 가족들 화면 (내일)
+  - 사용자가 쓰기 쉽게 구현
+  - 반응형 웹
+- 와이어프레임 제작 프로그램 `Figma`
+  - 단축키 참고 : https://nicecarrot2.tistory.com/93
