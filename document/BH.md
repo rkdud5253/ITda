@@ -62,7 +62,25 @@
 
     - 직접 녹음?
 
-      
+
+
+
+<h2> DataSet</h2>
+
+- KSS dataset, 국립국어원 dataset 비교
+  - 국립국어원 dataset은 연령대별, 성별로 여러가지 목소리가 있지만.. 모두 문장이 같고 문장을 다 합친 결과가 길지 않기 때문에 학습에 영향이 별로 없을 것 같다고 판단
+  - KSS dataset은 한 목소리로 12+ 문장을 가지고 있다
+  - KSS dataset을 활용하여 그것만으로 학습하거나 다른 목소리를 조금 넣어 추가 학습하는 것을 생각해볼 것
+
+- KSS dataset 전처리 과정
+
+  - 지금 참고하고 있는 소스코드는 DeepVoice2 - multi speaker 버전이다.
+
+  - 소스코드의 폼에 맞추기 위해 KSS dataset을 가공하였다.![image-20210316233501644](C:\Users\power\AppData\Roaming\Typora\typora-user-images\image-20210316233501644.png)
 
     
+
+  - 결과
+
+    ![image-20210316233417992](C:\Users\power\AppData\Roaming\Typora\typora-user-images\image-20210316233417992.png)
 
