@@ -84,3 +84,8 @@
 
     ![image-20210316233417992](C:\Users\power\AppData\Roaming\Typora\typora-user-images\image-20210316233417992.png)
 
+
+
+<h2>A형 역량테스트</h2>
+
+- 한 문제 풀고 나왔다!
