@@ -79,3 +79,27 @@ microsoft에서 만든 pose estimation 모델이다.
 생각한 것 보다 데이터 용량이 크고, 환경설정이 힘들어서 진도가 느리다.
 
 그래도 오늘 새벽에는 2번이나 3번 중 적어도 한 방법으로 해결해보려고 한다.
+
+
+
+### 0319
+
+alphapose라는 새로운 pose estimation를 찾았다. 이건 가장 좋은 점이 colab으로 preview를 할 수 있다는 점.
+
+[MVIG-SJTU/AlphaPose: Real-Time and Accurate Full-Body Multi-Person Pose Estimation&Tracking System (github.com)](https://github.com/MVIG-SJTU/AlphaPose)
+
+colab으로 돌려보니 포즈를 잘 찾는다. 그런데 input을 사진으로 받는 코드라서 webcam을 사용하려면 조금 수정해야겠다.
+
+colab에서 webcam을 이용하는 방법은 google에서 지원하는 스니펫을 활용하면 된다. colab은 서버인데 webcam은 로컬에 연결되어있어서 colab이 바로 영상을 읽을 수 없다. 그래서 스니펫에서 사용하는 방법은, javascript를 사용해서 로컬의 영상데이터를 서버로 전송해 읽어들이는 방법이다.
+
+
+
+갑자기 javascript하니까 tensorflow.js가 생각났다. 그래서 공식 홈페이지에 들어가봤더니
+
+[All Experiments | Experiments with Google](https://experiments.withgoogle.com/experiments?tag=PoseNet)
+
+human pose estimation을 활용한 여러가지 프로그램을 오픈소스로 공개한다.
+
+PoseNet은 coral할때 봤던 pose estimation 이다. 추측하건데, 그 때 봤던건 coral의 HTPU를 사용하도록 일부 수정되어 제공된 코드이고, 오리지날 PoseNet이 존재하는 것 같다.
+
+영상데이터는 용량이 크니까 back까지 안가고 front단에서 tensorflow.js로 가동시킬 수 있다면 데이터 전송 측면에서 큰 이익을 볼 것 같다.
