@@ -76,13 +76,13 @@
 
   - 지금 참고하고 있는 소스코드는 DeepVoice2 - multi speaker 버전이다.
 
-  - 소스코드의 폼에 맞추기 위해 KSS dataset을 가공하였다.![image-20210316233501644](C:\Users\power\AppData\Roaming\Typora\typora-user-images\image-20210316233501644.png)
+  - 소스코드의 폼에 맞추기 위해 KSS dataset을 가공하였다.![dataset-json변환](../images/image-20210316233501644.png)
 
     
 
   - 결과
 
-    ![image-20210316233417992](C:\Users\power\AppData\Roaming\Typora\typora-user-images\image-20210316233417992.png)
+    ![json변환완료](../images/image-20210316233417992.png)
 
 
 
