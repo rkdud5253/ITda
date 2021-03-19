@@ -4,7 +4,7 @@
 
 [git-cz](https://www.npmjs.com/package/git-cz)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bad5dfa2-b74e-4caf-8552-bba53e55842f/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bad5dfa2-b74e-4caf-8552-bba53e55842f/Untitled.png)
+![git_cz](../images/git_cz.png)
 
 이 라이브러리를 사용하면 커밋 메세지를 예쁘게 관리할 수 있습니다!
 
@@ -87,3 +87,20 @@ npm install -g git-cz
 ![image-20210318235452111](../images/image-20210318235452111.png)
 
 #### 와이어프레임 - 가족들 화면 제작 (진행 중)
+
+
+
+## 2021. 03. 19. FE: 와이어프레임 결과 화면 추가 및 발표 준비
+
+![210319_figma](../images/210319_figma.png)
+
+- 오늘의 체조와 가족 오락관 메뉴의 점수 화면을 추가했다.
+- 오늘 발표가 끝나고 [노인을 위한 웹 디자인](https://brunch.co.kr/@mrlees/10)이라는 브런치 글을 읽게 되었는데, 우리 어르신들 화면 구성에 대해 다시 생각해보는 계기가 되었다. 그래서 오늘은 B TV 화면 구성도 유심히 살펴봤다.
+- [사진을 적재적소에 활용한 사이트](https://www.discovery.co.za/portal/)를 참고하여 메뉴를 다시 구성해보고 싶은 욕심이 생긴다.
+
+
+
+![210319_presentation](../images/210319_presentation.png)
+
+- 1차 발표 무사히 완료!
+- 다음 주부터는 개발 속도를 확 높여야겠다는 생각이 든다 ... 🧨 우리 팀 화이팅...!
