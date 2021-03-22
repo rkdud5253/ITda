@@ -328,3 +328,17 @@ Knowledge Base(Confluence)
 
 - 발표준비, PPT 제작 (자료는 추후 올릴 예정)
 - 팀원 및 팀간 평가
+
+
+
+
+
+## 0322
+
+- 와이어프레임 - 가족들화면 수정
+
+![](../images/wireframe_family.JPG)
+
+
+
+- 내일 꼭 완성하고 개발 시작하기
