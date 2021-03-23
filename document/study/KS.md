@@ -84,3 +84,13 @@ VNC설치를 위한 과정을 학습하였습니다.
 학습 데이터 : 2시간이면 불안정하지만 영어도 어느정도 가능.
 병희님께서 알려주신 학습데이터 (12시간)을 통한 러닝으로 구현해보는 방법도 생각
 
+##0322
+Object Detection을 활용한 표정에 따른 기분을 알려주는 기능 구현 계획
+필요한 라이브러리와 활용 계획 결정==> Deep Face
+주말을 활용하여 관련 정보와 링크 확인
+https://github.com/serengil/deepface/blob/master/README.md
+
+##0323
+코치님께서 주신 링크와 도움으로 Deepface구현에 필요한 Tolov3모델 추가
+https://awesomeopensource.com/project/YunYang1994/tensorflow-yolov3
+여기서 이미지를 올리고 기능이되는것까지 확인할 예정
