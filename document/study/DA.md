@@ -37,19 +37,3 @@ https://www.youtube.com/watch?v=klnfWhPGPRs
 https://carpedm20.github.io/tacotron/
 
 http://melonicedlatte.com/machinelearning/2018/07/09/141346.html
-
-
-
-- BackEnd 기초 작업
-
-  프로젝트 구조
-
-  API 구조
-
-  클래스 및 변수 명명
-
-- DataBase 기초 작업
-
-  테이블 구조
-
-  테이블 및 컬럼 명명
