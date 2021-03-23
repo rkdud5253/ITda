@@ -122,3 +122,142 @@ PoseNet은 javascript에서 돌아가는 거라서 서버에 올릴 수 있다.
 그리고 PoseNet은 사용을 해봤는데... google에서 만든 것 치고는 성능이 영 별로다.
 
 그래서 AlphaPose를 사용하기로 마음 먹었다.
+
+
+
+### 0321
+
+OpenPose와 PoseNet 모두 돌려봤다.
+
+- OpenPose
+
+  ![image-20210323231902530](JP.assets/image-20210323231902530.png)
+
+  
+
+  작동은 잘 되는데.. cuda memory를 너무 많이 잡아먹는다.
+
+  그래서 webcam을 pose estimating하는데 90% 메모리를 사용하고,
+
+  video를 pose estimating은 out of memory 에러가 뜬다.
+
+  ![Image Pasted at 2021-3-23 23-20](JP.assets/Image Pasted at 2021-3-23 23-20-1616509287404.png)
+
+  
+
+  체조의 정확도를 비교하기 위해서는 video를 변환해야 한다.
+
+  메모리 부족 문제를 해결하기 위해서 다음과 같은 방법들이 가능할 것 같다.
+
+  1. cuda memory 늘리기
+  2. input video 해상도 낮추기
+  3. OpenPose에 메모리 사용량 절약 방법 있는지 알아보기
+  4. AWS 서버 또는 colab에서 비디오 변환한 후 가져오기
+
+  2번은 해상도를 640 * 360으로 낮췄는데도 불구하고 안됐다.
+
+  4번은 변환된 비디오는 생성 가능할텐데 관절의 좌표를 추출해내기 힘들 것 같다.
+
+  
+
+  우선 3번을 먼저 해보고 그 다음으로 1번 -> 4번 순서로 해봐야겠다.
+
+
+
+- PoseNet (Tensorflow.js)
+
+  이건 javascript를 사용하는 방법이다.
+
+  원래 사용 안하려고 했는데... 확실히 이 방법이 편하긴 하다.
+
+  html 파일을 만들고,
+
+  ```html
+  <html>
+    <head>
+      <!-- Load TensorFlow.js -->
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+      <!-- Load Posenet -->
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+    </head>
+  
+    <body>
+      <img id='cat' src='/images/yoga.jpg'/>
+    </body>
+  
+    <script>
+      var flipHorizontal = false;
+  
+      var imageElement = document.getElementById('cat');
+  
+      posenet.load().then(function(net) {
+        const pose = net.estimateMultiplePoses(imageElement, {
+          flipHorizontal: true,
+          maxDetections: 1,
+        });
+        return pose;
+      }).then(function(pose){
+        console.log(pose)
+      })
+    </script>
+  </html>
+  ```
+
+  이게 끝이다.
+
+  
+
+  ![image-20210323233520330](JP.assets/image-20210323233520330.png)
+
+  물론 Webcam을 이용하려면 조금 더 복잡해지겠지만, 
+
+  webcam에서 프레임마다 이미지를 캡쳐해서 Pose estimating한 후 return해주면 될 것이다.
+
+  webcam을 이미 활용가능한 모델이 있는데..
+
+  ![image-20210323233903121](JP.assets/image-20210323233903121.png)
+
+  Ml5.js라는 라이브러리이다.
+
+  그런데 보다시피 오른쪽 사람이라고 잘못 인식한 옷더미들이 있다.
+
+  사람을 한명만 인식하게 하기 위해서 maxPoseDetection을 1로 바꿔도, type을 'single'로 바꿔도 적용되지 않는다.
+
+  이 부분을 해결하기 위해 다음의 방법을 이용할 수 있을 것 같다.
+
+  1. Ml5.js 라이브러리에서 single detection 하는 방법을 google에서 찾아보기
+  2. Ml5를 사용하지 않고 순수한 PoseNet에서 웹캠을 이미지로 입력해주기
+
+  1번의 경우는 이미 Ml5 홈페이지에 적혀있는 방법을 사용했는데도 되지 않았기 때문에 해결하는 방법을 찾을 수 없을지도 모른다.
+
+  ->  찾을 수 있을 확률이 크다
+
+  2번은 웹캠 입력을 하더라도 이미지 뼈다귀를 그려주는 코드도 작성해야 한다.
+
+  -> Ml5.js에 친절히 코드가 작성되어있어서 참고하면 된다.
+
+
+
+OpenPose, PoseNet 둘 다 장단점이 있었다.
+
+OpenPose는 디텍팅 성능이 훨씬 좋았다.
+
+그러나 GPU 메모리를 많이 잡아먹고, Python파일이기 때문에 웹페이지에 자연스럽게 띄우기가 힘들 것이다.
+
+또한, joint의 위치를 출력하는 작업이 남아있다.
+
+
+
+PoseNet은 디텍팅 성능이 확실히 떨어진다.
+
+사람이 아닌 것을 사람이라고 착각을 많이 하기 때문에 single pose estimation을 하는게 필수적이다.
+
+그리고 cpu를 사용하기 때문에 라즈베리파이에서 작동이 힘들 수 있다.
+
+(어차피 OpenPose도 못쓴다. gpu라서... 결국 라즈베리파이를 쓸라면 coral에서 돌리는 코드를 새로 찾아야 한다.)
+
+그렇지만 javascript로 작성되었기 때문에 웹서비스에 삽입하기가 쉽고, 자연스럽다.
+
+
+
+오늘은 여기까지 해봤고.. 이제 두 모델 중 선택을 하고, 해당 모델의 문제점을 해결해야겠다.
