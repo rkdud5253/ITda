@@ -185,3 +185,17 @@ npm install -g git-cz
 
 레퍼런스와 비슷하게 어르신들 화면도 바꿔보았는데, 아직은 손 볼 부분이 더 많다.
 특히 폰트! 내일 우리 서비스에 잘 어울릴만한 폰트를 확정해야겠다.
+
+
+
+## 2021. 03. 23. 폰트 및 로고 선정
+
+![font](../images/font.png)
+
+![logo1](../images/logo1.png)
+
+![logo2](../images/logo2.png)
+
+![logo3](../images/logo3.png)
+
+새로운 로고는 1번으로 결정, 탕탕🥨 
