@@ -261,3 +261,119 @@ PoseNet은 디텍팅 성능이 확실히 떨어진다.
 
 
 오늘은 여기까지 해봤고.. 이제 두 모델 중 선택을 하고, 해당 모델의 문제점을 해결해야겠다.
+
+-------------------------------------------------------------------------------------------
+
+
+
+webcam을 캡쳐하여 pose estimation 할때마다 joint들을 출력하는 코드를 찾았다.
+
+```shell
+Body keypoints: 
+[[[3.9700430e+02 3.4211340e+02 8.9668864e-01]
+  [3.5669791e+02 4.6317319e+02 7.1009606e-01]
+  [1.8774825e+02 4.8153146e+02 6.1743152e-01]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [5.1836810e+02 4.5203735e+02 7.0348436e-01]
+  [6.3589624e+02 6.0657166e+02 1.2152778e-01]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [3.3852856e+02 3.0520035e+02 9.1632646e-01]
+  [4.3014188e+02 2.9432120e+02 8.7259454e-01]
+  [2.7592862e+02 3.0895447e+02 9.4125116e-01]
+  [4.7061819e+02 3.0151401e+02 2.1997885e-01]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]
+  [0.0000000e+00 0.0000000e+00 0.0000000e+00]]]
+Face keypoints:
+None
+Left hand keypoints:
+None
+Right hand keypoints:
+None
+```
+
+
+
+얼굴, 손가락은 옵션에 넣지 않았기 때문에 신체 estimation만 출력된다.
+
+이 값들을 가지고 이어진 joint끼리의 각도를 출력하는 코드를 짰다.
+
+```python
+def joint_degree(joint_b, joint_a):
+    if joint_a[2] == 0 or joint_b[2] == 0:
+        return "NaN"
+    x = joint_a[0] - joint_b[0]
+    y = joint_a[1] - joint_b[1]
+    if x == 0:
+        if y > 0:
+            return 90
+        else:
+            return 270
+    result = math.tanh(y / x) * 90
+    if x >= 0 and y >= 0:
+        return result
+    elif x < 0:
+        return result + 180
+    else:
+        return result + 360
+```
+
+
+
+그리고 목표하는 대상과 일치하는지 여부를 알아야 하기 때문에 일치여부를 나타내는 코드도 짰다.
+
+```python
+def check_posture(target, correct, allow):
+    if target == "NaN":
+        return "No data"
+    if abs(correct - target) < allow:
+        return "correct"
+    elif target < allow and correct > target + 360 - allow:
+        return "correct"
+    elif target > 360 - allow and correct < target - 360 + allow:
+        return "correct"
+    return "wrong"
+```
+
+
+
+allow는 15도로 설정하고 correct는 임시로 하드코딩 해놨다.
+
+결과는
+
+```shell
+head - neck           |   90.00793509142868    |   correct
+r_shoulder - neck     |   358.0503466519698    |   correct
+r_elbow - r_shoulder  |   NaN    |   No data
+r_wrist - r_elbow     |   NaN    |   No data
+neck - l_shoulder     |   351.6975216285739    |   correct
+l_shoulder - l_elbow  |   81.18191918372239    |   wrong
+l_elbow - l_wrist     |   NaN    |   No data
+neck - sacrum         |   NaN    |   No data
+r_hip - sacrum        |   NaN    |   No data
+r_wrist - r_elbow     |   NaN    |   No data
+r_knee - r_hip        |   NaN    |   No data
+r_ankle - r_knee      |   NaN    |   No data
+sacrum - l_hip        |   NaN    |   No data
+l_hip - l_knee        |   NaN    |   No data
+l_knee - l_ankle      |   NaN    |   No data
+```
+
+
+
+타겟 관절이 목표 관절의 각도보다 +- 15도 이내의 범위에 있으면 correct, 아니면 wrong을 출력한다.
+
+목표는 video를 estimation 해서 correct 데이터를 얻어내는 것인데, video는 gpu memory 부족 이슈가 나타났다.
+
+그리고 openCV를 수정해서 return이 correct면 초록색, wrong이면 빨간색으로 frame을 표시하고, 옵션으로 allow 범위 밖이지만 correct랑 가까울때는 노란색으로 표시하는 것도 재밌을 것 같다.
