@@ -14,9 +14,15 @@ public class QuestionService {
   @Autowired
   public QuestionService(SqlSession sqlSession) { this.sqlSession = sqlSession; }
 
+  public Question getQuestion() throws Exception{
+    return sqlSession.getMapper(QuestionMapper.class).getQuestion();
+  }
+
   public Question getQuestion(int questionId) throws Exception{
     return sqlSession.getMapper(QuestionMapper.class).getQuestion(questionId);
   }
 
-
+  public String postQuestion(Question question) throws Exception{
+    return sqlSession.getMapper(QuestionMapper.class).postQuestion(question);
+  }
 }
