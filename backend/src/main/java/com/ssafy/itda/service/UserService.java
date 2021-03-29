@@ -4,7 +4,9 @@ import com.ssafy.itda.domain.User;
 import com.ssafy.itda.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
 
 	private final SqlSession sqlSession;

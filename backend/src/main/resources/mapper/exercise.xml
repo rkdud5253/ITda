@@ -8,7 +8,7 @@
 	from exercise
 	</select>
 	
-	<update id="updateAccuracy" parameterType="Report">
+	<update id="updateAccuracy" parameterType="DailyReport">
 	update report
 	set exercise_id = #{exerciseId},
 	exercise_accuracy = #{exerciseAccuracy}
