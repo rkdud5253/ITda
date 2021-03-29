@@ -2,7 +2,13 @@
 
 .titleBox {
   background:$primary-yellow2;
+  height: 100px;
+  width: 1590px;
   border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 130px;
 
   .title {
     font-size: 55px;

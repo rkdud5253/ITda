@@ -1,12 +1,11 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <v-main>
+    <router-view />
+  </v-main>
 </template>
 
 <script>
+import "@/components/css/common.scss";
 export default {
   name: 'App',
 

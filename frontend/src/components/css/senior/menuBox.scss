@@ -1,0 +1,38 @@
+@import "../color.scss";
+
+.menuBox {
+
+  .menuImage {
+    position: absolute;
+    width: 450px;
+    height: 600px;
+    left: 185px;
+    top: 350px;
+    border-radius: 20px;
+  }
+
+  .menuBorder {
+  position: absolute;
+  width: 450px;
+  height: 600px;
+  left: 185px;
+  top: 350px;
+
+  border: 20px solid $secondary-red;
+  border-radius: 20px;
+  }
+
+  .menuButton {
+  position: absolute;
+  width: 360px;
+  height: 90px;
+  left: 230px;
+  top: 810.56px;
+
+  background: $secondary-red;
+  border-radius: 20px;
+
+  font-size: 60px;
+  color: $basic-white;
+  }
+}

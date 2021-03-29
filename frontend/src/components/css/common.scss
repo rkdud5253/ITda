@@ -1,0 +1,15 @@
+@charset "utf-8";
+@import "./color";
+@font-face {
+  font-family: 'ELAND_Choice_M';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  background-color: $primary-yellow1;
+  text-align: center;
+  font-size: 100%;
+  font-family: 'ELAND_Choice_M';  // font-face에서 설정한 폰트 이름
+}
