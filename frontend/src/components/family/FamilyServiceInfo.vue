@@ -1,0 +1,179 @@
+<template>
+  <v-container>
+    <!-- 서비스소개 -->
+    <div class="main-wrap">
+      <div class="main-img">
+        <v-img
+          class="my-5"
+          :src="require('@/assets/family/image1.jpg')"
+          gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
+          height="60%"
+          max-height="500"
+          width="100%"
+        ></v-img>
+      </div>
+      <div class="main-text">
+        <h2><span class="mb-1" style="background-color: white;">홀로 어르신의</span></h2>
+        <h2><span class="mb-1" style="background-color: white;">일상과 건강을 책임지는</span></h2>
+        <h2><span class="mb-1" style="background-color: white;">감성돌봄 서비스</span></h2>
+        <h1><span class="mb-1" style="color: #FC5355; background-color: white;">잇다</span></h1>
+      </div>
+    </div>
+
+    <!-- 기능별소개 -->
+    <div class="my-2">
+      <v-row>
+        <!-- 오늘의체조 -->
+        <v-col 
+          cols="12"
+          sm="4"
+        >
+          <v-img
+            class="img-function"
+            :src="require('@/assets/family/image2.jpg')"
+            gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
+            max-height="500"
+          >
+            <v-row
+              class="fill-height text-right ma-0"
+            >
+              <v-col cols="12">
+                <v-chip
+                  label
+                  class="text-uppercase my-1"
+                  color="#FFFFFF"
+                  text-color="#FC5355"
+                  large
+                >
+                  <h1>오늘의체조</h1>
+                </v-chip>
+                
+                <div class="caption my-1" style="color: white; font-weight: bold;">
+                  오늘의 체조 영상과 정확도를 확인하세요
+                </div>
+              </v-col>
+
+              <!-- <v-col align-self="end">
+                <v-chip
+                  class="text-uppercase ma-0"
+                  color="primary"
+                  label
+                  small
+                >
+                  보고서 보러가기
+                </v-chip>
+              </v-col> -->
+            </v-row>
+          </v-img>
+        </v-col>
+        <!-- 사진일기장 -->
+        <v-col 
+          cols="12"
+          sm="4"
+        >
+          <div>
+            <v-img
+              class="img-function"
+              :src="require('@/assets/family/image3.jpg')"
+              gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
+              max-height="500"
+            >
+              <v-row
+                class="fill-height text-right ma-0"
+              >
+                <v-col cols="12">
+                  <v-chip
+                    label
+                    class="text-uppercase my-1"
+                    color="#FFFFFF"
+                    text-color="#FEA601"
+                    large
+                  >
+                    <h1>사진일기장</h1>
+                  </v-chip>
+                  
+                  <div class="caption my-1" style="color: white; font-weight: bold;">
+                    매일 기록되는 소중한 사진과 영상을 볼 수 있어요
+                  </div>
+                </v-col>
+              </v-row>
+            </v-img>
+          </div>
+        </v-col>
+        <!-- 가족오락관 -->
+        <v-col 
+          cols="12"
+          sm="4"
+        >
+          <div>
+            <v-img
+              class="img-function"
+              :src="require('@/assets/family/image4.jpg')"
+              gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
+              max-height="500"
+            >
+              <v-row
+                class="fill-height text-right ma-0"
+              >
+                <v-col cols="12">
+                  <v-chip
+                    label
+                    class="text-uppercase my-1"
+                    color="#FFFFFF"
+                    text-color="#597ED2"
+                    large
+                  >
+                    <h1>가족오락관</h1>
+                  </v-chip>
+                  
+                  <div class="caption my-1" style="color: white; font-weight: bold;">
+                    어르신이 오늘 어떤 문제를 푸셨는지 확인하고<br>가족과 관련된 문제를 출제해 보세요
+                  </div>
+                </v-col>
+              </v-row>
+            </v-img>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: "FamilyServiceInfo",
+};
+</script>
+
+<style>
+.main-wrap {
+  position: relative;
+}
+.main-img {
+  width: 100%;
+  vertical-align: middle;
+}
+.main-text {
+  text-align: left;
+  position: absolute;
+  top: 35%;
+  left: 10%;
+}
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5em;
+}
+@media (max-width: 960px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+  h2 {
+    font-size: 0.8rem;
+  }
+} 
+.img-function {
+  transition: .3s linear;
+}
+</style>
