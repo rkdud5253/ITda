@@ -3,8 +3,8 @@ package com.ssafy.itda.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "Report : 데일리 보고서 정보")
-public class Report {
+@ApiModel(value = "DailyReport : 데일리 보고서 정보")
+public class DailyReport {
 
 	@ApiModelProperty(value = "보고서 날짜")
 	private String reportDate;

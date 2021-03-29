@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.itda.model.Exercise;
-import com.ssafy.itda.model.Report;
+import com.ssafy.itda.model.DailyReport;
 import com.ssafy.itda.model.mapper.ExerciseMapper;
 
 @Service
@@ -15,12 +15,12 @@ public class ExerciseServiceImpl implements ExerciseService{
 	private SqlSession sqlSession;
 	
 	@Override
-	public Exercise getExercise(String exerciseId) throws Exception {
+	public Exercise getExercise(int exerciseId) throws Exception {
 		return sqlSession.getMapper(ExerciseMapper.class).getExercise(exerciseId);
 	}
 
 	@Override
-	public boolean updateAccuracy(Report report) throws Exception {
+	public boolean updateAccuracy(DailyReport report) throws Exception {
 		return sqlSession.getMapper(ExerciseMapper.class).updateAccuracy(report) == 1;
 	}
 

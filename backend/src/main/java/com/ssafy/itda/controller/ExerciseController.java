@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.itda.model.Exercise;
-import com.ssafy.itda.model.Report;
+import com.ssafy.itda.model.DailyReport;
 import com.ssafy.itda.model.service.ExerciseService;
 
 import io.swagger.annotations.Api;
@@ -38,14 +38,14 @@ public class ExerciseController {
 
 	@ApiOperation(value = "체조 영상보기", notes = "오늘의 체조 영상 정보를 반환한다.", response = Exercise.class)
 	@GetMapping
-	public ResponseEntity<Exercise> getExercise(@RequestParam("exerciseId") @ApiParam(value = "오늘의 체조 ID.", required = true) String exerciseId) throws Exception {
+	public ResponseEntity<Exercise> getExercise(@RequestParam("exerciseId") @ApiParam(value = "오늘의 체조 ID.", required = true) int exerciseId) throws Exception {
 	    logger.info("getExercise - 호출");
 	    return new ResponseEntity<Exercise>(exerciseService.getExercise(exerciseId), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정확도를 반환한다.", response = Exercise.class)
 	@PutMapping
-	public ResponseEntity<String> updateAccuracy(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) Report report) throws Exception {
+	public ResponseEntity<String> updateAccuracy(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) DailyReport report) throws Exception {
 	    logger.info("updateAccuracy - 호출");
 	    if(exerciseService.updateAccuracy(report)) {
 	    	return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

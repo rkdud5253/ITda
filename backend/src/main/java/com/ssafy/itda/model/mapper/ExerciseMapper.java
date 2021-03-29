@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.itda.model.Exercise;
-import com.ssafy.itda.model.Report;
+import com.ssafy.itda.model.DailyReport;
 
 @Mapper
 public interface ExerciseMapper {
 	
-	public Exercise getExercise(String exerciseId) throws SQLException;
+	public Exercise getExercise(int exerciseId) throws SQLException;
 
-	public int updateAccuracy(Report report) throws SQLException;
+	public int updateAccuracy(DailyReport report) throws SQLException;
 	
 }
