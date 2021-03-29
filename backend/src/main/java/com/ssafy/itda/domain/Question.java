@@ -1,10 +1,12 @@
 package com.ssafy.itda.domain;
 
 import com.sun.istack.NotNull;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel(value = "Question : 문제 정보")
 public class Question {
   @NotNull
   @ApiModelProperty(value = "문제 ID")
