@@ -14,9 +14,9 @@ public class UserService {
 	@Autowired
 	public UserService(SqlSession sqlSession) { this.sqlSession = sqlSession;	}
 
-	public User getUser(int userId) throws Exception{
+	public User getUser(int user_id) throws Exception{
 
-		return sqlSession.getMapper(UserMapper.class).getUser(userId);
+		return sqlSession.getMapper(UserMapper.class).getUser(user_id);
 	}
 
 }

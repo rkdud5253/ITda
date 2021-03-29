@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class User {
 
 	@ApiModelProperty(value = "어르신 ID")
-	private int userId;
+	private int user_id;
 	@ApiModelProperty(value = "어르신 이름")
-	private String userName;
+	private String user_name;
 
 }

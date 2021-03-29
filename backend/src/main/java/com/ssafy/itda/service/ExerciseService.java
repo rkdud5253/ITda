@@ -15,8 +15,8 @@ public class ExerciseService {
 	@Autowired
 	public ExerciseService(SqlSession sqlSession) {this.sqlSession = sqlSession;}
 
-	public Exercise getExercise(int exerciseId) throws Exception {
-		return sqlSession.getMapper(ExerciseMapper.class).getExercise(exerciseId);
+	public Exercise getExercise(int exercise_id) throws Exception {
+		return sqlSession.getMapper(ExerciseMapper.class).getExercise(exercise_id);
 	}
 
 	public boolean updateAccuracy(DailyReport report) throws Exception {

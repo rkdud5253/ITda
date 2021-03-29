@@ -37,9 +37,9 @@ public class ExerciseController {
 
 	@ApiOperation(value = "체조 영상보기", notes = "오늘의 체조 영상 정보를 반환한다.", response = Exercise.class)
 	@GetMapping
-	public ResponseEntity<Exercise> getExercise(@RequestParam("exerciseId") @ApiParam(value = "오늘의 체조 ID.", required = true) int exerciseId) throws Exception {
+	public ResponseEntity<Exercise> getExercise(@RequestParam("exercise_id") @ApiParam(value = "오늘의 체조 ID.", required = true) int exercise_id) throws Exception {
 	    logger.info("getExercise - 호출");
-	    return new ResponseEntity<Exercise>(exerciseService.getExercise(exerciseId), HttpStatus.OK);
+	    return new ResponseEntity<Exercise>(exerciseService.getExercise(exercise_id), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정확도를 반환한다.", response = Exercise.class)

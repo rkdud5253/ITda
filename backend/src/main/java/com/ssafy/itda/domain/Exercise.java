@@ -7,10 +7,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class Exercise {
 
 	@ApiModelProperty(value = "체조 ID")
-	private int exerciseId;
+	private int exercise_id;
 	@ApiModelProperty(value = "체조 영상 이름")
-	private String exerciseName;
+	private String exercise_name;
 	@ApiModelProperty(value = "체조 영상 url")
-	private String exerciseUrl;
+	private String exercise_url;
 
 }

@@ -7,23 +7,23 @@ import io.swagger.annotations.ApiModelProperty;
 public class DailyReport {
 
 	@ApiModelProperty(value = "보고서 날짜")
-	private String reportDate;
+	private String report_date;
 	@ApiModelProperty(value = "어르신 ID")
-	private int userId;
+	private int user_id;
 	@ApiModelProperty(value = "체조 ID")
-	private int exerciseId;
+	private int exercise_id;
 	@ApiModelProperty(value = "체조 정확도")
-	private String exerciseAccuracy;
+	private String exercise_accuracy;
 	@ApiModelProperty(value = "문제 1번")
-	private int question1Id;
+	private int question1_id;
 	@ApiModelProperty(value = "문제 2번")
-	private int question2Id;
+	private int question2_id;
 	@ApiModelProperty(value = "문제 3번")
-	private int question3Id;
+	private int question3_id;
 	@ApiModelProperty(value = "문제 4번")
-	private int question4Id;
+	private int question4_id;
 	@ApiModelProperty(value = "문제 5번")
-	private int question5Id;
+	private int question5_id;
 	@ApiModelProperty(value = "맞은 문제 번호")
 	private String right_numbers;
 	@ApiModelProperty(value = "틀린 문제 번호")
