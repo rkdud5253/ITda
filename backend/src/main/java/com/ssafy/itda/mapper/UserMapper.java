@@ -1,10 +1,10 @@
-package com.ssafy.itda.model.mapper;
+package com.ssafy.itda.mapper;
 
 import java.sql.SQLException;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.itda.model.User;
+import com.ssafy.itda.domain.User;
 
 @Mapper
 public interface UserMapper {

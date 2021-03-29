@@ -1,11 +1,11 @@
-package com.ssafy.itda.model.mapper;
+package com.ssafy.itda.mapper;
 
 import java.sql.SQLException;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.itda.model.Exercise;
-import com.ssafy.itda.model.DailyReport;
+import com.ssafy.itda.domain.Exercise;
+import com.ssafy.itda.domain.DailyReport;
 
 @Mapper
 public interface ExerciseMapper {

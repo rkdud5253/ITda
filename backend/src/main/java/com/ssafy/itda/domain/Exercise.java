@@ -1,4 +1,4 @@
-package com.ssafy.itda.model;
+package com.ssafy.itda.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
