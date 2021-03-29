@@ -27,7 +27,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@ApiOperation(value = "체조 영상보기", notes = "오늘의 체조 영상 정보를 반환한다.", response = User.class)
+	@ApiOperation(value = "어르신 정보", notes = "어르신 정보를 반환한다.", response = User.class)
 	@GetMapping
 	public ResponseEntity<User> getUser(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId) throws Exception {
 	    logger.info("getUser - 호출");
