@@ -39,12 +39,13 @@ public class ExerciseController {
 	@GetMapping
 	public ResponseEntity<Exercise> getExercise(@RequestParam("exercise_id") @ApiParam(value = "오늘의 체조 ID.", required = true) int exercise_id) throws Exception {
 	    logger.info("getExercise - 호출");
-	    return new ResponseEntity<Exercise>(exerciseService.getExercise(exercise_id), HttpStatus.OK);
+	    Exercise e = exerciseService.getExercise(exercise_id);
+	    return new ResponseEntity<Exercise>(e, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정확도를 반환한다.", response = Exercise.class)
+	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정확도를 반환한다.", response = DailyReport.class)
 	@PutMapping
-	public ResponseEntity<String> updateAccuracy(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) DailyReport report) throws Exception {
+	public ResponseEntity<String> updateAccuracy(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = false) DailyReport report) throws Exception {
 	    logger.info("updateAccuracy - 호출");
 	    if(exerciseService.updateAccuracy(report)) {
 	    	return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
