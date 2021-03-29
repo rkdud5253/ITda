@@ -6,5 +6,6 @@
 	<select id="getUser" parameterType="int" resultType="User">
 		select user_id, user_name
 		from user
+		where user_id = #{user_id}
 	</select>
 </mapper>
