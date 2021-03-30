@@ -8,10 +8,8 @@
 import "@/components/css/common.scss";
 export default {
   name: 'App',
-
   components: {
   },
-
   data: () => ({
     //
   }),
