@@ -4,18 +4,18 @@
 <mapper namespace="com.ssafy.itda.mapper.ExerciseMapper">
 
 	<select id="getExercise" parameterType="int" resultType="Exercise">
-		select exercise_name, exercise_url
+		select exerciseId, exerciseName, exerciseUrl
 		from exercise
-		where exercise_id = #{exercise_id}
+		where exerciseId = #{exerciseId}
 	</select>
 	
 	<update id="updateAccuracy" parameterType="DailyReport">
-		update daily_report
-		set exercise_id = #{exercise_id},
-		exercise_accuracy = #{exercise_accuracy}
-		where user_id = #{user_id}
+		update dailyReport
+		set exerciseId = #{exerciseId},
+		exerciseAccuracy = #{exerciseAccuracy}
+		where userId = #{userId}
 		and
-		report_date = #{report_date}
+		reportDate = #{reportDate}
 	</update>
 
 </mapper>
