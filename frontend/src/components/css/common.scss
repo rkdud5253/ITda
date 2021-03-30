@@ -7,9 +7,8 @@
   font-style: normal;
 }
 
-html {
+.v-application--wrap, html {
   background-color: $primary-yellow1;
-  text-align: center;
   font-size: 100%;
   font-family: 'ELAND_Choice_M';  // font-face에서 설정한 폰트 이름
 }
