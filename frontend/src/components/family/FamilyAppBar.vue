@@ -8,7 +8,6 @@
     <!-- 크기 줄였을 때 메뉴 햄버거바 -->
     <v-app-bar-nav-icon
       class="hidden-md-and-up"
-      @click="toggleDrawer"
     />
 
     <!-- 로고 및 메뉴 -->
@@ -38,6 +37,7 @@
           class="hidden-sm-and-down"
           :ripple="false"
           text
+          @click="$vuetify.goTo(1450)"
         >
           <h4>팀소개</h4>
         </v-btn>
