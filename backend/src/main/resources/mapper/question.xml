@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<select namespace="com.ssafy.itda.mapper.QuestionMapper">
-
+<mapper namespace="com.ssafy.itda.mapper.QuestionMapper">
 	<select id="getQuestion" parameterType="int" resultType="Question">
-	select *
-	from question
-	where questionId=#{questionId}
+		select *
+		from question
+		where questionId=#{questionId}
 	</select>
-	<select id="getQuestionList" parameterType="int"
 
-	select *
-	from question
-	where
-
+	<select id="getQuestionList" parameterType="int" resultType="List<Question>">
+		select *
+		from question
+		where userId=#{userId}
 	</select>
-	<insert id="postQuestion" parameterType="Question">
-	insert into question()
+
+	<insert id="postQuestion" parameterType="Question" resultType="boolean">
+		insert into question(userId, adminId, questionContext, questionImageUrl, example1Id, example2Id, example3Id, example4Id, answer)
+		value(#{userId}, #{adminId}, #{questionContext}, #{questionImageUrl}, #{example1Id}, #{example2Id}, #{example3Id}, #{example4Id}, #{answer})
 	</insert>
 
+	<select id="questionGetSize" resultType="int">
+		select count(*)
+		from question
+	</select>
+
+	<select id="updateQuestion" parameterType="Question" resultType="boolean">
+		update question
+		set questionContext=#{questionContext}, questionImageUrl=#{questionImageUrl}, example1Id=#{example1Id}, example2Id=#{example2Id}, example3Id=#{example3Id}, example4Id=#{example4Id}, answer=#{answer}
+		where questionId=#{questionId}
+	</select>
 </mapper>
-
-		public List<Question> getQuestionList(int userId) throws Exception{
-return sqlSession.getMapper(QuestionMapper.class).getQuestionList(userId);
-}
-
-public int questionGetSize() throws Exception{
-return sqlSession.getMapper(QuestionMapper.class).questionGetSize();
-}
-
-public boolean postQuestion(Question question) throws Exception{
-return sqlSession.getMapper(QuestionMapper.class).postQuestion(question);
-}
-
-public boolean updateQuestion(Question question) throws Exception{
-return sqlSession.getMapper(QuestionMapper.class).updateQuestion(question);
-}
