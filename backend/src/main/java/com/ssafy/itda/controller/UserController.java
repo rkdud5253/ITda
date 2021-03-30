@@ -29,9 +29,9 @@ public class UserController {
 
 	@ApiOperation(value = "어르신 정보", notes = "어르신 정보를 반환한다.", response = User.class)
 	@GetMapping
-	public ResponseEntity<User> getUser(@RequestParam("user_id") @ApiParam(value = "어르신 ID.", required = true) int user_id) throws Exception {
+	public ResponseEntity<User> getUser(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId) throws Exception {
 	    logger.info("getUser - 호출");
-	    return new ResponseEntity<User>(userService.getUser(user_id), HttpStatus.OK);
+	    return new ResponseEntity<User>(userService.getUser(userId), HttpStatus.OK);
 	}
 	
 }

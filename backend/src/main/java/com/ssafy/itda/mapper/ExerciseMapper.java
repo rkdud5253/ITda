@@ -10,7 +10,7 @@ import com.ssafy.itda.domain.DailyReport;
 @Mapper
 public interface ExerciseMapper {
 	
-	public Exercise getExercise(int exercise_id) throws SQLException;
+	public Exercise getExercise(int exerciseId) throws SQLException;
 
 	public int updateAccuracy(DailyReport report) throws SQLException;
 	

@@ -4,8 +4,8 @@
 <mapper namespace="com.ssafy.itda.mapper.UserMapper">
 
 	<select id="getUser" parameterType="int" resultType="User">
-		select user_id, user_name
+		select userId, userName
 		from user
-		where user_id = #{user_id}
+		where userId = #{userId}
 	</select>
 </mapper>
