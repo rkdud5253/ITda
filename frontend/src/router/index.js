@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SeniorMain from "@/views/senior/SeniorMain.vue";
+import Main from '../views/family/Main.vue'
 
 Vue.use(VueRouter)
 
@@ -23,7 +24,12 @@ const routes = [
     path: '/seniormain',
     name: 'SeniorMain',
     component: SeniorMain
-  }
+  },
+  {
+    path: "/main",
+    name: "Main",
+    component: Main
+  },
 ]
 
 const router = new VueRouter({
