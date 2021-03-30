@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.itda.mapper.ExerciseMapper">
+<select namespace="com.ssafy.itda.mapper.QuestionMapper">
 
 	<select id="getQuestion" parameterType="int" resultType="Question">
 	select *
 	from question
+	where questionId=#{questionId}
 	</select>
-	
+	<select id="getQuestionList" parameterType="int"
+
+	select *
+	from question
+	where
+
+	</select>
 	<insert id="postQuestion" parameterType="Question">
-	insert
+	insert into question()
 	</insert>
 
 </mapper>
+
+		public List<Question> getQuestionList(int userId) throws Exception{
+return sqlSession.getMapper(QuestionMapper.class).getQuestionList(userId);
+}
+
+public int questionGetSize() throws Exception{
+return sqlSession.getMapper(QuestionMapper.class).questionGetSize();
+}
+
+public boolean postQuestion(Question question) throws Exception{
+return sqlSession.getMapper(QuestionMapper.class).postQuestion(question);
+}
+
+public boolean updateQuestion(Question question) throws Exception{
+return sqlSession.getMapper(QuestionMapper.class).updateQuestion(question);
+}

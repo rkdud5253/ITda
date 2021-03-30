@@ -18,4 +18,17 @@
 		reportDate = #{reportDate}
 	</update>
 
+	<select id="getDailyReport" parameterType="map" resultType="int">
+		select count(*)
+		from dailyReport
+		where userId = #{userId}
+		and
+		reportDate = #{reportDate}
+	</select>
+	
+	<insert id="createDailyReport" parameterType="map">
+		insert into dailyReport(userId, reportDate)
+		values(#{userId}, #{reportDate})
+	</insert>
+
 </mapper>

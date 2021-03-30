@@ -9,8 +9,8 @@ public class WrongQuestion {
 
     @NotNull
     @ApiModelProperty(value = "어르신 ID")
-    private String userId;
+    private int userId;
     @NotNull
-    @ApiModelProperty(value = "가족 ID")
-    private String adminId;
+    @ApiModelProperty(value = "문제 ID")
+    private int questionId;
 }

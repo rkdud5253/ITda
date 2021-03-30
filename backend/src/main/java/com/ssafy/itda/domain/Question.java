@@ -10,11 +10,11 @@ import lombok.Data;
 public class Question {
   @NotNull
   @ApiModelProperty(value = "문제 ID")
-  private String questionId;
+  private int questionId;
   @ApiModelProperty(value = "어르신 ID")
-  private String userId;
+  private int userId;
   @ApiModelProperty(value = "가족 ID")
-  private String adminId;
+  private int adminId;
   @NotNull
   @ApiModelProperty(value = "문제 내용")
   private String questionContext;
