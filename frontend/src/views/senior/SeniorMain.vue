@@ -13,8 +13,8 @@
 import "@/components/css/senior/seniorMain.scss";
 import TitleBox from '@/components/senior/TitleBox.vue';
 import DailyExercise from '@/components/senior/DailyExercise.vue';
-import PhotoDiary from '@/components/senior/photo_Diary.vue';
-import FamilyGame from '@/components/senior/family_Game.vue';
+import PhotoDiary from '@/components/senior/PhotoDiary.vue';
+import FamilyGame from '@/components/senior/FamilyGame.vue';
 export default {
   name: "SeniorMain",
   components: {
