@@ -377,3 +377,49 @@ l_knee - l_ankle      |   NaN    |   No data
 목표는 video를 estimation 해서 correct 데이터를 얻어내는 것인데, video는 gpu memory 부족 이슈가 나타났다.
 
 그리고 openCV를 수정해서 return이 correct면 초록색, wrong이면 빨간색으로 frame을 표시하고, 옵션으로 allow 범위 밖이지만 correct랑 가까울때는 노란색으로 표시하는 것도 재밌을 것 같다.
+
+
+
+### 0330
+
+환경설정이 정말 지옥같다 ㅜㅜ
+
+나중에 라즈베리파이에 이식할 때 같은 에러가 뜰 수도 있으니 한번 막히는 것마다 전부 적어보자.
+
+1. `sh install_requirements.sh`  명령어에서의 오류.
+
+   requirements에 ubuntu 명령어가 적혀있어서 나타나는 에러이다.
+
+   이걸 해결하려고 windows10에서 우분투 명령어를 사용할 수 있도록 ubuntu app도 깔아보고, apt-get을 흉내낼 수 있는 choco도 깔아보고 별 짓 다해봤지만 안됐다.
+
+   libgstreamer를 설치하라고 하는데 설치하려고 하면 이미 설치되어있다고 하고... python을 버전다운 하라고 해서 했더니 계속 높은 버전을 인식하길래 아예 지웠더니 재설치도 못하고... 이 때 스트레스받아서 싸트북이 박살날 뻔 했다.
+
+   마음을 가다듬고 requirements를 포기했다. 그냥 실행 코드를 치면 필요한 라이브러리를 알려줄거라는 생각.
+
+2. `python3 simple_pose.py` 명령어에서의 오류
+
+   실행코드이다.
+
+   1. `pose_engine.py`에서 os에 uname이라는 명령어가 없다는 오류.
+
+      python에서 os.uname()은 Unix에만 있는 명령어라고 한다. windows에서 같은 명령어는 platform.uname()이다. 바꿔주니까 해결
+
+   2. `interpreter.py`에서 Delegate에 _library라는 요소가 없다는 오류
+
+      오류를 쭈우우우우우우우욱... 거슬러 올라가다보니 `pose_engine.py` 에서 EDGETPU_SHARED_LIB가 'libedgetpu.so.1'로 설정되어있었다. 이건 Linux에서 tpu를 사용하는 코드이므로, windows에서 사용하는 코드인 edgetpu.dll로 바꿔주었다.
+
+      
+
+      
+
+      
+
+   3. 1번에서 했던 uname이 문제가 아니었다... uname은 그냥 poseNet 라이브러리를 찾는 경로를 뜻하는 거였다.
+
+      문제는 모든 경로를 뒤져도 windows용인 dll파일이 없다는 것... 정녕 windows에서는 못 돌리는 것인가..?
+
+      한 번 .so파일을 .dll파일로 변환이 가능한지 뒤져봐야겠다.
+
+      바꾸려면 툴이 있어야 하는 것 같고 복잡해보인다;; 인생
+
+      차라리 라즈베리파이 원격접속이나 tfjs를 쓰는게 나을 듯..
