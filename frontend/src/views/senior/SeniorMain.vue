@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import "@/components/css/senior/seniorMain.scss";
 import TitleBox from '@/components/senior/TitleBox.vue';
 import DailyExercise from '@/components/senior/DailyExercise.vue';
 import PhotoDiary from '@/components/senior/PhotoDiary.vue';

@@ -1,30 +1,30 @@
 @import "../color.scss";
 
-@mixin menuImage($left, $top) {
+@mixin menuImage($left) {
   position: absolute;
   width: 450px;
   height: 600px;
   left: $left;
-  top: $top;
+  top: 350px;
   border-radius: 20px;
 }
 
-@mixin menuBorder($left, $top, $color) {
+@mixin menuBorder($left, $color) {
   position: absolute;
   width: 450px;
   height: 600px;
   left: $left;
-  top: $top;
+  top: 350px;
   border: 20px solid $color;
   border-radius: 20px;
 }
 
-@mixin menuButton($left, $top, $color) {
+@mixin menuButton($left, $color) {
   position: absolute;
   width: 360px;
   height: 90px;
   left: $left;
-  top: $top;
+  top: 811px;
 
   background: $color;
   border-radius: 20px;
@@ -35,42 +35,42 @@
 
 .dailyExercise {
   .exerciseImage {
-    @include menuImage(185px, 350px)
+    @include menuImage(185px)
   }
 
   .exerciseBorder {
-    @include menuBorder(185px, 350px, $secondary-red)
+    @include menuBorder(185px, $secondary-red)
   }
 
   .exerciseButton {
-    @include menuButton(230px, 811px, $secondary-red)
+    @include menuButton(230px, $secondary-red)
   }
 }
 
 .photoDiary {
   .diaryImage {
-    @include menuImage(735px, 350px)
+    @include menuImage(735px)
   }
 
   .diaryBorder {
-    @include menuBorder(735px, 350px, $secondary-yellow)
+    @include menuBorder(735px, $secondary-yellow)
   }
 
   .diaryButton {
-    @include menuButton(780px, 811px, $secondary-yellow)
+    @include menuButton(780px, $secondary-yellow)
   }
 }
 
 .familyGame {
   .gameImage {
-    @include menuImage(1285px, 350px)
+    @include menuImage(1285px)
   }
 
   .gameBorder {
-    @include menuBorder(1285px, 350px, $secondary-blue)
+    @include menuBorder(1285px, $secondary-blue)
   }
 
   .gameButton {
-    @include menuButton(1331px, 811px, $secondary-blue)
+    @include menuButton(1331px, $secondary-blue)
   }
 }
