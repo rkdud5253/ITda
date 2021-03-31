@@ -15,15 +15,15 @@
 		exerciseAccuracy = #{exerciseAccuracy}
 		where userId = #{userId}
 		and
-		reportDate = #{reportDate}
+		reportDate like #{reportDate}
 	</update>
 
-	<select id="getDailyReport" parameterType="map" resultType="int">
+	<select id="getReportCnt" parameterType="map" resultType="int">
 		select count(*)
 		from dailyReport
 		where userId = #{userId}
 		and
-		reportDate = #{reportDate}
+		reportDate like #{reportDate}
 	</select>
 	
 	<insert id="createDailyReport" parameterType="map">

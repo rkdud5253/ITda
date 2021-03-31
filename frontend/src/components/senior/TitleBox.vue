@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import "@/components/css/senior/titleBox.scss";
 export default {
   name: "titleBox",
   props: {

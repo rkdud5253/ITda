@@ -44,6 +44,17 @@ public class DailyReportController {
 	    return new ResponseEntity<List<DailyReport>>(dailyReportService.getReportList(map), HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "레포트 목록 보기", notes = "이달의 레포트 목록을 반환한다.", response = DailyReport.class)
+	@GetMapping
+	public ResponseEntity<List<DailyReport>> getReportCalendar(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
+			@RequestParam("curMonth") @ApiParam(value = "날짜", required = true) String curMonth) throws Exception {
+		logger.info("getReportList - 호출");
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("curMonth", curMonth);
+	    return new ResponseEntity<List<DailyReport>>(dailyReportService.getReportCalendar(map), HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "데일리 레포트 보기", notes = "오늘의 데일리 레포트를 반환한다.", response = DailyReport.class)
 	@GetMapping("/daily")
 	public ResponseEntity<DailyReport> getReport(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
