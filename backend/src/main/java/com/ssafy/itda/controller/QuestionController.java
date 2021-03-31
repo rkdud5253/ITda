@@ -37,75 +37,11 @@ public class QuestionController {
   private WrongQuestionService wrongQuestionService;
 
   // @ApiOperation(value = "문제 리스트 반환", notes = "문제 5개를 반환", response = Question.class)
-  @GetMapping("/{userId}")
+  @GetMapping("/list/")
   public ResponseEntity<List<Question>> getQuestion(@RequestParam("userId") @ApiParam(value = "유저 ID", required = true) int userId) throws Exception {
     logger.info("getQuestion - 호출");
 
-    // wrongQuestion 어르신 Id 기준으로 탐색 -> 2개까지만
-    // 틀린 문제 2개 >> 가족이 낸 문제 2개까지 >> 나머지는 랜덤 문제
-
-    int questionCnt = 5;
-    List<Integer> questionList = new ArrayList<>();
-    Random random = new Random();
-
-    List<WrongQuestion> wrongQuestionList = wrongQuestionService.getWrongQuestionList(userId);
-
-    int size = Math.min(wrongQuestionList.size(), 2);
-
-    // 틀린 문제들 받은 뒤 최대 2개까지만
-    while(size-- > 0) {
-      int index = random.nextInt(wrongQuestionList.size()) + 1;
-      while(questionList.contains(index))
-        index = random.nextInt(wrongQuestionList.size()) + 1;
-
-      if(questionService.getQuestion(index) == null) {
-        throw new NullPointerException();
-      }
-
-      questionList.add(index);
-      questionCnt--;
-    }
-
-    List<Question> questionListByUserId = questionService.getQuestionList(userId);
-
-    size = Math.min(questionListByUserId.size(), 2);
-
-    // 가족들이 내준 문제 2개까지 풀기
-    while(size-- > 0) {
-      int index = random.nextInt(questionListByUserId.size()) + 1;
-      while(questionList.contains(index))
-        index = random.nextInt(questionListByUserId.size()) + 1;
-
-      if(questionService.getQuestion(index) == null) {
-        throw new NullPointerException();
-      }
-
-      questionList.add(index);
-      questionCnt--;
-    }
-
-    List<Question> responseQuestionList = new ArrayList<>(); // response 문제 리스트
-
-    size = questionService.questionGetSize();
-
-    // 틀린 문제 끗끗
-    while(questionCnt-1 >= 0) {
-      int index = random.nextInt(responseQuestionList.size()) + 1;
-      while(questionList.contains(index))
-        index = random.nextInt(responseQuestionList.size()) + 1;
-
-      for(int i = 0; i < questionList.size(); i++)
-        responseQuestionList.add(questionService.getQuestion(questionList.get(i)));
-
-      questionList.add(index);
-      questionCnt--;
-    }
-
-    for(int i = 0; i < questionList.size(); i++) {
-      responseQuestionList.add(questionService.getQuestion(i));
-    }
-
-    return new ResponseEntity<>(responseQuestionList, HttpStatus.OK);
+    return new ResponseEntity<>(questionService.setQuestionList(userId), HttpStatus.OK);
   }
 
   // @ApiOperation(value = "문제 1개 반환", notes = "id가 맞는 문제 1개 반환", response = Question.class)

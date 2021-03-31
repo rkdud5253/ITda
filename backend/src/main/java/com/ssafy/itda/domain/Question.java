@@ -17,20 +17,20 @@ public class Question {
   private int adminId;
   @NotNull
   @ApiModelProperty(value = "문제 내용")
-  private String questionContext;
+  private String questionContent;
   @ApiModelProperty(value = "문제 사진")
   private String questionImageUrl;
   @NotNull
   @ApiModelProperty(value = "보기 1")
-  private String example1Id;
+  private String example1;
   @NotNull
   @ApiModelProperty(value = "보기 2")
-  private String example2Id;
+  private String example2;
   @ApiModelProperty(value = "보기 3")
-  private String example3Id;
+  private String example3;
   @ApiModelProperty(value = "보기 4")
-  private String example4Id;
+  private String example4;
   @NotNull
   @ApiModelProperty(value = "정답")
-  private String answer;
+  private int answer;
 }

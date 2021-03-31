@@ -15,8 +15,8 @@
 	</select>
 
 	<insert id="postQuestion" parameterType="Question">
-		insert into question(userId, adminId, questionContext, questionImageUrl, example1Id, example2Id, example3Id, example4Id, answer)
-		value(#{userId}, #{adminId}, #{questionContext}, #{questionImageUrl}, #{example1Id}, #{example2Id}, #{example3Id}, #{example4Id}, #{answer})
+		insert into question(userId, adminId, questionContent, questionImageUrl, example1, example2, example3, example4, answer)
+		values(#{userId}, #{adminId}, #{questionContent}, #{questionImageUrl}, #{example1}, #{example2}, #{example3}, #{example4}, #{answer})
 	</insert>
 
 	<select id="questionGetSize" resultType="int">
@@ -24,9 +24,9 @@
 		from question
 	</select>
 
-	<select id="updateQuestion" parameterType="Question" resultType="boolean">
+	<update id="updateQuestion" parameterType="Question">
 		update question
-		set questionContext=#{questionContext}, questionImageUrl=#{questionImageUrl}, example1Id=#{example1Id}, example2Id=#{example2Id}, example3Id=#{example3Id}, example4Id=#{example4Id}, answer=#{answer}
+		set questionContent=#{questionContent}, questionImageUrl=#{questionImageUrl}, example1=#{example1}, example2=#{example2}, example3=#{example3}, example4=#{example4}, answer=#{answer}
 		where questionId=#{questionId}
-	</select>
+	</update>
 </mapper>

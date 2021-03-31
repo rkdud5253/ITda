@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/useradmin")
 public class UserAdminController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserAdminController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
@@ -26,7 +26,7 @@ public class UserAdminController {
     private UserAdminService userAdminService;
 
     @ApiOperation(value = "가족에 등록되어 있는 어르신 ID", notes = "가족에 등록되어 있는 어르신 ID를 반환한다.", response = UserAdmin.class)
-    @GetMapping
+    @GetMapping("/admin")
     public ResponseEntity<List<UserAdmin>> getUserByAdminId(@RequestParam("adminId") @ApiParam(value = "가족 ID", required = true) int adminId) throws Exception {
         logger.info("getUserByAdminId - 호출");
 
@@ -37,7 +37,7 @@ public class UserAdminController {
     }
 
     @ApiOperation(value = "어르신에 등록되어 있는 가족 ID", notes = "어르신에 등록되어 있는 가족 ID를 반환한다.", response = UserAdmin.class)
-    @GetMapping
+    @GetMapping("/user")
     public ResponseEntity<List<UserAdmin>> getAdminByUserId(@RequestParam("userId") @ApiParam(value = "가족 ID", required = true) int userId) throws Exception {
         logger.info("getAdminByUserId - 호출");
 
