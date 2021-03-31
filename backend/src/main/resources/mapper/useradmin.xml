@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.itda.mapper.UserAdminMapper">
+
+    <select id="getUserAdmin" parameterType="int" resultType="UserAdmin">
+        select userAdminId, userAdminName
+        from userAdmin
+        where userAdminId = #{userAdminId}
+    </select>
+</mapper>
