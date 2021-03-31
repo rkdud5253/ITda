@@ -32,8 +32,11 @@
           </v-btn>
         </v-col>
       </v-row>
+      <v-divider class="my-10"></v-divider>
       <DailyTraining :year="year" :month="month" :day="day" />
+      <v-divider class="my-10"></v-divider>
       <DailyPhoto :year="year" :month="month" :day="day" />
+      <v-divider class="my-10"></v-divider>
       <DailyQuiz :year="year" :month="month" :day="day" />
     </v-container>
     <div class="mb-5">

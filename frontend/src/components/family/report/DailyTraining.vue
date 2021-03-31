@@ -95,5 +95,17 @@ export default {
 </script>
 
 <style>
-
+  /* .v-window__container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.26%;
+  } */
+  .v-img {
+    display: block;
+    width: 100vw;
+    height: 56.25vw;
+    max-height: 100vh;
+  }
 </style>
