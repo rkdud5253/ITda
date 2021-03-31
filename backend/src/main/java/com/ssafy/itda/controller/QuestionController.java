@@ -50,8 +50,9 @@ public class QuestionController {
 
     List<WrongQuestion> wrongQuestionList = wrongQuestionService.getWrongQuestionList(userId);
 
-    int size = wrongQuestionList.size() > 2 ? 2 : wrongQuestionList.size();
+    int size = Math.min(wrongQuestionList.size(), 2);
 
+    // 틀린 문제들 받은 뒤 최대 2개까지만
     while(size-- > 0) {
       int index = random.nextInt(wrongQuestionList.size()) + 1;
       while(questionList.contains(index))
@@ -65,11 +66,11 @@ public class QuestionController {
       questionCnt--;
     }
 
-    // 틀린 문제들 받은 뒤 최대 2개까지만
-    List<WrongQuestion> questionListByUserId = wrongQuestionService.getWrongQuestionList(userId);
+    List<Question> questionListByUserId = questionService.getQuestionList(userId);
 
-    size = questionListByUserId.size() > 2 ? 2 : questionListByUserId.size();
+    size = Math.min(questionListByUserId.size(), 2);
 
+    // 가족들이 내준 문제 2개까지 풀기
     while(size-- > 0) {
       int index = random.nextInt(questionListByUserId.size()) + 1;
       while(questionList.contains(index))
@@ -83,9 +84,9 @@ public class QuestionController {
       questionCnt--;
     }
 
-    List<Question> responseQuestionList = new ArrayList<>();
+    List<Question> responseQuestionList = new ArrayList<>(); // response 문제 리스트
 
-    size = responseQuestionList.size() > 2 ? responseQuestionList.size() : responseQuestionList.size() - 3;
+    size = questionService.questionGetSize();
 
     // 틀린 문제 끗끗
     while(questionCnt-1 >= 0) {
