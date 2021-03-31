@@ -20,16 +20,4 @@ public class UserService {
 
 		return sqlSession.getMapper(UserMapper.class).getUser(userId);
 	}
-
-	public String makeRandomString() {
-		int leftLimit = 48; // 0
-		int rightLimit = 122; // z
-		int targetStringLength = 15;
-
-		return new Random().ints(leftLimit, rightLimit + 1)
-				.filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-				.limit(targetStringLength)
-				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-				.toString();
-	}
 }

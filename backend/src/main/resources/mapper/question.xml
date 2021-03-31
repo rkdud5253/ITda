@@ -14,13 +14,25 @@
 	from question
 	where
 
-	<select id="getQuestionList" parameterType="int" resultType="List<Question>">
+	<select id="getQuestionList" parameterType="int" resultType="Question">
 		select *
 		from question
 		where userId=#{userId}
 	</select>
+
 	<insert id="postQuestion" parameterType="Question">
-	insert into question()
+		insert into question(userId, adminId, questionContent, questionImageUrl, example1, example2, example3, example4, answer)
+		values(#{userId}, #{adminId}, #{questionContent}, #{questionImageUrl}, #{example1}, #{example2}, #{example3}, #{example4}, #{answer})
 	</insert>
 
+	<select id="questionGetSize" resultType="int">
+		select count(*)
+		from question
+	</select>
+
+	<update id="updateQuestion" parameterType="Question">
+		update question
+		set questionContent=#{questionContent}, questionImageUrl=#{questionImageUrl}, example1=#{example1}, example2=#{example2}, example3=#{example3}, example4=#{example4}, answer=#{answer}
+		where questionId=#{questionId}
+	</update>
 </mapper>
