@@ -1,0 +1,25 @@
+@import 'titleBox';
+
+.seniorMain {
+  width: 100%;
+  text-align: center;
+
+  .titleBox {
+    @include titleBox(1300px, 100px)
+  }
+
+  .nari {
+    @include nari
+  }
+
+  .title {
+    @include title(48px, 48px)
+  }
+
+  .menuContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+  }
+}
