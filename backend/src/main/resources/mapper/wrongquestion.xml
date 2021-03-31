@@ -14,13 +14,13 @@
         values (#{userId}, #{questionId})
     </insert>
 
-    <select id="getWrongQuestionList" parameterType="int" resultType="List<WrongQuestion>">
+    <select id="getWrongQuestionList" parameterType="int" resultType="WrongQuestion">
         select *
         from question
         where userId=#{userId}
     </select>
 
-    <delete id="deleteWrongQuestion" prameterType="int" resultType="boolean">
+    <delete id="deleteWrongQuestion" parameterType="int">
         delete from wrongQuestion
         where questionId=#{questionId}
     </delete>

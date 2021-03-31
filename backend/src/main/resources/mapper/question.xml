@@ -8,13 +8,13 @@
 		where questionId=#{questionId}
 	</select>
 
-	<select id="getQuestionList" parameterType="int" resultType="List<Question>">
+	<select id="getQuestionList" parameterType="int" resultType="Question">
 		select *
 		from question
 		where userId=#{userId}
 	</select>
 
-	<insert id="postQuestion" parameterType="Question" resultType="boolean">
+	<insert id="postQuestion" parameterType="Question">
 		insert into question(userId, adminId, questionContext, questionImageUrl, example1Id, example2Id, example3Id, example4Id, answer)
 		value(#{userId}, #{adminId}, #{questionContext}, #{questionImageUrl}, #{example1Id}, #{example2Id}, #{example3Id}, #{example4Id}, #{answer})
 	</insert>

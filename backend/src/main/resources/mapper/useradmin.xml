@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.itda.mapper.UserAdminMapper">
-    <select id="getUserByAdminId" parameterType="int" resultType="List<int>">
+    <select id="getAdminByUserId" parameterType="int" resultType="UserAdmin">
         select *
         from UserAdmin
-        where adminId = #{adminId}
+        where userId = #{userId}
     </select>
 
-    <select id="getUserByAdminId" parameterType="int" resultType="List<int>">
+    <select id="getUserByAdminId" parameterType="int" resultType="UserAdmin">
         select *
         from UserAdmin
         where adminId = #{adminId}
