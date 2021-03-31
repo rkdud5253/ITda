@@ -21,7 +21,7 @@
           height="50"
           width="50"
           max-width="50"
-          @click="$vuetify.goTo(0)"
+          @click="goMain"
         />
 
         <!-- 페이지 메뉴버튼 -->
@@ -29,7 +29,7 @@
           class="hidden-sm-and-down"
           :ripple="false"
           text
-          @click="$vuetify.goTo(0)"
+          @click="goMain"
         >
           <h4>서비스소개</h4>
         </v-btn>
@@ -37,14 +37,7 @@
           class="hidden-sm-and-down"
           :ripple="false"
           text
-          @click="$vuetify.goTo(1450)"
-        >
-          <h4>팀소개</h4>
-        </v-btn>
-        <v-btn
-          class="hidden-sm-and-down"
-          :ripple="false"
-          text
+          @click="goReport"
         >
           <h4>보고잇다</h4>
         </v-btn>
@@ -94,6 +87,15 @@
 <script>
 export default {
   name: 'FamilyAppBar',
+  methods: {
+    goMain() {
+      this.$router.go(this.$router.push({name: 'Main'}))
+      // this.$vuetify.goTo(0)
+    },
+    goReport() {
+      this.$router.go(this.$router.push({name: 'BogoItdaMonth'}))
+    },
+  },
 }
 </script>
 
