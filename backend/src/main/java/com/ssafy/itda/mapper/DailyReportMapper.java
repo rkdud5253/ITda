@@ -15,4 +15,8 @@ public interface DailyReportMapper {
 	
 	public DailyReport getReport(Map<String, Object> map) throws SQLException;
 	
+	public DailyReport getExercise(Map<String, Object> map) throws SQLException;
+	
+	public DailyReport getQuestion(Map<String, Object> map) throws SQLException;
+	
 }

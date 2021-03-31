@@ -15,7 +15,7 @@ public interface ExerciseMapper {
 
 	public int updateAccuracy(DailyReport report) throws SQLException;
 	
-	public int getDailyReport(Map<String, Object> map) throws SQLException;
+	public int getReportCnt(Map<String, Object> map) throws SQLException;
 
 	public int createDailyReport(Map<String, Object> map) throws SQLException;
 	

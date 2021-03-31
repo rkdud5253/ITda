@@ -27,7 +27,7 @@ public class ExerciseService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", report.getUserId());
 		map.put("reportDate", report.getReportDate());
-		if(getDailyReport(map) == 0) {
+		if(getReportCnt(map) == 0) {
 			createDailyReport(map);
 		}
 		return sqlSession.getMapper(ExerciseMapper.class).updateAccuracy(report) == 1;
@@ -37,7 +37,7 @@ public class ExerciseService {
 		return sqlSession.getMapper(ExerciseMapper.class).createDailyReport(map) == 1;
 	}
 	
-	public int getDailyReport(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(ExerciseMapper.class).getDailyReport(map);
+	public int getReportCnt(Map<String, Object> map) throws Exception {
+		return sqlSession.getMapper(ExerciseMapper.class).getReportCnt(map);
 	}
 }

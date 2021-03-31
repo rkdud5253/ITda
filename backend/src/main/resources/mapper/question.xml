@@ -2,31 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.itda.mapper.QuestionMapper">
+
 	<select id="getQuestion" parameterType="int" resultType="Question">
 		select *
 		from question
 		where questionId=#{questionId}
 	</select>
+	<select id="getQuestionList" parameterType="int">
+
+	select *
+	from question
+	where
 
 	<select id="getQuestionList" parameterType="int" resultType="List<Question>">
 		select *
 		from question
 		where userId=#{userId}
 	</select>
-
-	<insert id="postQuestion" parameterType="Question" resultType="boolean">
-		insert into question(userId, adminId, questionContext, questionImageUrl, example1Id, example2Id, example3Id, example4Id, answer)
-		value(#{userId}, #{adminId}, #{questionContext}, #{questionImageUrl}, #{example1Id}, #{example2Id}, #{example3Id}, #{example4Id}, #{answer})
+	<insert id="postQuestion" parameterType="Question">
+	insert into question()
 	</insert>
 
-	<select id="questionGetSize" resultType="int">
-		select count(*)
-		from question
-	</select>
-
-	<select id="updateQuestion" parameterType="Question" resultType="boolean">
-		update question
-		set questionContext=#{questionContext}, questionImageUrl=#{questionImageUrl}, example1Id=#{example1Id}, example2Id=#{example2Id}, example3Id=#{example3Id}, example4Id=#{example4Id}, answer=#{answer}
-		where questionId=#{questionId}
-	</select>
 </mapper>
