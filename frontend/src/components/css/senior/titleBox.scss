@@ -1,28 +1,23 @@
 @import "../color.scss";
 
-.titleBox {
+@mixin titleBox($width, $margin-top) {
   background:$primary-yellow2;
-  position: absolute;
-  width: 1550px;
+  width: $width;
   height: 120px;
-  left: 185px;
-  top: 130px;
   border-radius: 20px;
-  
-  display: flex;
+
+  display: inline-flex;
   justify-content: center;
   align-items: center;
+  margin-top: $margin-top;
+}
 
-  .nari {
-    width: 220px;
-    height: 220px;
-  }
+@mixin nari {
+  width: 220px;
+  height: 220px;
+}
 
-  .title {
-    font-size: 55px;
-    line-height: 55px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-  }
-} 
+@mixin title($font-size, $line-height) {
+  font-size: $font-size;
+  line-height: $line-height;
+}

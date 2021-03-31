@@ -1,76 +1,61 @@
 @import "../color.scss";
 
-@mixin menuImage($left) {
-  position: absolute;
-  width: 450px;
-  height: 600px;
-  left: $left;
-  top: 350px;
+@mixin menuImage($border-color) {
+  width: 360px;
+  height: 480px;
   border-radius: 20px;
-}
+  border: 20px solid $border-color;
 
-@mixin menuBorder($left, $color) {
-  position: absolute;
-  width: 450px;
-  height: 600px;
-  left: $left;
-  top: 350px;
-  border: 20px solid $color;
-  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @mixin menuButton($left, $color) {
-  position: absolute;
-  width: 360px;
-  height: 90px;
-  left: $left;
-  top: 811px;
+  width: 280px;
+  height: 80px;
+  top: 80%;
+	left: $left;
+	transform: translate(-50%, -50%);
 
   background: $color;
   border-radius: 20px;
-  font-size: 60px;
+  font-size: 48px;
   color: $basic-white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
 }
 
 
-.dailyExercise {
+.dailyExerciseMenu {
   .exerciseImage {
-    @include menuImage(185px)
-  }
-
-  .exerciseBorder {
-    @include menuBorder(185px, $secondary-red)
+    @include menuImage($secondary-red)
   }
 
   .exerciseButton {
-    @include menuButton(230px, $secondary-red)
+    @include menuButton(19%, $secondary-red)
   }
 }
 
-.photoDiary {
+.photoDiaryMenu {
   .diaryImage {
-    @include menuImage(735px)
-  }
-
-  .diaryBorder {
-    @include menuBorder(735px, $secondary-yellow)
+    @include menuImage($secondary-yellow)
   }
 
   .diaryButton {
-    @include menuButton(780px, $secondary-yellow)
+    @include menuButton(50%, $secondary-yellow)
   }
 }
 
-.familyGame {
+.familyGameMenu {
   .gameImage {
-    @include menuImage(1285px)
-  }
-
-  .gameBorder {
-    @include menuBorder(1285px, $secondary-blue)
+    @include menuImage($secondary-blue)
   }
 
   .gameButton {
-    @include menuButton(1331px, $secondary-blue)
+    @include menuButton(81%, $secondary-blue)
   }
 }
