@@ -29,6 +29,10 @@ public class AdminController {
     @GetMapping("/{adminId}")
     public ResponseEntity<Admin> getAdmin(@RequestParam("adminId") @ApiParam(value = "가족 ID", required = true) int adminId) throws Exception {
         logger.info("getAdmin - 호출");
+
+        if(adminService.getAdmin(adminId) == null) {
+            throw new NullPointerException();
+        }
         return new ResponseEntity<Admin>(adminService.getAdmin(adminId), HttpStatus.OK);
     }
 
