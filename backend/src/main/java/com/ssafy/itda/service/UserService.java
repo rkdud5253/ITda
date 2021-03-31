@@ -14,10 +14,15 @@ public class UserService {
 	private final SqlSession sqlSession;
 
 	@Autowired
-	public UserService(SqlSession sqlSession) { this.sqlSession = sqlSession;	}
+	public UserService(SqlSession sqlSession) { this.sqlSession = sqlSession; }
 
 	public User getUser(int userId) throws Exception{
 
 		return sqlSession.getMapper(UserMapper.class).getUser(userId);
+	}
+
+	public boolean postUser(User user) throws Exception{
+
+		return sqlSession.getMapper(UserMapper.class).postUser(user) == 1;
 	}
 }

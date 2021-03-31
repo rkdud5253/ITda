@@ -8,4 +8,9 @@
 		from user
 		where userId = #{userId}
 	</select>
+
+	<insert id="postUser" parameterType="User">
+		insert into User(userId, userName)
+		values(#{userId}, #{userName})
+	</insert>
 </mapper>
