@@ -1,0 +1,40 @@
+@import 'titleBox';
+
+.photoDiary {
+  width: 100%;
+  text-align: center;
+
+  .titleBox {
+    @include titleBox(1320px, 75px)
+  }
+
+  .nari {
+    @include nari
+  }
+
+  .title {
+    @include title(55px, 55px)
+  }
+
+  .photos {
+    display: flex;
+    justify-content: center;
+
+    .exampleImage {
+      .image {
+        width: 660px;
+      }
+    }
+  
+    .seniorPhoto {
+      background-color: black;
+      width: 660px;
+      height: 371.35px;
+    }
+  }
+
+  .explain {
+    font-size: 50px;
+    margin-top: 75px;
+  }
+}

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import SeniorMain from "@/views/senior/SeniorMain.vue";
 import Main from '../views/family/Main.vue'
+import SeniorMain from "@/views/senior/SeniorMain.vue";
+import PhotoDiary from "@/views/senior/PhotoDiary.vue";
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/senior/main',
     name: 'SeniorMain',
     component: SeniorMain
+  },
+  {
+    path: '/senior/photodiary',
+    name: 'PhotoDiary',
+    component: PhotoDiary
   },
 ]
 
