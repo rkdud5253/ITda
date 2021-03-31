@@ -9,4 +9,5 @@ import com.ssafy.itda.domain.User;
 @Mapper
 public interface UserMapper {
 	public User getUser(int userId) throws SQLException;
+	public int postUser(User user) throws SQLException;
 }
