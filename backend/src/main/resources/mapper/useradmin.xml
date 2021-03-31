@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.itda.mapper.UserAdminMapper">
+    <select id="getUserByAdminId" parameterType="int" resultType="List<int>">
+        select *
+        from UserAdmin
+        where adminId = #{adminId}
+    </select>
+
+    <select id="getUserByAdminId" parameterType="int" resultType="List<int>">
+        select *
+        from UserAdmin
+        where adminId = #{adminId}
+    </select>
+
+    <insert id="postUserAdmin" parameterType="int">
+        insert into UserAdmin(userId, adminId)
+        values(userId=#{userId}, adminId=#{adminId})
+    </insert>
+</mapper>

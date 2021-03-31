@@ -4,9 +4,9 @@
 <mapper namespace="com.ssafy.itda.mapper.QuestionMapper">
 
 	<select id="getQuestion" parameterType="int" resultType="Question">
-	select *
-	from question
-	where questionId=#{questionId}
+		select *
+		from question
+		where questionId=#{questionId}
 	</select>
 	<select id="getQuestionList" parameterType="int">
 
@@ -14,6 +14,10 @@
 	from question
 	where
 
+	<select id="getQuestionList" parameterType="int" resultType="List<Question>">
+		select *
+		from question
+		where userId=#{userId}
 	</select>
 	<insert id="postQuestion" parameterType="Question">
 	insert into question()

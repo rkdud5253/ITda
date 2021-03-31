@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.itda.mapper.AdminMapper">
+
+    <select id="getAdmin" parameterType="int" resultType="Admin">
+        select *
+        from admin
+        where adminId = #{adminId}
+    </select>
+
+    <insert id="signUp" parameterType="Admin">
+        insert into admin(*)
+        values(#{admin})
+    </insert>
+
+    <select id="login" parameterType="Admin" resultType="int">
+        select *
+        from admin
+        where adminId = #{adminId} and adminPwd = #{adminPwd}
+    </select>
+</mapper>
