@@ -20,40 +20,12 @@ public class FileStorageService {
 		this.sqlSession = sqlSession;
 	}
 
-	public boolean savePhoto(FileStorage file) throws Exception {
-		Map<String, Object> map = new HashMap<>();
-		map.put("userId", file.getUserId());
-		map.put("fileDate", file.getFileDate());
-		if(getFileCnt(map) == 0) {
-			createFileStorage(map);
-		}
-		return sqlSession.getMapper(FileStorageMapper.class).savePhoto(file) == 1;
+	public boolean saveFile(FileStorage file) throws Exception {
+		return sqlSession.getMapper(FileStorageMapper.class).saveFile(file) == 1;
 	}
 	
-	public boolean saveVideo(FileStorage file) throws Exception {
-		Map<String, Object> map = new HashMap<>();
-		map.put("userId", file.getUserId());
-		map.put("fileDate", file.getFileDate());
-		if(getFileCnt(map) == 0) {
-			createFileStorage(map);
-		}
-		return sqlSession.getMapper(FileStorageMapper.class).saveVideo(file) == 1;
-	}
-	
-	public FileStorage getFile(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(FileStorageMapper.class).getFile(map);
-	}
-	
-	public FileStorage getPhoto(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(FileStorageMapper.class).getPhoto(map);
-	}
-	
-	public FileStorage getVideo(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(FileStorageMapper.class).getVideo(map);
-	}
-	
-	public boolean createFileStorage(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(FileStorageMapper.class).createFileStorage(map) == 1;
+	public FileStorage getFile(FileStorage file) throws Exception {
+		return sqlSession.getMapper(FileStorageMapper.class).getFile(file);
 	}
 	
 	public int getFileCnt(Map<String, Object> map) throws Exception {
