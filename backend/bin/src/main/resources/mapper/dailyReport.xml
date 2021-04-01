@@ -21,4 +21,22 @@
 		reportDate like #{curDay}
 	</select>
 	
+	<select id="getExercise" parameterType="map" resultType="DailyReport">
+		select exerciseId
+		from dailyReport
+		where 
+		userId = #{userId}
+		and
+		reportDate like #{curDay}
+	</select>
+	
+	<select id="getQuestion" parameterType="map" resultType="DailyReport">
+		select question1Id
+		from dailyReport
+		where 
+		userId = #{userId}
+		and
+		reportDate like #{curDay}
+	</select>
+	
 </mapper>

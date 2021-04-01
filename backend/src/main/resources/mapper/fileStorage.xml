@@ -3,53 +3,19 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.itda.mapper.FileStorageMapper">
 
-	<update id="savePhoto" parameterType="FileStorage">
-		update FileStorage
-		set photoName = #{photoName}
-		, photoUrl = #{photoUrl}
-		where userId = #{userId}
-		and fileDate like #{fileDate}
-	</update>
-
-	<update id="saveVideo" parameterType="FileStorage">
-		update FileStorage
-		set videoName = #{videoName}
-		, videoUrl = #{videoUrl}
-		where userId = #{userId}
-		and fileDate like #{fileDate}
-	</update>
+	<insert id="saveFile" parameterType="FileStorage">
+		insert into
+		FileStorage(fileId, userId, fileDate, fileName, fileUrl, fileType, fileUse)
+		values (0, #{userId}, #{fileDate}, #{fileName}, #{fileUrl}, #{fileType}, #{fileUse})
+	</insert>
 	
-	<select id="getFile" parameterType="map" resultType="FileStorage">
+	<select id="getFile" parameterType="FileStorage" resultType="FileStorage">
 		select *
 		from FileStorage
 		where userId = #{userId}
-		and fileDate like #{curDay}
-	</select>
-	
-	<select id="getPhoto" parameterType="map" resultType="FileStorage">
-		select photoName, photoUrl
-		from FileStorage
-		where userId = #{userId}
-		and fileDate like #{curDay}
-	</select>
-	
-	<select id="getVideo" parameterType="map" resultType="FileStorage">
-		select videoName, videoUrl
-		from FileStorage
-		where userId = #{userId}
-		and fileDate like #{curDay}
-	</select>
-	
-	<select id="getFileCnt" parameterType="map" resultType="int">
-		select count(*)
-		from FileStorage
-		where userId = #{userId}
 		and fileDate like #{fileDate}
+		and fileType like #{fileType}
+		and fileUse like #{fileUse}
 	</select>
 
-	<insert id="createFileStorage" parameterType="map">
-		insert into
-		FileStorage(fileId, userId, fileDate)
-		values(0, #{userId}, #{fileDate})
-	</insert>
 </mapper>

@@ -12,11 +12,5 @@ import com.ssafy.itda.domain.DailyReport;
 public interface ExerciseMapper {
 	
 	public Exercise getExercise(int exerciseId) throws SQLException;
-
-	public int updateAccuracy(DailyReport report) throws SQLException;
-	
-	public int getReportCnt(Map<String, Object> map) throws SQLException;
-
-	public int createDailyReport(Map<String, Object> map) throws SQLException;
 	
 }

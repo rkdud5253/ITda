@@ -45,13 +45,4 @@ public class ExerciseController {
 	    return new ResponseEntity<>(exerciseService.getExercise(exerciseId), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정확도를 반환한다.", response = DailyReport.class)
-	@PutMapping
-	public ResponseEntity<String> updateAccuracy(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) DailyReport report) throws Exception {
-	    logger.info("updateAccuracy - 호출");
-	    if(exerciseService.updateAccuracy(report)) {
-	    	return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-	    }
-	    return new ResponseEntity<String>(FAIL, HttpStatus.OK);
-	}
 }
