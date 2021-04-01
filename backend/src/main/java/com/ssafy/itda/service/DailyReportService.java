@@ -24,16 +24,6 @@ public class DailyReportService {
 		return sqlSession.getMapper(DailyReportMapper.class).getReportList(map);
 	}
 	
-	public List getReportCalendar(Map<String, Object> map) throws Exception { // 데일리 레포트 달력 형식
-		List list = new ArrayList<>();
-		int exercise = sqlSession.getMapper(DailyReportMapper.class).getExercise(map).getExerciseId();
-		int question = sqlSession.getMapper(DailyReportMapper.class).getQuestion(map).getQuestion1Id();
-		int photo = sqlSession.getMapper(FileStorageMapper.class).getPhoto(map).getFileId();
-		int video = sqlSession.getMapper(FileStorageMapper.class).getVideo(map).getFileId();
-		
-		return list; 
-	}
-	
 	public DailyReport getReport(Map<String, Object> map) throws Exception {
 		return sqlSession.getMapper(DailyReportMapper.class).getReport(map);
 	}

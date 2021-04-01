@@ -1,7 +1,6 @@
 package com.ssafy.itda.controller;
 
 import com.ssafy.itda.domain.Admin;
-import com.ssafy.itda.domain.Question;
 import com.ssafy.itda.service.AdminService;
 import com.ssafy.itda.util.Sha256;
 import io.swagger.annotations.Api;
@@ -26,7 +25,7 @@ public class AdminController {
     private AdminService adminService;
 
     @ApiOperation(value = "가족 정보", notes = "가족 정보를 반환한다.", response = Admin.class)
-    @GetMapping("/{adminId}")
+    @GetMapping
     public ResponseEntity<Admin> getAdmin(@RequestParam("adminId") @ApiParam(value = "가족 ID", required = true) int adminId) throws Exception {
         logger.info("getAdmin - 호출");
 

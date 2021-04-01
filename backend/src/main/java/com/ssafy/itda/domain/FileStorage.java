@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value = "FileStorage : 사진, 동영상 파일 정보")
+@ApiModel(value = "FileStorage : 파일 정보")
 public class FileStorage {
 
 	@NotNull
@@ -19,14 +19,18 @@ public class FileStorage {
 	@NotNull
 	@ApiModelProperty(value = "파일 날짜")
 	private String fileDate;
-	@ApiModelProperty(value = "사진 이름")
-	private String photoName;
-	@ApiModelProperty(value = "사진 URL")
-	private String photoUrl;
-	@ApiModelProperty(value = "동영상 이름")
-	private String videoName;
-	@ApiModelProperty(value = "동영상 URL")
-	private String videoUrl;
+	@NotNull
+	@ApiModelProperty(value = "파일 형식")
+	private String fileType;
+	@NotNull
+	@ApiModelProperty(value = "파일 이름")
+	private String fileName;
+	@NotNull 
+	@ApiModelProperty(value = "파일 URL")
+	private String fileUrl;
+	@NotNull 
+	@ApiModelProperty(value = "파일 사용처")
+	private String fileUse;
 	@ApiModelProperty(value = "감정 인식")
 	private String imageEmotion;
 	
