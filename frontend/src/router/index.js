@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/family/Main.vue'
 import SeniorMain from "@/views/senior/SeniorMain.vue";
-import PhotoDiary from "@/views/senior/PhotoDiary.vue";
 import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
+import PhotoDiary from "@/views/senior/PhotoDiary.vue";
+import PhotoDiaryResult from "@/views/senior/PhotoDiaryResult.vue";
 
 Vue.use(VueRouter)
 
@@ -19,14 +20,19 @@ const routes = [
     component: SeniorMain
   },
   {
+    path: '/senior/photodiary/loading',
+    name: 'PhotoDiaryLoading',
+    component: PhotoDiaryLoading
+  },
+  {
     path: '/senior/photodiary',
     name: 'PhotoDiary',
     component: PhotoDiary
   },
   {
-    path: '/senior/photodiary/loading',
-    name: 'PhotoDiaryLoading',
-    component: PhotoDiaryLoading
+    path: '/senior/photodiary/result',
+    name: 'PhotoDiaryResult',
+    component: PhotoDiaryResult
   },
 ]
 

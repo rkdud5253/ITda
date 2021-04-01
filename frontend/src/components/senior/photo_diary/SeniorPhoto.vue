@@ -1,5 +1,9 @@
 <template>
-  <div class="seniorPhoto"></div>
+  <div class="seniorPhoto">
+    <img class="image"
+      src="@/assets/senior/SeniorPhoto.jpg"
+    >
+  </div>
 </template>
 
 <script>
