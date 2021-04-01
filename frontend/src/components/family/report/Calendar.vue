@@ -1,4 +1,5 @@
 <template>
+  <!-- 보고서 달력 컴포넌트 -->
   <v-row class="fill-height mx-2">
     <v-col>
       <v-sheet height="64">

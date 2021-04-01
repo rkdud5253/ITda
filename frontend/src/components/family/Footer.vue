@@ -1,4 +1,5 @@
 <template>
+  <!-- 푸터 컴포넌트 -->
   <v-footer
     class="main-footer"
     padless

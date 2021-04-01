@@ -1,5 +1,5 @@
 <template>
-  <!-- 상단바 --> 
+  <!-- 상단바 컴포넌트 --> 
   <v-app-bar
     app
     flat
@@ -45,6 +45,7 @@
           class="hidden-sm-and-down"
           :ripple="false"
           text
+          @click="goQuiz"
         >
           <h4>퀴즈잇다</h4>
         </v-btn>
@@ -94,6 +95,9 @@ export default {
     },
     goReport() {
       this.$router.go(this.$router.push({name: 'BogoItdaMonth'}))
+    },
+    goQuiz() {
+      this.$router.go(this.$router.push({name: 'QuizItdaList'}))
     },
   },
 }

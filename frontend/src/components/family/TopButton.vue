@@ -1,4 +1,5 @@
 <template>
+  <!-- 하단 버튼 컴포넌트 -->
   <v-container style="text-align-last: end;">
     <v-btn
       color="#FEA601"

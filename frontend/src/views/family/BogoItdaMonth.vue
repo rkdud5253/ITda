@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- 보고잇다 달력 페이지 -->
     <FamilyAppBar />
     <v-container>
       <div class="my-5">
@@ -7,7 +8,7 @@
         <h4>해당 날짜를 클릭하여 일일 보고서를 확인하세요</h4>
         <h4>어르신의 기능별 사용 결과를 볼 수 있어요</h4>
       </div>
-      <v-card class="my-10">
+      <v-card class="mx-2 my-10">
         <Calendar />
       </v-card>
     </v-container>
