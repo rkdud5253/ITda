@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/family/Main.vue'
 import SeniorMain from "@/views/senior/SeniorMain.vue";
+import SeniorLogin from "@/views/senior/SeniorLogin.vue";
 import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
 import PhotoDiary from "@/views/senior/PhotoDiary.vue";
 import PhotoDiaryResult from "@/views/senior/PhotoDiaryResult.vue";
@@ -30,6 +31,11 @@ const routes = [
     path: '/senior/main',
     name: 'SeniorMain',
     component: SeniorMain
+  },
+  {
+    path: '/senior/login',
+    name: 'SeniorLogin',
+    component: SeniorLogin
   },
   {
     path: '/senior/photodiary/loading',
