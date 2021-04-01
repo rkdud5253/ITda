@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
@@ -36,10 +36,11 @@ public class AdminController {
         return new ResponseEntity<Admin>(adminService.getAdmin(adminId), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "가족 정보", notes = "가족 정보를 반환한다.", response = Admin.class)
+    @ApiOperation(value = "회원가입", notes = "회원가입하기", response = Admin.class)
     @PostMapping("/signup")
     public ResponseEntity<String> adminSignUp(@RequestBody @ApiParam(value = "가족 정보", required = true) Admin admin) throws Exception {
         logger.info("adminSignUp - 호출");
+
         String encryptPassword = Sha256.encrypt(admin.getAdminPwd());
         admin.setAdminPwd(encryptPassword);
 
@@ -49,7 +50,7 @@ public class AdminController {
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "가족 정보", notes = "가족 정보를 반환한다.", response = Admin.class)
+    @ApiOperation(value = "로그인", notes = "로그인하기", response = Admin.class)
     @PostMapping("/login")
     public ResponseEntity<String> adminLogin(@RequestBody @ApiParam(value = "가족 정보", required = true) Admin admin) throws Exception {
         logger.info("adminLogin - 호출");

@@ -10,15 +10,15 @@ import lombok.Data;
 public class Admin {
     @NotNull
     @ApiModelProperty(value = "가족 ID")
-    private String adminId;
+    private int adminId;
     @NotNull
     @ApiModelProperty(value = "가족 비밀번호")
     private String adminPwd;
     @ApiModelProperty(value = "가족 E-mail")
-    private int adminEmail;
+    private String adminEmail;
     @NotNull
     @ApiModelProperty(value = "가족 이름")
-    private int adminName;
+    private String adminName;
     @ApiModelProperty(value = "가족 번호")
-    private int adminPhone;
+    private String adminPhone;
 }

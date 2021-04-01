@@ -13,5 +13,5 @@ public class UserAdmin {
     private int userId;
     @NotNull
     @ApiModelProperty(value = "가족 ID")
-    private String adminId;
+    private int adminId;
 }

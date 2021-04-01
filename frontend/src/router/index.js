@@ -5,6 +5,8 @@ import SeniorMain from "@/views/senior/SeniorMain.vue";
 import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
 import PhotoDiary from "@/views/senior/PhotoDiary.vue";
 import PhotoDiaryResult from "@/views/senior/PhotoDiaryResult.vue";
+import BogoItdaMonth from '../views/family/BogoItdaMonth.vue'
+import BogoItdaDaily from '../views/family/BogoItdaDaily.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +15,16 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main
+  },
+  {
+    path: "/family/report",
+    name: "BogoItdaMonth",
+    component: BogoItdaMonth
+  },
+  {
+    path: "/family/report/daily",
+    name: "BogoItdaDaily",
+    component: BogoItdaDaily
   },
   {
     path: '/senior/main',

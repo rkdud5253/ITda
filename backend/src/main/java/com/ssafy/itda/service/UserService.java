@@ -14,22 +14,15 @@ public class UserService {
 	private final SqlSession sqlSession;
 
 	@Autowired
-	public UserService(SqlSession sqlSession) { this.sqlSession = sqlSession;	}
+	public UserService(SqlSession sqlSession) { this.sqlSession = sqlSession; }
 
 	public User getUser(int userId) throws Exception{
 
 		return sqlSession.getMapper(UserMapper.class).getUser(userId);
 	}
 
-	public String makeRandomString() {
-		int leftLimit = 48; // 0
-		int rightLimit = 122; // z
-		int targetStringLength = 15;
+	public boolean postUser(User user) throws Exception{
 
-		return new Random().ints(leftLimit, rightLimit + 1)
-				.filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-				.limit(targetStringLength)
-				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-				.toString();
+		return sqlSession.getMapper(UserMapper.class).postUser(user) == 1;
 	}
 }
