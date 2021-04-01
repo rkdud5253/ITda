@@ -12,15 +12,6 @@
 		reportDate like concat(#{curMonth}, '%')
 	</select>
 	
-	<update id="updateAccuracy" parameterType="DailyReport">
-		update dailyReport
-		set exerciseId = #{exerciseId},
-		exerciseAccuracy = #{exerciseAccuracy}
-		where userId = #{userId}
-		and
-		reportDate like #{reportDate}
-	</update>
-	
 	<select id="getReport" parameterType="map" resultType="DailyReport">
 		select *
 		from dailyReport
@@ -30,14 +21,28 @@
 		reportDate like #{reportDate}
 	</select>
 	
-	<select id="getExercise" parameterType="map" resultType="DailyReport">
-		select exerciseId, exerciseAccuracy
-		from dailyReport
-		where 
-		userId = #{userId}
+	<update id="updateAccuracy" parameterType="DailyReport">
+		update dailyReport
+		set exerciseId = #{exerciseId},
+		exerciseAccuracy = #{exerciseAccuracy}
+		where userId = #{userId}
 		and
 		reportDate like #{reportDate}
-	</select>
+	</update>
+	
+	<update id="updateQnAResult" parameterType="DailyReport">
+		update dailyReport
+		set question1Id = #{question1Id},
+		question2Id = #{question2Id},
+		question3Id = #{question3Id},
+		question4Id = #{question4Id},
+		question5Id = #{question5Id},
+		rightNumbers = #{rightNumbers},
+		wrongNumbers = #{wrongNumbers}
+		where userId = #{userId}
+		and
+		reportDate like #{reportDate}
+	</update>
 	
 	<select id="getReportCnt" parameterType="map" resultType="int">
 		select count(*)

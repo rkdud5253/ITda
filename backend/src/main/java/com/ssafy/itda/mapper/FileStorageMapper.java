@@ -15,6 +15,4 @@ public interface FileStorageMapper {
 	
 	public List<FileStorage> getFile(FileStorage file) throws SQLException;
 
-	public int getFileCnt(Map<String, Object> map) throws SQLException;
-	
 }

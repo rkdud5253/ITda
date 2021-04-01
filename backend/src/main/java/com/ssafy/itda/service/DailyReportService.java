@@ -23,6 +23,10 @@ public class DailyReportService {
 		return sqlSession.getMapper(DailyReportMapper.class).getReportList(map);
 	}
 
+	public DailyReport getReport(Map<String, Object> map) throws Exception {
+		return sqlSession.getMapper(DailyReportMapper.class).getReport(map);
+	}
+	
 	public boolean updateAccuracy(DailyReport report) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", report.getUserId());
@@ -33,12 +37,14 @@ public class DailyReportService {
 		return sqlSession.getMapper(DailyReportMapper.class).updateAccuracy(report) == 1;
 	}
 	
-	public DailyReport getReport(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(DailyReportMapper.class).getReport(map);
-	}
-	
-	public DailyReport getExercise(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(DailyReportMapper.class).getExercise(map);
+	public boolean updateQnAResult(DailyReport report) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", report.getUserId());
+		map.put("reportDate", report.getReportDate());
+		if(getReportCnt(map) == 0) {
+			createDailyReport(map);
+		}
+		return sqlSession.getMapper(DailyReportMapper.class).updateQnAResult(report) == 1;
 	}
 
 	public boolean createDailyReport(Map<String, Object> map) throws Exception {

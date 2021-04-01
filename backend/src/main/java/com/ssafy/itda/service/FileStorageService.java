@@ -34,9 +34,4 @@ public class FileStorageService {
 		return sqlSession.getMapper(FileStorageMapper.class).getFile(file);
 	}
 	
-	public int getFileCnt(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(FileStorageMapper.class).getFileCnt(map);
-	}
-	
-	
 }

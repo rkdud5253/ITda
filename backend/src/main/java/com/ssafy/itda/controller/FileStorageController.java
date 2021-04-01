@@ -36,6 +36,7 @@ public class FileStorageController {
 	private static final String VIDEO = "Video";
 	private static final String DIARY = "Diary";
 	private static final String EXERCISE = "Exercise";
+	private static final String SAMPLE = "Sample";
 	
 	
 	@Autowired
@@ -87,6 +88,19 @@ public class FileStorageController {
 		map.put("fileDate", fileDate);
 		map.put("type", IMAGE);
 		map.put("use", DIARY);
+	    return new ResponseEntity<List<FileStorage>>(fileStorageService.getFile(map), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "일기 사진샘플 보기", notes = "오늘의 일기 사진샘플 정보를 반환한다.", response = FileStorage.class)
+	@GetMapping
+	public ResponseEntity<List<FileStorage>> getSampleImage(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
+			@RequestParam("fileDate") @ApiParam(value = "날짜", required = true) String fileDate) throws Exception {
+		logger.info("getSampleImage - 호출");
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("fileDate", fileDate);
+		map.put("type", IMAGE);
+		map.put("use", SAMPLE); 
 	    return new ResponseEntity<List<FileStorage>>(fileStorageService.getFile(map), HttpStatus.OK);
 	}
 

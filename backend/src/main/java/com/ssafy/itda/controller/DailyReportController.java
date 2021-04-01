@@ -59,10 +59,20 @@ public class DailyReportController {
 	}
 	
 	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정확도를 반환한다.", response = DailyReport.class)
-	@PutMapping
+	@PutMapping("/exercise")
 	public ResponseEntity<String> updateAccuracy(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) DailyReport report) throws Exception {
 	    logger.info("updateAccuracy - 호출");
 	    if(dailyReportService.updateAccuracy(report)) {
+	    	return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	    }
+	    return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "퀴즈 결과 정보", notes = "오늘의 퀴즈 결과 정보를 반환한다.", response = DailyReport.class)
+	@PutMapping("/qna")
+	public ResponseEntity<String> updateQnAResult(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) DailyReport report) throws Exception {
+	    logger.info("updateQnAResult - 호출");
+	    if(dailyReportService.updateQnAResult(report)) {
 	    	return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	    }
 	    return new ResponseEntity<String>(FAIL, HttpStatus.OK);
