@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- 보고잇다 상세 페이지 -->
     <FamilyAppBar />
     <v-container>
       <v-row class="mx-2 my-5">

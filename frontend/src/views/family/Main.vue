@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- 가족들화면 메인페이지 -->
     <FamilyAppBar />
     <FamilyServiceInfo />
     <AboutTeam />

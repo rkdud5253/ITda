@@ -2,7 +2,7 @@
   <v-container class="mb-10">
     <h2>TEAM <span style="color: #FEA601">404 All Found</span></h2>
 
-    <!-- 팀원소개-->
+    <!-- 팀원소개 컴포넌트-->
     <div class="my-2">
       <v-row>
         <v-col 
