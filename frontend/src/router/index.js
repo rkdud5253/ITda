@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Main from '../views/family/Main.vue'
 import SeniorMain from "@/views/senior/SeniorMain.vue";
 import PhotoDiary from "@/views/senior/PhotoDiary.vue";
+import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/senior/photodiary',
     name: 'PhotoDiary',
     component: PhotoDiary
+  },
+  {
+    path: '/senior/photodiary/loading',
+    name: 'PhotoDiaryLoading',
+    component: PhotoDiaryLoading
   },
 ]
 
