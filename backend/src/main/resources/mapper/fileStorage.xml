@@ -17,12 +17,5 @@
 		and fileType like #{fileType}
 		and fileUse like #{fileUse}
 	</select>
-	
-	<select id="getFileCnt" parameterType="map" resultType="int">
-		select count(*)
-		from FileStorage
-		where userId = #{userId}
-		and fileDate like #{fileDate}
-	</select>
 
 </mapper>

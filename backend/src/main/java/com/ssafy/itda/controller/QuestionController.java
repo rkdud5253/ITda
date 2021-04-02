@@ -1,14 +1,10 @@
 package com.ssafy.itda.controller;
 
-import com.ssafy.itda.domain.DailyReport;
 import com.ssafy.itda.domain.Question;
-import com.ssafy.itda.domain.WrongQuestion;
 import com.ssafy.itda.service.QuestionService;
 import com.ssafy.itda.service.WrongQuestionService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.ibatis.jdbc.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import static java.lang.Integer.parseInt;
 
 @Api("QuestionController")
 @RestController
@@ -33,11 +25,8 @@ public class QuestionController {
   @Autowired
   private QuestionService questionService;
 
-  @Autowired
-  private WrongQuestionService wrongQuestionService;
-
   // @ApiOperation(value = "문제 리스트 반환", notes = "문제 5개를 반환", response = Question.class)
-  @GetMapping("/list/")
+  @GetMapping
   public ResponseEntity<List<Question>> getQuestion(@RequestParam("userId") @ApiParam(value = "유저 ID", required = true) int userId) throws Exception {
     logger.info("getQuestion - 호출");
 

@@ -1,6 +1,6 @@
 <template>
   <v-container class="my-5">
-
+    <!-- 보고서 상세보기 가족오락관 컴포넌트 -->
     <div>
       <h1 style="color: #597ED2">가족 오락관</h1>
       <h4>5개의 오늘의 문제 정답 여부를 확인할 수 있어요</h4>

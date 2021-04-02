@@ -1,6 +1,6 @@
 <template>
   <v-container class="my-5">
-    
+    <!-- 보고서 상세보기 사진일기장 컴포넌트 -->
     <div>
       <h1 style="color: #FEA601">사진 일기장</h1>
       <h4>매일 기록되는 소중한 사진과 영상을 확인해보세요</h4>

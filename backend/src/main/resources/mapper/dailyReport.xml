@@ -18,25 +18,42 @@
 		where 
 		userId = #{userId}
 		and
-		reportDate like #{curDay}
+		reportDate like #{reportDate}
 	</select>
 	
-	<select id="getExercise" parameterType="map" resultType="DailyReport">
-		select exerciseId
-		from dailyReport
-		where 
-		userId = #{userId}
+	<update id="updateAccuracy" parameterType="DailyReport">
+		update dailyReport
+		set exerciseId = #{exerciseId},
+		exerciseAccuracy = #{exerciseAccuracy}
+		where userId = #{userId}
 		and
-		reportDate like #{curDay}
-	</select>
+		reportDate like #{reportDate}
+	</update>
 	
-	<select id="getQuestion" parameterType="map" resultType="DailyReport">
-		select question1Id
-		from dailyReport
-		where 
-		userId = #{userId}
+	<update id="updateQnAResult" parameterType="DailyReport">
+		update dailyReport
+		set question1Id = #{question1Id},
+		question2Id = #{question2Id},
+		question3Id = #{question3Id},
+		question4Id = #{question4Id},
+		question5Id = #{question5Id},
+		rightNumbers = #{rightNumbers},
+		wrongNumbers = #{wrongNumbers}
+		where userId = #{userId}
 		and
-		reportDate like #{curDay}
+		reportDate like #{reportDate}
+	</update>
+	
+	<select id="getReportCnt" parameterType="map" resultType="int">
+		select count(*)
+		from dailyReport
+		where userId = #{userId}
+		and
+		reportDate like #{reportDate}
 	</select>
 	
+	<insert id="createDailyReport" parameterType="map">
+		insert into dailyReport(userId, reportDate)
+		values(#{userId}, #{reportDate})
+	</insert>
 </mapper>

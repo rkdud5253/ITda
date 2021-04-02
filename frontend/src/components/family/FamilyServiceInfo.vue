@@ -1,11 +1,11 @@
 <template>
   <v-container>
-    <!-- 서비스소개 -->
+    <!-- 서비스소개 컴포넌트-->
     <div class="main-wrap">
       <div class="main-img">
         <v-img
           class="my-5"
-          :src="require('@/assets/family/image1.jpg')"
+          :src="require('@/assets/family/image1Small.jpg')"
           gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
           height="60%"
           max-height="500"
@@ -30,7 +30,7 @@
         >
           <v-img
             class="img-function"
-            :src="require('@/assets/family/image2.jpg')"
+            :src="require('@/assets/family/image2Small.jpg')"
             gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
             max-height="500"
           >
@@ -74,7 +74,7 @@
           <div>
             <v-img
               class="img-function"
-              :src="require('@/assets/family/image3.jpg')"
+              :src="require('@/assets/family/image3Small.jpg')"
               gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
               max-height="500"
             >
@@ -108,7 +108,7 @@
           <div>
             <v-img
               class="img-function"
-              :src="require('@/assets/family/image4.jpg')"
+              :src="require('@/assets/family/image4Small.jpg')"
               gradient="rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)"
               max-height="500"
             >
