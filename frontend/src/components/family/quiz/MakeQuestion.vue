@@ -5,7 +5,7 @@
     lazy-validation
   >
   <v-card class="mx-2 mt-1 mb-5">
-    <!-- 문제내기 컴포넌트 -->
+    <!-- 문제등록 컴포넌트 -->
     <v-container>
       <v-card color="#FFF9E9" flat>
         <v-card-title style="justify-content: center;">
