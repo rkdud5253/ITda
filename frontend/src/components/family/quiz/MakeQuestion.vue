@@ -37,20 +37,20 @@
           <v-row class="question-num">
             <v-col>
               <v-text-field
-                v-model="question"
-                :counter="10"
-                :rules="questionRules"
-                label="답안지을 입력하세요"
+                v-model="question1"
+                :counter="20"
+                :rules="questio1nRules"
+                label="선택지를 입력하세요"
                 prepend-icon="mdi-numeric-1-box"
                 color="black"
               ></v-text-field>
             </v-col>
             <v-col>
               <v-text-field
-                v-model="question"
-                :counter="10"
-                :rules="questionRules"
-                label="답안지를 입력하세요"
+                v-model="question2"
+                :counter="20"
+                :rules="question2Rules"
+                label="선택지를 입력하세요"
                 prepend-icon="mdi-numeric-2-box"
                 color="black"
               ></v-text-field>
@@ -59,20 +59,20 @@
           <v-row class="question-num">
             <v-col>
               <v-text-field
-                v-model="question"
-                :counter="10"
-                :rules="questionRules"
-                label="답안지를 입력하세요"
+                v-model="question3"
+                :counter="20"
+                :rules="question3Rules"
+                label="선택지를 입력하세요"
                 prepend-icon="mdi-numeric-3-box"
                 color="black"
               ></v-text-field>
             </v-col>
             <v-col>
               <v-text-field
-                v-model="question"
-                :counter="10"
-                :rules="questionRules"
-                label="답안지를 입력하세요"
+                v-model="question4"
+                :counter="20"
+                :rules="question4Rules"
+                label="선택지를 입력하세요"
                 prepend-icon="mdi-numeric-4-box"
                 color="black"
               ></v-text-field>
@@ -85,7 +85,7 @@
           class="mx-10 my-10"
           v-model="select"
           :items="items"
-          :rules="[v => !!v || 'Item is required']"
+          :rules="[v => !!v || '정답 선택은 필수입니다']"
           label="정답"
           required
         ></v-select>
@@ -190,9 +190,23 @@ export default {
         v => !!v || '문제 제목은 필수입니다',
         v => (v && v.length <= 50) || '제목은 50자 미만으로 작성해 주세요',
       ],
-      question: '',
-      questionRules: [
-        v => (0 <= v && v.length <= 10) || '객관식 답안은 10자 미만으로 작성해 주세요',
+      question1: '',
+      question1Rules: [
+        v => !!v || '선택지 두 개 입력은 필수입니다',
+        v => (v && v.length <= 20) || '객관식 답안은 20자 미만으로 작성해 주세요',
+      ],
+      question2: '',
+      question2Rules: [
+        v => !!v || '선택지 두 개 입력은 필수입니다',
+        v => (v && v.length <= 20) || '객관식 답안은 20자 미만으로 작성해 주세요',
+      ],
+      question3: '',
+      question3Rules: [
+        v => (v && v.length <= 20) || '객관식 답안은20자 미만으로 작성해 주세요',
+      ],
+      question4: '',
+      question4Rules: [
+        v => (v && v.length <= 20) || '객관식 답안은 20자 미만으로 작성해 주세요',
       ],
       select: null,
       items: [
