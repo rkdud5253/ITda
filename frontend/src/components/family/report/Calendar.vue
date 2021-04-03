@@ -26,8 +26,8 @@
               mdi-chevron-left
             </v-icon>
           </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">
-            {{ $refs.calendar.title }}년
+          <v-toolbar-title v-if="load">
+            {{ title }}년
           </v-toolbar-title>
           <v-btn
             fab
@@ -129,7 +129,8 @@
 <script>
 export default {
   name: "Calendar",
-  data: () => ({
+ data() {
+    return{ 
       focus: '',
       type: 'month',
       typeToLabel: {
@@ -137,15 +138,23 @@ export default {
         week: 'Week',
         day: 'Day',
       },
+      load: false
       // selectedEvent: {},
       // selectedElement: null,
       // selectedOpen: false,
       // events: [],
       // colors: ['orange'],
       // names: ['Meeting'],
-    }),
+      }
+    },
     mounted () {
+      this.load = true;
       this.$refs.calendar.checkChange()
+    },
+    computed: {
+      title : function () {
+        return this.$refs.calendar.title;
+      }
     },
     methods: {
       viewDay ({ date }) {
@@ -191,8 +200,8 @@ export default {
       // updateRange ({ start, end }) {
       //   const events = []
 
-      //   const min = new Date(`${start.date}T00:00:00`)
-      //   const max = new Date(`${end.date}T23:59:59`)
+      //   const min = new Date(${start.date}T00:00:00)
+      //   const max = new Date(${end.date}T23:59:59)
       //   const days = (max.getTime() - min.getTime()) / 86400000
       //   const eventCount = this.rnd(days, days + 20)
 
