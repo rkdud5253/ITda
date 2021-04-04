@@ -6,6 +6,7 @@ import BogoItdaDaily from '@/views/family/BogoItdaDaily.vue'
 import QuizItdaList from '@/views/family/QuizItdaList.vue'
 import QuizItdaMakeQuestion from '@/views/family/QuizItdaMakeQuestion.vue'
 import QuizItdaQuestion from '@/views/family/QuizItdaQuestion.vue'
+import Splash from "@/views/senior/Splash.vue";
 import SeniorMain from "@/views/senior/SeniorMain.vue";
 import SeniorLogin from "@/views/senior/SeniorLogin.vue";
 import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
@@ -64,6 +65,14 @@ const routes = [
     component: QuizItdaQuestion,
     meta: {
       title: '퀴즈잇다 | 문제보기',
+    },
+  },
+  {
+    path: '/senior/splash',
+    name: 'Splash',
+    component: Splash,
+    meta: {
+      title: '잇다 :: 감성 돌봄 서비스',
     },
   },
   {
