@@ -19,67 +19,111 @@ const routes = [
   {
     path: "/",
     name: "Main",
-    component: Main
+    component: Main,
+    meta: {
+      title: '잇다 :: 감성 돌봄 서비스',
+    },
   },
   {
     path: "/family/report",
     name: "BogoItdaMonth",
-    component: BogoItdaMonth
+    component: BogoItdaMonth,
+    meta: {
+      title: '보고잇다 | 달력',
+    },
   },
   {
     path: "/family/report/daily",
     name: "BogoItdaDaily",
-    component: BogoItdaDaily
+    component: BogoItdaDaily,
+    meta: {
+      title: '보고잇다 | 일일 보고서',
+    },
   },
   {
     path: "/family/quiz",
     name: "QuizItdaList",
-    component: QuizItdaList
+    component: QuizItdaList,
+    meta: {
+      title: '퀴즈잇다 | 내가 낸 문제 목록',
+    },
   },
   {
     path: "/family/quiz/make",
     name: "QuizItdaMakeQuestion",
-    component: QuizItdaMakeQuestion
+    component: QuizItdaMakeQuestion,
+    meta: {
+      title: '퀴즈잇다 | 문제내기',
+    },
   },
   {
     path: "/family/quiz/id",
     name: "QuizItdaQuestion",
-    component: QuizItdaQuestion
+    component: QuizItdaQuestion,
+    meta: {
+      title: '퀴즈잇다 | 문제보기',
+    },
   },
   {
     path: '/senior/main',
     name: 'SeniorMain',
-    component: SeniorMain
+    component: SeniorMain,
+    meta: {
+      title: '잇다 :: 감성 돌봄 서비스',
+    },
   },
   {
     path: '/senior/login',
     name: 'SeniorLogin',
-    component: SeniorLogin
+    component: SeniorLogin,
+    meta: {
+      title: '잇다 | 로그인',
+    },
   },
   {
     path: '/senior/photodiary/loading',
     name: 'PhotoDiaryLoading',
-    component: PhotoDiaryLoading
+    component: PhotoDiaryLoading,
+    meta: {
+      title: '잇다 :: 감성 돌봄 서비스',
+    },
   },
   {
     path: '/senior/photodiary',
     name: 'PhotoDiary',
-    component: PhotoDiary
+    component: PhotoDiary,
+    meta: {
+      title: '잇다 | 사진일기장',
+    },
   },
   {
     path: '/senior/photodiary/result',
     name: 'PhotoDiaryResult',
-    component: PhotoDiaryResult
+    component: PhotoDiaryResult,
+    meta: {
+      title: '잇다 | 사진일기장',
+    },
   },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  scrollBehavior() { 
-    return { x: 0, y: 0 } 
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
   },
   routes
 })
+router.beforeEach((to, from, next) => {
+  /* 페이지 제목 바꾸기 */
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
+  next();
+});
 
 export default router

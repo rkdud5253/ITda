@@ -7,13 +7,10 @@
           flat
         >
           <v-btn
-            outlined
             class="mr-4"
-            color="grey darken-2"
-            @click="setToday"
-          >
-            Today
-          </v-btn>
+            color="white"
+            disabled
+          ></v-btn>
           <v-spacer></v-spacer>
           <v-btn
             fab
@@ -26,8 +23,8 @@
               mdi-chevron-left
             </v-icon>
           </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">
-            {{ $refs.calendar.title }}년
+          <v-toolbar-title v-if="load">
+            {{ title }}년
           </v-toolbar-title>
           <v-btn
             fab
@@ -41,7 +38,14 @@
             </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-menu
+          <v-btn
+            outlined
+            color="grey darken-2"
+            @click="setToday"
+          >
+            Today
+          </v-btn>
+          <!-- <v-menu
             bottom
             right
           >
@@ -69,7 +73,7 @@
                 <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
             </v-list>
-          </v-menu>
+          </v-menu> -->
         </v-toolbar>
       </v-sheet>
       <v-sheet height="600">
@@ -129,7 +133,8 @@
 <script>
 export default {
   name: "Calendar",
-  data: () => ({
+ data() {
+    return{ 
       focus: '',
       type: 'month',
       typeToLabel: {
@@ -137,15 +142,23 @@ export default {
         week: 'Week',
         day: 'Day',
       },
+      load: false
       // selectedEvent: {},
       // selectedElement: null,
       // selectedOpen: false,
       // events: [],
       // colors: ['orange'],
       // names: ['Meeting'],
-    }),
+      }
+    },
     mounted () {
+      this.load = true;
       this.$refs.calendar.checkChange()
+    },
+    computed: {
+      title : function () {
+        return this.$refs.calendar.title;
+      }
     },
     methods: {
       viewDay ({ date }) {
@@ -191,8 +204,8 @@ export default {
       // updateRange ({ start, end }) {
       //   const events = []
 
-      //   const min = new Date(`${start.date}T00:00:00`)
-      //   const max = new Date(`${end.date}T23:59:59`)
+      //   const min = new Date(${start.date}T00:00:00)
+      //   const max = new Date(${end.date}T23:59:59)
       //   const days = (max.getTime() - min.getTime()) / 86400000
       //   const eventCount = this.rnd(days, days + 20)
 
@@ -222,5 +235,7 @@ export default {
 </script>
 
 <style>
-
+  .theme--light.v-btn.v-btn--disabled.v-btn--has-bg {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
 </style>
