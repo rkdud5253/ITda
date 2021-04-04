@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiParam;
 
 @Api("UserController")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/user")
 public class UserController {
 
