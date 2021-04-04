@@ -5,33 +5,34 @@
       <v-card color="#FFF9E9" flat>
         <v-card-title style="justify-content: center;">
           <v-card class="mx-5 my-5" color="#FFDD71" flat style="width: 100%;">
-            <h3 class="question-title">문제 제목</h3>
+            <h3 class="question-title">{{ content }}</h3>
           </v-card>
         </v-card-title>
         
         <!-- 이미지 있을때 보여주고, 아니면 안보여지게 해야함 -->
-        <v-img
-          class="mx-10"
-          :src="require('@/assets/family/example.jpg')"
-        >
-        </v-img>
-
+        <div v-if="imageUrl !== ''">
+          <v-img 
+            class="mx-10"
+            src= {{ imageUrl }}
+          >
+          </v-img>
+        </div>
         <!-- 보기 -->
         <div class="mx-10 my-10">
           <v-row class="question-num">
             <v-col>
-              <h3><v-icon color="black">mdi-numeric-1-box</v-icon>example</h3>
+              <h3><v-icon color="black">mdi-numeric-1-box</v-icon>{{example1}}</h3>
             </v-col>
             <v-col>
-              <h3><v-icon color="black">mdi-numeric-2-box</v-icon>example</h3>
+              <h3><v-icon color="black">mdi-numeric-2-box</v-icon>{{example2}}</h3>
             </v-col>
           </v-row>
           <v-row class="question-num">
             <v-col>
-              <h3><v-icon color="black">mdi-numeric-3-box</v-icon>example</h3>
+              <h3><v-icon color="black">mdi-numeric-3-box</v-icon>{{example3}}</h3>
             </v-col>
             <v-col>
-              <h3><v-icon color="black">mdi-numeric-4-box</v-icon>example</h3>
+              <h3><v-icon color="black">mdi-numeric-4-box</v-icon>{{example4}}</h3>
             </v-col>
           </v-row>
         </div>
@@ -48,10 +49,9 @@
             <v-icon left>
               mdi-check-circle
             </v-icon>
-            정답 : 4번
+            정답 : {{ answer }}번
           </v-chip>
         </div>
-
       </v-card>
     </v-container>
 
@@ -61,7 +61,7 @@
         class="mx-2 my-10"
         color="#597ED2"
         dark
-        @click="goQuizMake"
+        @click="goQuizModify"
       >
         수정하기
       </v-btn>
@@ -73,20 +73,49 @@
         삭제하기
       </v-btn>
     </div>
-
   </v-card>
 </template>
 
 <script>
+import axios from "@/service/axios.service.js";
 
 export default {
   name: "Question",
-  components: {
-
+  data () {
+    return {
+      content:'',
+      imageUrl:'',
+      example1:'',
+      example2:'',
+      example3:'',
+      example4:'',
+      answer:0
+    }
+  },
+  created(){
+    this.getQuiz();
   },
   methods: {
-    goQuizMake() {
-      this.$router.go(this.$router.push({name: 'QuizItdaMakeQuestion'}))
+    getQuiz(){
+        axios.get('/qna/one',{
+            params:{
+                questionId: Number(this.$route.params.questionId)
+            }
+        }).then((res) => {
+            console.log(res.data);
+            this.content = res.data.questionContent;
+            this.imageUrl = res.data.questionImageUrl;
+            this.example1 = res.data.example1;
+            this.example2 = res.data.example2;
+            this.example3 = res.data.example3;
+            this.example4 = res.data.example4;
+            this.answer = res.data.answer;
+        }).catch(error => {
+            console.log(error);
+        });
+    },
+    goQuizModify() {
+      this.$router.go(this.$router.push({name: 'QuizItdaModifyQuestion', params: Number(this.$route.params.questionId)}))
     },
   },
 }
