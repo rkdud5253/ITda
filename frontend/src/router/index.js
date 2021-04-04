@@ -21,7 +21,7 @@ const routes = [
     name: "Main",
     component: Main,
     meta: {
-      title: '감성 돌봄 서비스, 잇다',
+      title: '잇다 :: 감성 돌봄 서비스',
     },
   },
   {
@@ -69,7 +69,7 @@ const routes = [
     name: 'SeniorMain',
     component: SeniorMain,
     meta: {
-      title: '감성 돌봄 서비스, 잇다',
+      title: '잇다 :: 감성 돌봄 서비스',
     },
   },
   {
@@ -85,7 +85,7 @@ const routes = [
     name: 'PhotoDiaryLoading',
     component: PhotoDiaryLoading,
     meta: {
-      title: '감성 돌봄 서비스, 잇다',
+      title: '잇다 :: 감성 돌봄 서비스',
     },
   },
   {
