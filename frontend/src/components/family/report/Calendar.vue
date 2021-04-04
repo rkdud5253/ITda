@@ -7,13 +7,10 @@
           flat
         >
           <v-btn
-            outlined
             class="mr-4"
-            color="grey darken-2"
-            @click="setToday"
-          >
-            Today
-          </v-btn>
+            color="white"
+            disabled
+          ></v-btn>
           <v-spacer></v-spacer>
           <v-btn
             fab
@@ -41,7 +38,14 @@
             </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-menu
+          <v-btn
+            outlined
+            color="grey darken-2"
+            @click="setToday"
+          >
+            Today
+          </v-btn>
+          <!-- <v-menu
             bottom
             right
           >
@@ -69,7 +73,7 @@
                 <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
             </v-list>
-          </v-menu>
+          </v-menu> -->
         </v-toolbar>
       </v-sheet>
       <v-sheet height="600">
@@ -231,5 +235,7 @@ export default {
 </script>
 
 <style>
-
+  .theme--light.v-btn.v-btn--disabled.v-btn--has-bg {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
 </style>
