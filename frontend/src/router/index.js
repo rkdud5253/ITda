@@ -5,6 +5,7 @@ import BogoItdaMonth from '@/views/family/BogoItdaMonth.vue'
 import BogoItdaDaily from '@/views/family/BogoItdaDaily.vue'
 import QuizItdaList from '@/views/family/QuizItdaList.vue'
 import QuizItdaMakeQuestion from '@/views/family/QuizItdaMakeQuestion.vue'
+import QuizItdaModifyQuestion from '@/views/family/QuizItdaModifyQuestion.vue'
 import QuizItdaQuestion from '@/views/family/QuizItdaQuestion.vue'
 import Splash from "@/views/senior/Splash.vue";
 import SeniorMain from "@/views/senior/SeniorMain.vue";
@@ -60,7 +61,15 @@ const routes = [
     },
   },
   {
-    path: "/family/quiz/id",
+    path: "/family/quiz/modify/:questionId",
+    name: "QuizItdaModifyQuestion",
+    component: QuizItdaModifyQuestion,
+    meta: {
+      title: '퀴즈잇다 | 문제수정',
+    },
+  },
+  {
+    path: "/family/quiz/detail/:questionId",
     name: "QuizItdaQuestion",
     component: QuizItdaQuestion,
     meta: {
