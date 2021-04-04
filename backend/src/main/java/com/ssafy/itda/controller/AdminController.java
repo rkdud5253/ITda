@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api("AdminController")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/admin")
 public class AdminController {
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);

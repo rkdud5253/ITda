@@ -16,6 +16,7 @@ import java.util.List;
 
 @Api("UserAdminController")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/useradmin")
 public class UserAdminController {
     private static final Logger logger = LoggerFactory.getLogger(UserAdminController.class);

@@ -16,6 +16,7 @@ import java.util.List;
 
 @Api("QuestionController")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/qna")
 public class QuestionController {
   private static final Logger logger = LoggerFactory.getLogger(QuestionController.class);
@@ -34,11 +35,18 @@ public class QuestionController {
   }
 
   // @ApiOperation(value = "문제 1개 반환", notes = "id가 맞는 문제 1개 반환", response = Question.class)
-  @GetMapping("/{questionId}")
-  public ResponseEntity<Question> getQuestion(@PathVariable Integer questionId) throws Exception {
+  @GetMapping("/one")
+  public ResponseEntity<Question> getQuestionOne(@RequestParam("questionId") int questionId) throws Exception {
     logger.info("getQuestion - 호출");
 
     return new ResponseEntity<>(questionService.getQuestion(questionId), HttpStatus.OK);
+  }
+
+  @GetMapping("/list")
+  public ResponseEntity<List<Question>> getQuestionList(@RequestParam("userId") @ApiParam(value = "유저 ID", required = true) int userId) throws Exception {
+    logger.info("getQuestion - 호출");
+
+    return new ResponseEntity<>(questionService.getQuestionList(userId), HttpStatus.OK);
   }
 
   // @ApiOperation(value = "문제 제출", notes = "문제 DB에 등록", response = Question.class)
