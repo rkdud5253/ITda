@@ -1,0 +1,33 @@
+@import 'titleBox';
+@import 'line';
+
+.dailyExerciseResult {
+  width: 100%;
+  text-align: center;
+
+  .titleBox {
+    @include titleBox(1320px, 75px)
+  }
+
+  .nari {
+    @include nari
+  }
+
+  .title {
+    @include title(55px, 55px)
+  }
+
+  .seniorExercise {
+    width: 660px;
+    height: 371.25px;
+  }
+
+  .explain {
+    font-size: 50px;
+    margin-top: 75px;
+  }
+
+  .line {
+    @include line(870px)
+  }
+}
