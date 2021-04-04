@@ -13,7 +13,7 @@ import PhotoDiary from "@/views/senior/PhotoDiary.vue";
 import PhotoDiaryResult from "@/views/senior/PhotoDiaryResult.vue";
 import DailyExerciseLoading from "@/views/senior/DailyExerciseLoading.vue";
 import DailyExercise from "@/views/senior/DailyExercise.vue";
-import DailyExerciseResult from "@/views/senior/Daily_ExerciseResult.vue";
+import DailyExerciseResult from "@/views/senior/DailyExerciseResult.vue";
 
 Vue.use(VueRouter)
 
