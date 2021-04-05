@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '@/views/family/Main.vue'
+import Login from '@/views/member/Login.vue'
+import SignUp from '@/views/member/SignUp.vue'
+import MyPage from '@/views/member/MyPage.vue'
 import BogoItdaMonth from '@/views/family/BogoItdaMonth.vue'
 import BogoItdaDaily from '@/views/family/BogoItdaDaily.vue'
 import QuizItdaList from '@/views/family/QuizItdaList.vue'
@@ -24,6 +27,30 @@ const routes = [
     component: Main,
     meta: {
       title: '잇다 :: 감성 돌봄 서비스',
+    },
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: {
+      title: '잇다 :: 로그인',
+    },
+  },
+  {
+    path: "/signup",
+    name: "SignUp",
+    component: SignUp,
+    meta: {
+      title: '잇다 :: 회원가입',
+    },
+  },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: MyPage,
+    meta: {
+      title: '잇다 :: 어르신등록',
     },
   },
   {
