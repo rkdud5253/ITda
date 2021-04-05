@@ -58,8 +58,9 @@
           :ripple="false"
           text
           class="hidden-sm-and-down"
+          @click="myPage"
         >
-          <h4>마이페이지</h4>
+          <h4>어르신등록</h4>
         </v-btn>
         <v-btn
           :ripple="false"
@@ -70,10 +71,11 @@
         </v-btn>
 
         <!-- 비로그인시 회원가입, 로그인 -->
-        <!-- <v-btn
+        <v-btn
           :ripple="false"
           text
           class="hidden-sm-and-down"
+          @click="signUp"
         >
           <h4>회원가입</h4>
         </v-btn>
@@ -81,9 +83,10 @@
           :ripple="false"
           text
           class="hidden-sm-and-down"
+          @click="login"
         >
           <h4>로그인</h4>
-        </v-btn> -->
+        </v-btn>
 
       </v-row>
     </v-container>
@@ -148,17 +151,18 @@
 
       <v-divider></v-divider>
 
-      <!-- 로그인, 로그이웃, 회원가입, 마이페이지 -->
+      <!-- 로그인, 로그이웃, 회원가입, 어르신등록 -->
       <v-list dense>
         <v-list-item
           link
+          @click="myPage"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-box</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>마이페이지</v-list-item-title>
+            <v-list-item-title>어르신등록</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -178,6 +182,7 @@
       <v-list dense>
         <v-list-item
           link
+          @click="signUp"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-plus</v-icon>
@@ -189,6 +194,7 @@
         </v-list-item>
         <v-list-item
           link
+          @click="login"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-check</v-icon>
@@ -222,6 +228,15 @@ export default {
     },
     goQuiz() {
       this.$router.go(this.$router.push({name: 'QuizItdaList'}))
+    },
+    login() {
+      this.$router.go(this.$router.push({name: 'Login'}))
+    },
+    signUp() {
+      this.$router.go(this.$router.push({name: 'SignUp'}))
+    },
+    myPage() {
+      this.$router.go(this.$router.push({name: 'MyPage'}))
     },
   },
 }
