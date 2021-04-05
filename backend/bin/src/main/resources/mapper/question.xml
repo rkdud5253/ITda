@@ -2,24 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.itda.mapper.QuestionMapper">
-
 	<select id="getQuestion" parameterType="int" resultType="Question">
 		select *
 		from question
 		where questionId=#{questionId}
 	</select>
-	<select id="getQuestionList" parameterType="int">
-
-	select *
-	from question
-	where
-	</select>
+	
 	<select id="getQuestionList" parameterType="int" resultType="Question">
 		select *
 		from question
 		where userId=#{userId}
 	</select>
-
+	
 	<insert id="postQuestion" parameterType="Question">
 		insert into question(userId, adminId, questionContent, questionImageUrl, example1, example2, example3, example4, answer)
 		values(#{userId}, #{adminId}, #{questionContent}, #{questionImageUrl}, #{example1}, #{example2}, #{example3}, #{example4}, #{answer})

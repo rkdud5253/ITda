@@ -9,116 +9,124 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Service
 public class QuestionService {
 
-  private final SqlSession sqlSession;
+	private final SqlSession sqlSession;
 
+	@Autowired
+	public QuestionService(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 
-  @Autowired
-  public QuestionService(SqlSession sqlSession) { this.sqlSession = sqlSession; }
+	public Question getQuestion(int questionId) throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).getQuestion(questionId);
+	}
 
-  public Question getQuestion(int questionId) throws Exception{
-    return sqlSession.getMapper(QuestionMapper.class).getQuestion(questionId);
-  }
-  public List<Question> getQuestionList(int userId) throws Exception{
-    return sqlSession.getMapper(QuestionMapper.class).getQuestionList(userId);
-  }
-  public List<Question> setQuestionList(int userId) throws Exception{
-    // wrongQuestion 어르신 Id 기준으로 탐색 -> 2개까지만
-    // 틀린 문제 2개 >> 가족이 낸 문제 2개까지 >> 나머지는 랜덤 문제
+	public List<Question> getQuestionList(int userId) throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).getQuestionList(userId);
+	}
 
-    int questionCnt = 5;
-    List<Integer> questionList = new ArrayList<>();
-    Random random = new Random();
-    random.setSeed(System.currentTimeMillis());
+	public List<Question> getQuestionResult(Map<String, Object> map) throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).getQuestionResult(map);
+	}
 
-    WrongQuestionService wrongQuestionService = new WrongQuestionService(sqlSession);
+	public List<Question> setQuestionList(int userId) throws Exception {
+		// wrongQuestion 어르신 Id 기준으로 탐색 -> 2개까지만
+		// 틀린 문제 2개 >> 가족이 낸 문제 2개까지 >> 나머지는 랜덤 문제
 
-    List<WrongQuestion> wrongQuestionList = wrongQuestionService.getWrongQuestionList(userId);
+		int questionCnt = 5;
+		List<Integer> questionList = new ArrayList<>();
+		Random random = new Random();
+		random.setSeed(System.currentTimeMillis());
 
-    int size = Math.min(wrongQuestionList.size(), 2);
+		WrongQuestionService wrongQuestionService = new WrongQuestionService(sqlSession);
 
-    // 틀린 문제들 받은 뒤 최대 2개까지만
-    while(size > 0) {
-      int index = random.nextInt(wrongQuestionList.size());
-      if(size > 1) {
-        while (questionList.contains(wrongQuestionList.get(index).getQuestionId())) {
-          random.setSeed(System.currentTimeMillis());
-          index = random.nextInt(wrongQuestionList.size());
-        }
-      }
-      if(getQuestion(wrongQuestionList.get(index).getQuestionId()) == null) {
-        throw new NullPointerException();
-      }
+		List<WrongQuestion> wrongQuestionList = wrongQuestionService.getWrongQuestionList(userId);
 
-      if(questionList.contains(wrongQuestionList.get(index).getQuestionId()))
-        break;
+		int size = Math.min(wrongQuestionList.size(), 2);
 
-      questionList.add(wrongQuestionList.get(index).getQuestionId());
-      questionCnt--;
-      size--;
-    }
+		// 틀린 문제들 받은 뒤 최대 2개까지만
+		while (size > 0) {
+			int index = random.nextInt(wrongQuestionList.size());
+			if (size > 1) {
+				while (questionList.contains(wrongQuestionList.get(index).getQuestionId())) {
+					random.setSeed(System.currentTimeMillis());
+					index = random.nextInt(wrongQuestionList.size());
+				}
+			}
+			if (getQuestion(wrongQuestionList.get(index).getQuestionId()) == null) {
+				throw new NullPointerException();
+			}
 
-    List<Question> questionListByUserId = getQuestionList(userId);
-    size = Math.min(questionListByUserId.size(), 2);
+			if (questionList.contains(wrongQuestionList.get(index).getQuestionId()))
+				break;
 
-    random.setSeed(System.currentTimeMillis());
+			questionList.add(wrongQuestionList.get(index).getQuestionId());
+			questionCnt--;
+			size--;
+		}
 
-    // 가족들이 내준 문제 2개까지 풀기
-    while(size > 0) {
-      int index = random.nextInt(questionListByUserId.size());
-      if(size > 1) {
-        while (questionList.contains(questionListByUserId.get(index).getQuestionId())) {
-          random.setSeed(System.currentTimeMillis());
-          index = random.nextInt(questionListByUserId.size());
-        }
-      }
-      if(getQuestion(questionListByUserId.get(index).getQuestionId()) == null) {
-        throw new NullPointerException();
-      }
+		List<Question> questionListByUserId = getQuestionList(userId);
+		size = Math.min(questionListByUserId.size(), 2);
 
-      if(questionList.contains(questionListByUserId.get(index).getQuestionId()))
-        break;
+		random.setSeed(System.currentTimeMillis());
 
-      questionList.add(questionListByUserId.get(index).getQuestionId());
-      questionCnt--;
-      size--;
-    }
+		// 가족들이 내준 문제 2개까지 풀기
+		while (size > 0) {
+			int index = random.nextInt(questionListByUserId.size());
+			if (size > 1) {
+				while (questionList.contains(questionListByUserId.get(index).getQuestionId())) {
+					random.setSeed(System.currentTimeMillis());
+					index = random.nextInt(questionListByUserId.size());
+				}
+			}
+			if (getQuestion(questionListByUserId.get(index).getQuestionId()) == null) {
+				throw new NullPointerException();
+			}
 
-    List<Question> responseQuestionList = new ArrayList<>(); // response 문제 리스트
-    size = questionGetSize();
+			if (questionList.contains(questionListByUserId.get(index).getQuestionId()))
+				break;
 
-    random.setSeed(System.currentTimeMillis());
+			questionList.add(questionListByUserId.get(index).getQuestionId());
+			questionCnt--;
+			size--;
+		}
 
-    // 틀린 문제 끗끗
-    while(questionCnt > 0) {
-      int index = random.nextInt(size) + 1;
-      while (questionList.contains(index)) {
-        random.setSeed(System.currentTimeMillis());
-        index = random.nextInt(size) + 1;
-      }
-      questionList.add(index);
-      questionCnt--;
-    }
+		List<Question> responseQuestionList = new ArrayList<>(); // response 문제 리스트
+		size = questionGetSize();
 
-    for(int i = 0; i < questionList.size(); i++)
-      responseQuestionList.add(getQuestion(questionList.get(i)));
+		random.setSeed(System.currentTimeMillis());
 
-    return responseQuestionList;
-  }
+		// 틀린 문제 끗끗
+		while (questionCnt > 0) {
+			int index = random.nextInt(size) + 1;
+			while (questionList.contains(index)) {
+				random.setSeed(System.currentTimeMillis());
+				index = random.nextInt(size) + 1;
+			}
+			questionList.add(index);
+			questionCnt--;
+		}
 
-  public int questionGetSize() throws Exception{
-    return sqlSession.getMapper(QuestionMapper.class).questionGetSize();
-  }
+		for (int i = 0; i < questionList.size(); i++)
+			responseQuestionList.add(getQuestion(questionList.get(i)));
 
-  public boolean postQuestion(Question question) throws Exception{
-    return sqlSession.getMapper(QuestionMapper.class).postQuestion(question) == 1;
-  }
+		return responseQuestionList;
+	}
 
-  public boolean updateQuestion(Question question) throws Exception{
-    return sqlSession.getMapper(QuestionMapper.class).updateQuestion(question) == 1;
-  }
+	public int questionGetSize() throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).questionGetSize();
+	}
+
+	public boolean postQuestion(Question question) throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).postQuestion(question) == 1;
+	}
+
+	public boolean updateQuestion(Question question) throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).updateQuestion(question) == 1;
+	}
 }
