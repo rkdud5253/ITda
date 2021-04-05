@@ -32,7 +32,7 @@
                 <v-icon class="mb-3" color="#FEA601" size="xxx-large">mdi-trophy</v-icon>
                 <h2>{{ year }}년 {{ month }}월 {{ day }}일</h2>
                 <h1>평균 정확도</h1>
-                <h1 style="color: #FC5355; font-size: xxx-large;">88%</h1>
+                <h1 style="color: #FC5355; font-size: xxx-large;">{{myDailyReport.exerciseAccuracy}}</h1>
                 <link rel="stylesheet" href="">
                 <v-btn
                   class="mt-5"
@@ -48,9 +48,9 @@
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item
-          v-for="(item,i) in items"
+          v-for="(item,i) in myExercise"
           :key="i"
-          :src="item.src"
+          :src="item.fileUrl"
         ></v-carousel-item>
       </v-carousel>
     </v-card>
@@ -59,36 +59,48 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: "DailyTraining",
   components: {
 
   },
-  props: ['year', 'month', 'day'],
+  props: ['year', 'month', 'day', 'dailyReport', 'exercise'],
   data () {
       return {
-        items: [
-          {
-            src: 'https://images.unsplash.com/photo-1533012562945-b003ce1d3269?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1579126038374-6064e9370f0f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1017&q=80',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1609351042976-4b59ba064984?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1594737626072-90dc274bc2bd?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80',
-          },
-        ],
+        items: [],
         trainingLink: [],
+        exerciseUrl: '',
       }
+  },
+  computed: {
+    myDailyReport: function() {
+      return this.dailyReport
+    },
+    myExercise: function() {
+      return this.exercise
+    },
   },
   methods: {
     goTrainingLink: function() {
-      window.open("https://www.youtube.com/results?search_query=%EC%8B%A4%EB%B2%84%EC%B2%B4%EC%A1%B0")
+      this.getExerciseUrl()
+      window.open(this.exerciseUrl)
       // 백에서 매일 체조링크 가져와서 보여주기
+    },
+    getExerciseUrl: function() {
+      axios
+        .get(`http://localhost:8000/itda/exercise`, {
+          params: {
+            exerciseId: this.dailyReport.exerciseId,
+          }
+        })
+        .then((response) => {
+          this.exerciseUrl = response.data.exerciseUrl;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 }
