@@ -81,15 +81,17 @@ export default {
         arrayRight: [],
       }
   },
-  computed: {
+   computed: {
     myDailyReport: function() {
       return this.dailyReport
     },
   },
-  created() {
-    console.log(this.myDailyReport.question1Id)
-    this.getQuestionContent();
-    this.getQuestionResult();
+  watch: {
+    myDailyReport: function() {
+      this.getQuestionId();
+      this.getQuestionContent();
+      this.getQuestionResult();
+    },
   },
   methods: {
     getQuestionContent: function() {
@@ -104,7 +106,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response.data)
           this.questions[0].name = response.data[0].questionContent;
           this.questions[1].name = response.data[1].questionContent;
           this.questions[2].name = response.data[2].questionContent;
@@ -118,7 +119,6 @@ export default {
     getQuestionResult: function() {
       this.arrayWrong = this.myDailyReport.wrongNumbers.split('/')
       this.arrayRight = this.myDailyReport.rightNumbers.split('/')
-      console.log(this.arrayWrong)
       for (let i = 0; i < this.arrayWrong.length; i++) {
         let ei = this.arrayWrong[i];
         for (let j = 0; j < this.questions.length; j++) {
@@ -137,6 +137,13 @@ export default {
         }
       }
 
+    },
+    getQuestionId: function() {
+      this.questions[0].id = this.myDailyReport.question1Id;
+      this.questions[1].id = this.myDailyReport.question2Id;
+      this.questions[2].id = this.myDailyReport.question3Id;
+      this.questions[3].id = this.myDailyReport.question4Id;
+      this.questions[4].id = this.myDailyReport.question5Id;
     },
   },
 }

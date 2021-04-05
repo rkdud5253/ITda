@@ -77,6 +77,7 @@ export default {
   },
   created() {
     this.arrayDate = this.$route.query.date.split('-')
+    console.log(this.arrayDate)
     this.year = this.arrayDate[0]
     this.month = this.arrayDate[1]
     this.day = this.arrayDate[2]

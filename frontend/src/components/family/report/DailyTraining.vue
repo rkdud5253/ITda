@@ -82,9 +82,13 @@ export default {
       return this.exercise
     },
   },
+  watch: {
+    myExercise: function() {
+      this.getExerciseUrl();
+    },
+  },
   methods: {
     goTrainingLink: function() {
-      this.getExerciseUrl()
       window.open(this.exerciseUrl)
       // 백에서 매일 체조링크 가져와서 보여주기
     },
@@ -92,11 +96,12 @@ export default {
       axios
         .get(`http://localhost:8000/itda/exercise`, {
           params: {
-            exerciseId: this.dailyReport.exerciseId,
+            exerciseId: this.myDailyReport.exerciseId,
           }
         })
         .then((response) => {
           this.exerciseUrl = response.data.exerciseUrl;
+          console.log(this.exerciseUrl)
         })
         .catch((error) => {
           console.log(error);
