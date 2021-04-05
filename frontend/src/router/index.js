@@ -10,12 +10,15 @@ import QuizItdaQuestion from '@/views/family/QuizItdaQuestion.vue'
 import Splash from "@/views/senior/Splash.vue";
 import SeniorMain from "@/views/senior/SeniorMain.vue";
 import SeniorLogin from "@/views/senior/SeniorLogin.vue";
-import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
-import PhotoDiary from "@/views/senior/PhotoDiary.vue";
-import PhotoDiaryResult from "@/views/senior/PhotoDiaryResult.vue";
 import DailyExerciseLoading from "@/views/senior/DailyExerciseLoading.vue";
 import DailyExercise from "@/views/senior/DailyExercise.vue";
 import DailyExerciseResult from "@/views/senior/DailyExerciseResult.vue";
+import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
+import PhotoDiary from "@/views/senior/PhotoDiary.vue";
+import PhotoDiaryResult from "@/views/senior/PhotoDiaryResult.vue";
+import FamilyQuizLoading from "@/views/senior/FamilyQuizLoading.vue";
+import FamilyQuiz from "@/views/senior/FamilyQuiz.vue";
+import FamilyQuizResult from "@/views/senior/FamilyQuizResult.vue";
 
 Vue.use(VueRouter)
 
@@ -101,6 +104,30 @@ const routes = [
     },
   },
   {
+    path: '/senior/exercise/loading',
+    name: 'DailyExerciseLoading',
+    component: DailyExerciseLoading,
+    meta: {
+      title: '잇다 :: 감성 돌봄 서비스',
+    },
+  },
+  {
+    path: '/senior/exercise',
+    name: 'DailyExercise',
+    component: DailyExercise,
+    meta: {
+      title: '잇다 | 오늘의 체조',
+    },
+  },
+  {
+    path: '/senior/exercise/result',
+    name: 'DailyExerciseResult',
+    component: DailyExerciseResult,
+    meta: {
+      title: '잇다 | 오늘의 체조',
+    },
+  },
+  {
     path: '/senior/photodiary/loading',
     name: 'PhotoDiaryLoading',
     component: PhotoDiaryLoading,
@@ -125,19 +152,28 @@ const routes = [
     },
   },
   {
-    path: '/senior/exercise/loading',
-    name: 'DailyExerciseLoading',
-    component: DailyExerciseLoading
+    path: '/senior/quiz/loading',
+    name: 'FamilyQuizLoading',
+    component: FamilyQuizLoading,
+    meta: {
+      title: '잇다 :: 감성 돌봄 서비스',
+    },
   },
   {
-    path: '/senior/exercise',
-    name: 'DailyExercise',
-    component: DailyExercise
+    path: '/senior/quiz',
+    name: 'FamilyQuiz',
+    component: FamilyQuiz,
+    meta: {
+      title: '잇다 | 가족 오락관',
+    },
   },
   {
-    path: '/senior/exercise/result',
-    name: 'DailyExerciseResult',
-    component: DailyExerciseResult
+    path: '/senior/quiz/result',
+    name: 'FamilyQuizResult',
+    component: FamilyQuizResult,
+    meta: {
+      title: '잇다 | 가족 오락관',
+    },
   },
 ]
 
