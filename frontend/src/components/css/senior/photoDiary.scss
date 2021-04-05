@@ -45,7 +45,8 @@
   }
 
   .line {
-    @include line(1000px)
+    @include line(770px);
+    margin-right: 32.5%;
   }
 }
 
