@@ -1,5 +1,6 @@
 @import 'titleBox';
 @import 'line';
+@import 'menuLoading';
 @import '../color.scss';
 
 .dailyExercise {
@@ -43,5 +44,16 @@
 
   .line {
     @include line(760px)
+  }
+}
+
+.dailyExerciseLoading {
+  width: 100%;
+  height: 100vh;
+  background-color: $primary-yellow2;
+  padding-top: 50px;
+
+  .speech {
+    @include speech(18%)
   }
 }

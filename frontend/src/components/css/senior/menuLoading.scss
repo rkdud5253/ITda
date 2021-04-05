@@ -22,12 +22,12 @@
   }
 }
 
-@mixin speech($top, $left) {
+@mixin speech($left) {
   font-size: 55px;
   line-height: 90px;
 
   position: absolute;
-  top: $top;
+  top: 48px;
   left: $left;
   text-align: center;
   white-space: pre-line;
