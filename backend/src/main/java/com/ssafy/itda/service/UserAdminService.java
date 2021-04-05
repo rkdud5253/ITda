@@ -27,5 +27,4 @@ public class UserAdminService {
     public boolean postUserAdmin(UserAdmin userAdmin) throws SQLException{
         return sqlSession.getMapper(UserAdminMapper.class).postUserAdmin(userAdmin) == 1;
     }
-
 }

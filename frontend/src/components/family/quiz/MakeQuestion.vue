@@ -24,7 +24,6 @@
         <!-- 이미지 넣기 -->
         <v-file-input
           class="mx-10 my-5"
-          v-model="image"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
           placeholder="사진을 추가할 수 있습니다"

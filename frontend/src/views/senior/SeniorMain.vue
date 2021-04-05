@@ -23,5 +23,10 @@ export default {
     PhotoDiaryMenu,
     FamilyGameMenu,
   },
+  methods:{
+    goDailyExercise(){
+      this.$router.go(this.$router.push({name: 'DailyExerciseLoading'}))
+    }
+  }
 }
 </script>

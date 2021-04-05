@@ -22,5 +22,10 @@ export default {
     ExampleImage,
     SeniorPhoto,
   },
+  methods:{
+    TTS(){
+      
+    }
+  }
 }
 </script>
