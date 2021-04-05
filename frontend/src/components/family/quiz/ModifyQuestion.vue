@@ -24,7 +24,6 @@
         <!-- 이미지 넣기 -->
         <v-file-input
           class="mx-10 my-5"
-          v-model="image"
           :rules="rules"
           accept="image/png, image/jpeg, image/bmp"
           placeholder="사진을 추가할 수 있습니다"
@@ -127,7 +126,8 @@ export default {
   components: {
     
   },
-  data: () => ({
+  data: () => (
+    {
       valid: true,
       rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',

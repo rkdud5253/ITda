@@ -10,7 +10,7 @@
 	</select>
 
 	<insert id="postUser" parameterType="User">
-		insert into User(userId, userName)
+		insert into user(userId, userName)
 		values(#{userId}, #{userName})
 	</insert>
 </mapper>
