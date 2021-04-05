@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import '@/components/css/senior/photoDiary.scss';
 import MenuLoading from '@/components/senior/MenuLoading.vue';
 export default {
   name: "PhotoDiaryLoading",
