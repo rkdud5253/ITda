@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ITdaApplication {
 
   public static void main(String[] args) {
+
     SpringApplication.run(ITdaApplication.class, args);
   }
 

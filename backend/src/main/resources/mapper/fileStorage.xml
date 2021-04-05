@@ -5,13 +5,13 @@
 
 	<insert id="saveFile" parameterType="FileStorage">
 		insert into
-		FileStorage(fileId, userId, fileDate, fileName, fileUrl, fileType, fileUse)
+		fileStorage(fileId, userId, fileDate, fileName, fileUrl, fileType, fileUse)
 		values (0, #{userId}, #{fileDate}, #{fileName}, #{fileUrl}, #{fileType}, #{fileUse})
 	</insert>
 	
 	<select id="getFile" parameterType="FileStorage" resultType="FileStorage">
 		select *
-		from FileStorage
+		from fileStorage
 		where userId = #{userId}
 		and fileDate like #{fileDate}
 		and fileType like #{fileType}

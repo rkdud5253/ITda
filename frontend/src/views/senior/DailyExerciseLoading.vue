@@ -13,5 +13,13 @@ export default {
   components: {
     MenuLoading,
   },
+  mounted(){
+    setInterval("goDailyExercise", 10000);
+  },
+  methods:{
+    goDailyExercise(){
+      this.$router.go(this.$router.push({name: 'DailyExercise'}))
+    }
+  }
 }
 </script>
