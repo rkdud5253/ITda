@@ -13,26 +13,27 @@
     >
       <v-data-table
         :headers="headers"
-        :items="question"
+        :items="questions"
         hide-default-footer
       ></v-data-table>
     </v-card>
-
   </v-container>
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: "DailyQuiz",
   components: {
 
   },
-  props: ['year', 'month', 'day'],
+  props: ['year', 'month', 'day', 'dailyReport'],
   data () {
       return {
         headers: [
-          { text: 'No',
+          { 
+            text: 'No',
             align: 'start',
             value: 'No' 
           },
@@ -42,40 +43,108 @@ export default {
             sortable: false,
             value: 'name',
           },
-          { text: '정답여부',
+          { 
+            text: '정답여부',
             align: 'center',
             sortable: false,
             value: 'passNonpass',
           },
         ],
-        question: [
+        questions: [
           {
             No: 1,
-            name: '작년 9월에 우리 가족이 갔던 바다 이름은?',
-            passNonpass: 'O',
+            name: '',
+            passNonpass: '',
           },
           {
             No: 2,
-            name: '이 사람의 이름은?',
-            passNonpass: 'O',
+            name: '',
+            passNonpass: '',
           },
           {
             No: 3,
-            name: '수지가 가장 좋아하는 색깔을 맞춰보세요~!',
-            passNonpass: 'X',
+            name: '',
+            passNonpass: '',
           },
           {
             No: 4,
-            name: '올해 지은이 나이가 몇 살일까요??',
-            passNonpass: 'O',
+            name: '',
+            passNonpass: '',
           },
           {
             No: 5,
-            name: '제가 얼만큼 사랑하는지 맞춰보세요>_<',
-            passNonpass: 'O',
+            name: '',
+            passNonpass: '',
           },
         ],
+        arrayWrong: [],
+        arrayRight: [],
       }
+  },
+   computed: {
+    myDailyReport: function() {
+      return this.dailyReport
+    },
+  },
+  watch: {
+    myDailyReport: function() {
+      this.getQuestionId();
+      this.getQuestionContent();
+      this.getQuestionResult();
+    },
+  },
+  methods: {
+    getQuestionContent: function() {
+      axios
+        .get(`http://localhost:8000/itda/qna/result`, {
+          params: {
+            question1Id: this.myDailyReport.question1Id,
+            question2Id: this.myDailyReport.question2Id,
+            question3Id: this.myDailyReport.question3Id,
+            question4Id: this.myDailyReport.question4Id,
+            question5Id: this.myDailyReport.question5Id,
+          }
+        })
+        .then((response) => {
+          this.questions[0].name = response.data[0].questionContent;
+          this.questions[1].name = response.data[1].questionContent;
+          this.questions[2].name = response.data[2].questionContent;
+          this.questions[3].name = response.data[3].questionContent;
+          this.questions[4].name = response.data[4].questionContent;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getQuestionResult: function() {
+      this.arrayWrong = this.myDailyReport.wrongNumbers.split('/')
+      this.arrayRight = this.myDailyReport.rightNumbers.split('/')
+      for (let i = 0; i < this.arrayWrong.length; i++) {
+        let ei = this.arrayWrong[i];
+        for (let j = 0; j < this.questions.length; j++) {
+          if(ei == this.questions[j].id){
+            this.questions[j].passNonpass = 'X';
+          }
+        }
+      }
+
+      for (let i = 0; i < this.arrayRight.length; i++) {
+        let ei = this.arrayRight[i];
+        for (let j = 0; j < this.questions.length; j++) {
+          if(ei == this.questions[j].id){
+            this.questions[j].passNonpass = 'O';
+          }
+        }
+      }
+
+    },
+    getQuestionId: function() {
+      this.questions[0].id = this.myDailyReport.question1Id;
+      this.questions[1].id = this.myDailyReport.question2Id;
+      this.questions[2].id = this.myDailyReport.question3Id;
+      this.questions[3].id = this.myDailyReport.question4Id;
+      this.questions[4].id = this.myDailyReport.question5Id;
+    },
   },
 }
 </script>

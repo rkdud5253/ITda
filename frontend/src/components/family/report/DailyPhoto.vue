@@ -12,7 +12,9 @@
     >
       <v-img
         :src="require('@/assets/family/daily1.jpg')"
-      ></v-img>
+      >
+      <!-- {{myImage.fileName}} -->
+      </v-img>
     </v-card>
     <v-card
       class="mx-5 my-5"
@@ -20,7 +22,9 @@
     >
       <v-img
         :src="require('@/assets/family/daily1.jpg')"
-      ></v-img>
+      >
+      <!-- {{myVideo.fileName}} -->
+      </v-img>
     </v-card>
 
   </v-container>
@@ -33,7 +37,15 @@ export default {
   components: {
 
   },
-  props: ['year', 'month', 'day'],
+  props: ['year', 'month', 'day', 'image', 'video'],
+  computed: {
+    myImage: function() {
+      return this.image[0]
+    },
+    myVideo: function() {
+      return this.video[0]
+    },
+  },
 }
 </script>
 
