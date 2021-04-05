@@ -1,0 +1,16 @@
+@import 'line';
+@import '../color.scss';
+
+.exampleBox {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1000px;
+
+  .example {
+    font-size: 45px;
+    line-height: 70px;
+  }
+}
