@@ -41,7 +41,6 @@
             <h2 v-if="clickButtonSeeTimer">{{ minutes }}:{{ seconds }}</h2>
           </div>
       </v-form>
-       
       </v-card>
     </v-container>
   </v-app>
@@ -80,7 +79,7 @@ export default {
         }
       }).then((res) => {
         if(res.data.userName == this.seniorName) {
-          console.log("같은 이름으로 인증 절차가 진행 중입니다. 잠시 후에 다시 시도해주세요");
+          alert("같은 이름으로 인증 절차가 진행 중입니다. 잠시 후에 다시 시도해주세요!");
         }
         else{
           // 이미 진행중인지 확인하기
