@@ -30,7 +30,10 @@
           prepend-icon="mdi-camera"
           label="사진"
           color="#597ED2"
+          @change="onChangeImages"
         ></v-file-input>
+        <v-img v-if="imageUrl" :src="imageUrl">
+        </v-img>
 
         <!-- 보기 -->
         <div class="mx-10 my-10">
@@ -119,7 +122,7 @@
 </template>
 
 <script>
-import axios from "@/service/axios.service.js";
+import axios from "axios";
 
 export default {
   name: "MakeQuestion",
@@ -136,7 +139,7 @@ export default {
         v => !!v || '문제 제목은 필수입니다',
         v => (v && v.length <= 50) || '제목은 50자 미만으로 작성해 주세요',
       ],
-      image: '',
+      imageUrl: null,
       example1: '',
       example1Rules: [
         v => !!v || '보기 두 개 입력은 필수입니다',
@@ -172,26 +175,29 @@ export default {
       const adminId = this.$store.state.adminId;
       const userId = this.$store.state.userId;
 
-      // // N:N
-      // const userId = axios.get('/useradmin/admin', {
-      //   params: {
-      //     adminId: adminId
-      //   }
-      // }).then((res) => {
-      //   console.log(res.data[0].userId);
-      //   return res.data[0].userId;
-      // }).catch(error => {
-      //   console.log(error);
-      // });
-      // console.log(this.name);
-      // console.log(userId);
-      // console.log(adminId);
+      const bodyFormData = new FormData();
+      const file = {fileName: "z", imageUrl: this.imageUrl};
+      bodyFormData.append("file", file);
       
+      if(this.imageUrl != null) {
+        axios.post('http://localhost:8000/itda/files/upload/',{
+          bodyFormData
+          },{
+            headers: {
+               "Content-Type": `multipart/form-data; boundary=${bodyFormData._boundary}`
+               }
+            }
+        ).then((res) => {
+          console.log(res);
+        }).catch(error => {
+          console.log(error);
+        })
+      }
       axios.post('/qna', {
           userId: Number(userId),
           adminId: Number(adminId),
           questionContent: this.name,
-          questionImageUrl: this.image,
+          questionImageUrl: this.imageUrl,
           example1 : this.example1,
           example2 : this.example2,
           example3 : this.example3,
@@ -202,8 +208,8 @@ export default {
       }).catch(error => {
         console.log(error);
       });
-      
-      this.$router.go(this.$router.push({name: 'QuizItdaList'}))
+      alert("문제 등록이 완료되었습니다!");
+      this.$router.push({name: 'QuizItdaList'})
     },
     reset () {
       this.$refs.form.reset()
@@ -211,6 +217,11 @@ export default {
     resetValidation () {
       this.$refs.form.resetValidation()
     },
+    onChangeImages(e) {
+      const file = e;
+      this.imageUrl = URL.createObjectURL(file);
+      console.log(this.imageUrl);
+    }
   },
 }
 </script>

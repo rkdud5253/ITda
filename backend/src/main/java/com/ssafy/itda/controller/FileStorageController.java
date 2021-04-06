@@ -1,5 +1,6 @@
 package com.ssafy.itda.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import com.ssafy.itda.service.FileStorageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api("FileStorageController")
 @RestController
@@ -40,7 +42,6 @@ public class FileStorageController {
 	@PostMapping("/image")
 	public ResponseEntity<String> saveDiaryImage(@RequestBody @ApiParam(value = "일기 사진파일 정보", required = true) FileStorage file) throws Exception {
 		logger.info("saveDiaryImage - 호출");
-		file.setFileType(IMAGE);
 		file.setFileUse(DIARY);
 		if(fileStorageService.saveFile(file)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -52,7 +53,6 @@ public class FileStorageController {
 	@PostMapping("/video")
 	public ResponseEntity<String> saveDiaryVideo(@RequestBody @ApiParam(value = "일기 동영상파일 정보", required = true) FileStorage file) throws Exception {
 		logger.info("saveDiaryVideo - 호출");
-		file.setFileType(VIDEO);
 		file.setFileUse(DIARY);
 		if(fileStorageService.saveFile(file)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -64,7 +64,6 @@ public class FileStorageController {
 	@PostMapping("/exercise")
 	public ResponseEntity<String> saveExerciseImage(@RequestBody @ApiParam(value = "체조 사진파일 정보", required = true) FileStorage file) throws Exception {
 		logger.info("saveExerciseImage - 호출");
-		file.setFileType(IMAGE);
 		file.setFileUse(EXERCISE);
 		if(fileStorageService.saveFile(file)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -122,5 +121,17 @@ public class FileStorageController {
 		map.put("type", IMAGE);
 		map.put("use", EXERCISE);
 	    return new ResponseEntity<List<FileStorage>>(fileStorageService.getFile(map), HttpStatus.OK);
+	}
+
+	@PostMapping("/upload")
+	public String upload(@RequestPart MultipartFile file) throws Exception {
+
+		String originalFileName = file.getOriginalFilename();
+		// File dest = new File("/home/ubuntu/backend/FileStorage/" + originalFileName);
+		File dest = new File("/home/ubuntu/backend/fileStorage/" + originalFileName);
+		file.transferTo(dest);
+		// TODO
+		System.out.println(dest);
+		return SUCCESS;
 	}
 }

@@ -29,7 +29,6 @@ public class FileStorageService {
 		FileStorage file = new FileStorage();
 		file.setFileDate((String) map.get("fileDate"));
 		file.setUserId((int) map.get("userId"));
-		file.setFileType((String) map.get("type"));
 		file.setFileUse((String) map.get("use"));
 		return sqlSession.getMapper(FileStorageMapper.class).getFile(file);
 	}

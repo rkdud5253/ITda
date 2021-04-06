@@ -95,9 +95,9 @@ export default {
               adminEmail: this.member.email
             }
           }).then((res2) => {
-            this.$store.state.adminId = res2.data.adminId;
+            this.$store.commit("adminLogin", res2.data.adminId);
             alert("로그인에 성공하였습니다!");
-            this.$router.go(this.$router.push({name: 'Main'}))
+            this.$router.push({name: 'Main'});
           }).catch(error => {
             console.log(error);
           })

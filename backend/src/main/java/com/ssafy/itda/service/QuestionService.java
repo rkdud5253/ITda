@@ -30,6 +30,10 @@ public class QuestionService {
 		return sqlSession.getMapper(QuestionMapper.class).getQuestionList(userId);
 	}
 
+	public List<Question> getQuestionListByAdminId(int adminId) throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).getQuestionList(adminId);
+	}
+
 	public List<Question> getQuestionResult(Map<String, Object> map) throws Exception {
 		return sqlSession.getMapper(QuestionMapper.class).getQuestionResult(map);
 	}

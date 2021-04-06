@@ -20,9 +20,6 @@ public class FileStorage {
 	@ApiModelProperty(value = "파일 날짜")
 	private String fileDate;
 	@NotNull
-	@ApiModelProperty(value = "파일 형식")
-	private String fileType;
-	@NotNull
 	@ApiModelProperty(value = "파일 이름")
 	private String fileName;
 	@NotNull 
@@ -31,7 +28,5 @@ public class FileStorage {
 	@NotNull 
 	@ApiModelProperty(value = "파일 사용처")
 	private String fileUse;
-	@ApiModelProperty(value = "감정 인식")
-	private String imageEmotion;
 	
 }

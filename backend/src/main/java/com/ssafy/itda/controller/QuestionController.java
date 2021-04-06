@@ -70,10 +70,18 @@ public class QuestionController {
 
 	@GetMapping("/list")
 	public ResponseEntity<List<Question>> getQuestionList(
-			@RequestParam("userId") @ApiParam(value = "유저 ID", required = true) int userId) throws Exception {
+			@RequestParam("userId") @ApiParam(value = "어르신 ID", required = true) int userId) throws Exception {
 		logger.info("getQuestionList - 호출");
 
 		return new ResponseEntity<>(questionService.getQuestionList(userId), HttpStatus.OK);
+	}
+
+	@GetMapping("/list/admin")
+	public ResponseEntity<List<Question>> getQuestionListByAdminId(
+			@RequestParam("adminId") @ApiParam(value = "가족 ID", required = true) int adminId) throws Exception {
+		logger.info("getQuestionList - 호출");
+
+		return new ResponseEntity<>(questionService.getQuestionList(adminId), HttpStatus.OK);
 	}
 
 	// @ApiOperation(value = "문제 제출", notes = "문제 DB에 등록", response =

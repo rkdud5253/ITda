@@ -54,11 +54,11 @@ export default {
   },
   methods:{
     getList(){
-      const userId = this.$store.state.userId;
+      const adminId = this.$store.state.adminId;
       
-      axios.get('/qna/list', {
+      axios.get('/qna/list/admin', {
         params: {
-          userId: userId
+          adminId: adminId
         }
       }).then((res) => {
         for(let i = 0; i < res.data.length; i++)
