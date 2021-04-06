@@ -60,6 +60,7 @@
             style="width:100%; height:40px; margin-top: 20px;"
             dark
             color="#FC5355"
+            @click="signUp"
             >회원가입
           </v-btn>
         </v-form>
@@ -68,7 +69,7 @@
           <v-btn
             class="mx-2" 
             text color="#FEA601"
-            @click="login"
+            @click="goLogin"
           >로그인
           </v-btn>
         </div>
@@ -78,6 +79,7 @@
 </template>
 
 <script>
+import axios from "@/service/axios.service.js";
 import FamilyAppBar from '@/components/family/FamilyAppBar.vue'
 
 export default {
@@ -114,7 +116,37 @@ export default {
     };
   },
   methods: {
-    login() {
+    signUp(){
+      // 중복 유뮤
+      axios.get("/admin/email",{
+        params:{
+          adminEmail: this.member.email
+        }
+      }).then((res) => {
+        if(res.data.adminId > 0) {
+          alert("중복된 이메일 주소가 있습니다!");
+        }
+        else {
+          axios.post("/admin/signup",{
+            adminEmail:this.member.email,
+            adminPwd:this.member.password,
+            adminName:this.member.name,
+            adminPhone:this.member.phone,
+          }).then((res2) => {
+            if(res2.data == "success"){
+            // 회원 가입이 완료되었습니다
+              alert("회원 가입이 완료되었습니다!");
+              this.$router.go(this.$router.push({name: 'Main'}))
+            }
+            else 
+              // 회원 가입이 실패하였습니다
+              alert("회원 가입이 실패하였습니다!");
+          })
+        }
+      })
+      
+    },
+    goLogin() {
       this.$router.go(this.$router.push({name: 'Login'}))
     },
   },

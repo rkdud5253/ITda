@@ -17,11 +17,15 @@ public class AdminService {
         return sqlSession.getMapper(AdminMapper.class).getAdmin(adminId);
     }
 
+    public Admin getAdminByEmail(String adminEmail) throws Exception{
+        return sqlSession.getMapper(AdminMapper.class).getAdminByEmail(adminEmail);
+    }
+
     public boolean signUp(Admin admin) throws Exception{
         return sqlSession.getMapper(AdminMapper.class).signUp(admin) == 1;
     }
 
-    public boolean login(Admin admin) throws Exception{
-        return sqlSession.getMapper(AdminMapper.class).login(admin) == 1;
+    public int login(Admin admin) throws Exception{
+        return sqlSession.getMapper(AdminMapper.class).login(admin);
     }
 }

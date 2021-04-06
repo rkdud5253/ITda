@@ -33,6 +33,7 @@
             style="width:100%; height:40px; margin-top: 20px;"
             dark
             color="#FEA601"
+            @click="login"
             >로그인
           </v-btn>
         </v-form>
@@ -41,7 +42,7 @@
           <v-btn
             class="mx-2" 
             text color="#FC5355"
-            @click="signUp"
+            @click="goSignUp"
           >회원가입
           </v-btn>
         </div>
@@ -51,6 +52,7 @@
 </template>
 
 <script>
+import axios from "@/service/axios.service.js";
 import FamilyAppBar from '@/components/family/FamilyAppBar.vue'
 
 export default {
@@ -77,7 +79,36 @@ export default {
     };
   },
   methods: {
-    signUp() {
+    login(){
+      // axios.get -> 
+      // store.state 저장
+      // 홈으로 가기
+      axios.post("/admin/login", {
+        adminEmail: this.member.email,
+        adminPwd: this.member.password,
+      }).then((res) => {
+        console.log(res.data);
+        if(res.data == "success") {
+          // 로그인에 성공하였습니다.
+          axios.get("/admin/email",{
+            params:{
+              adminEmail: this.member.email
+            }
+          }).then((res2) => {
+            this.$store.state.adminId = res2.data.adminId;
+            alert("로그인에 성공하였습니다!");
+            this.$router.go(this.$router.push({name: 'Main'}))
+          }).catch(error => {
+            console.log(error);
+          })
+        }
+        else {
+          // 로그인에 실패하였습니다.
+          alert("로그인에 실패하였습니다!");
+        }
+      });
+    },
+    goSignUp() {
       this.$router.go(this.$router.push({name: 'SignUp'}))
     },
   },
