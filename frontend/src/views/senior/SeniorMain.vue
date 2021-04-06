@@ -1,6 +1,6 @@
 <template>
   <div class="seniorMain">
-    <TitleBox title="김싸피님, 나리를 불러서 원하는 기능을 실행하세요!" />
+    <TitleBox :title ="username"/>
     <div class="menuContainer">
       <DailyExerciseMenu />
       <PhotoDiaryMenu />
@@ -22,6 +22,11 @@ export default {
     DailyExerciseMenu,
     PhotoDiaryMenu,
     FamilyGameMenu,
+  },
+  data(){
+    return {
+      username:"김싸피",
+    }
   },
   methods:{
     goDailyExercise(){

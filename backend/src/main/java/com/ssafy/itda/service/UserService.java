@@ -21,6 +21,11 @@ public class UserService {
 		return sqlSession.getMapper(UserMapper.class).getUser(userId);
 	}
 
+	public int getUserCount() throws Exception{
+
+		return sqlSession.getMapper(UserMapper.class).getUserCount();
+	}
+
 	public boolean postUser(User user) throws Exception{
 
 		return sqlSession.getMapper(UserMapper.class).postUser(user) == 1;

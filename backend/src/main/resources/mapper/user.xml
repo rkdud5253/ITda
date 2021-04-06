@@ -9,6 +9,11 @@
 		where userId = #{userId}
 	</select>
 
+	<select id="getUserCount" resultType="int">
+		select count(*)
+		from user
+	</select>
+
 	<insert id="postUser" parameterType="User">
 		insert into user(userId, userName)
 		values(#{userId}, #{userName})

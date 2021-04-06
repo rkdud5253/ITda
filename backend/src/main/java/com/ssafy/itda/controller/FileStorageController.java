@@ -32,8 +32,7 @@ public class FileStorageController {
 	private static final String DIARY = "Diary";
 	private static final String EXERCISE = "Exercise";
 	private static final String SAMPLE = "Sample";
-	
-	
+
 	@Autowired
 	private FileStorageService fileStorageService;
 	
