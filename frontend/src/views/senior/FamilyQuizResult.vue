@@ -1,6 +1,6 @@
 <template>
   <div class="familyQuizResult">
-    <TitleBox title="오늘의 뇌 운동이 모두 끝났습니다." />
+    <TitleBox title="오늘의 두뇌 운동이 모두 끝났습니다." />
     <img class="seniorExercise"
       src="@/assets/senior/SeniorQuiz.jpg"
     >
@@ -16,6 +16,9 @@ export default {
   name: "SeniorMain",
   components: {
     TitleBox,
+  },
+  mounted() {
+    this.$store.commit("TTS", "오늘의 두뇌 운동이 모두 끝났습니다. 참 잘하셨습니다!");
   },
 }
 </script>

@@ -1,0 +1,36 @@
+@import '../color.scss';
+
+@mixin goTo($background-color) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .goIcon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .goMessage {
+    background-color: $background-color;
+    width: 220px;
+    height: 60px;
+    border-radius: 20px;
+    font-size: 35px;
+    line-height: 65px;
+    margin-top: 20px;
+  }
+}
+
+.goToMainRed {
+  @include goTo($primary-yellow2);
+}
+
+.goToMainBlue {
+  @include goTo($secondary-blue);
+  color: $basic-white;
+}
+
+.goNext {
+  @include goTo($secondary-red);
+  color: $basic-white;
+}

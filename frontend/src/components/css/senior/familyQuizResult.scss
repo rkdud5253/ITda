@@ -6,15 +6,17 @@
   text-align: center;
 
   .titleBox {
-    @include titleBox(1320px, 75px)
+    @include titleBox(1320px, 75px);
+    background-color: $secondary-blue;
+    color: $basic-white;
   }
 
   .nari {
-    @include nari
+    @include nari;
   }
 
   .title {
-    @include title(55px, 55px)
+    @include title(55px, 55px);
   }
 
   .seniorExercise {
@@ -28,6 +30,6 @@
   }
 
   .line {
-    @include line(410px)
+    @include line(410px);
   }
 }

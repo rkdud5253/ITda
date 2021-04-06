@@ -3,7 +3,8 @@
     <TitleBox title="잇다에 입장하시려면 성함을 말씀해주세요." />
     <div class="nameBox">
       <div>
-        <p class="seniorName">김싸피</p>
+        <!-- username은 STT로 받아와야 합니다. -->
+        <p class="seniorName">{{ seniorName }}</p>
         <hr class="line">
       </div>
       <p class="explain">님</p>
@@ -23,23 +24,22 @@ export default {
   },
   data(){
     return{
-      SeniorName : ""
+      seniorName : ""
     }
   },
-  created(){
-
+  mounted() {
+    this.$store.commit("TTS", "잇다에 오신 걸 환영합니다. 입장하시려면 성함을 말씀해주세요.");
   },
   methods:{
     login(){
-      
       axios.get("/AccessCheck", {
         params: {
-          userName:this.SeniorName
+          userName:this.seniorName
         }
       }).then((res) => {
         console.log(res.data);
         // 존재하면 로그인 절차를 밟고
-        if(res.data.userName == this.SeniorName)
+        if(res.data.userName == this.seniorName)
         {
           axios.get("/user/count", { 
           }).then((res2) => {
@@ -49,7 +49,7 @@ export default {
             // userAdmin 등록
             axios.post("/user",{
               userId : userId,
-              userName : this.SeniorName
+              userName : this.seniorName
             }).then(() => {
             }).catch(error => {
               console.log(error);
