@@ -9,14 +9,20 @@
         where adminId = #{adminId}
     </select>
 
+    <select id="getAdminByEmail" parameterType="string" resultType="Admin">
+        select *
+        from admin
+        where adminEmail = #{adminEmail}
+    </select>
+
     <insert id="signUp" parameterType="Admin">
         insert into admin(adminEmail, adminPwd, adminName, adminPhone)
         values(#{adminEmail}, #{adminPwd}, #{adminName}, #{adminPhone})
     </insert>
 
     <select id="login" parameterType="Admin" resultType="int">
-        select *
+        select count(*)
         from admin
-        where adminEmail = #{adminEmail} and adminPwd = #{adminPwd}
+        where adminEmail like #{adminEmail} and adminPwd like #{adminPwd}
     </select>
 </mapper>

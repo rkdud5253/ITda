@@ -56,7 +56,7 @@ public class DailyReportController {
 	@ApiOperation(value = "데일리 레포트 보기", notes = "오늘의 데일리 레포트 실행 여부를 반환한다.", response = DailyReport.class)
 	@GetMapping("/daily")
 	public ResponseEntity<String> getReportCnt(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
-			@PathVariable("reportDate") @ApiParam(value = "날짜", required = true) String reportDate) throws Exception {
+			@RequestParam("reportDate") @ApiParam(value = "날짜", required = true) String reportDate) throws Exception {
 		logger.info("getReportCnt - 호출");
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
