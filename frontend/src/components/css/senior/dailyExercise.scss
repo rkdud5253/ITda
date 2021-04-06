@@ -8,7 +8,9 @@
   text-align: center;
 
   .titleBox {
-    @include titleBox(1320px, 75px)
+    @include titleBox(1320px, 75px);
+    background-color: $secondary-red;
+    color: $basic-white;
   }
 
   .nari {
@@ -16,7 +18,7 @@
   }
 
   .title {
-    @include title(55px, 55px)
+    @include title(55px, 55px);
   }
 
   .videos {
@@ -26,31 +28,46 @@
       .video1 {
         width: 660px;
         height: 371.25px;
-        background-color: $secondary-red;
+        background-color: $basic-black;
+        color: $basic-white;
       }
     
       .video2 {
         width: 660px;
         height: 371.25px;
-        background-color: $secondary-blue;
+        background-color: gray;
       }
   }
-  
-  .explain {
-    font-size: 50px;
-    line-height: 70px;
-    margin-top: 75px;
+
+  .explainBox {
+    display: flex;
+    align-items: flex-end;
+    // justify-content: center;
+    margin-top: 50px;
+
+    .goToMainBlue {
+      margin-right: 10%;
+    }
+
+    .explainLine {
+
+      .explain {
+        font-size: 50px;
+        line-height: 70px;
+        margin-top: 75px;
+      }
+    }
   }
 
   .line {
-    @include line(760px)
+    @include line(950px)
   }
 }
 
 .dailyExerciseLoading {
   width: 100%;
   height: 100vh;
-  background-color: $primary-yellow2;
+  background-color: $secondary-red;
   padding-top: 50px;
 
   .speech {
