@@ -32,7 +32,8 @@
                 <v-icon class="mb-3" color="#FEA601" size="xxx-large">mdi-trophy</v-icon>
                 <h2>{{ year }}년 {{ month }}월 {{ day }}일</h2>
                 <h1>평균 정확도</h1>
-                <h1 style="color: #FC5355; font-size: xxx-large;">{{myDailyReport.exerciseAccuracy}}</h1>
+                <h1 style="color: #FC5355; font-size: xxx-large;">{{this.exerciseAccuracy}}<br>
+                {{this.accuracyAverage}}%</h1>
                 <link rel="stylesheet" href="">
                 <v-btn
                   class="mt-5"
@@ -72,6 +73,8 @@ export default {
         items: [],
         trainingLink: [],
         exerciseUrl: '',
+        exerciseAccuracy: [],
+        accuracyAverage: '',
       }
   },
   computed: {
@@ -85,6 +88,10 @@ export default {
   watch: {
     myExercise: function() {
       this.getExerciseUrl();
+    },
+    myDailyReport: function() {
+      this.myDailyReport;
+      this.getExerciseAccuracy();
     },
   },
   methods: {
@@ -101,11 +108,18 @@ export default {
         })
         .then((response) => {
           this.exerciseUrl = response.data.exerciseUrl;
-          console.log(this.exerciseUrl)
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    getExerciseAccuracy: function() {
+      this.exerciseAccuracy = this.myDailyReport.exerciseAccuracy.split('/')
+      let sum = 0;
+      for (let index = 0; index < this.exerciseAccuracy.length; index++) {
+        sum += Number(this.exerciseAccuracy[index]);
+      }
+      this.accuracyAverage = sum / this.exerciseAccuracy.length;
     },
   },
 }

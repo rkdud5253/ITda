@@ -6,8 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    adminId:0,
-    userId:0,
+    adminId:1,
+    userId:1,
   },
   mutations: {
     adminLogin(state, adminId){
