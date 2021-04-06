@@ -1,14 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    adminId:1,
-    userId:1,
+    adminId:0,
+    userId:0,
   },
   mutations: {
+    adminLogin(state, adminId){
+      state.adminId = adminId;
+    },
     TTS(state, speechText){
       if (typeof SpeechSynthesisUtterance === "undefined" || typeof window.speechSynthesis === "undefined") {
         alert("이 브라우저는 음성 합성을 지원하지 않습니다.");
@@ -28,5 +32,6 @@ export default new Vuex.Store({
     }
   },
   actions: {},
-  modules: {}
+  modules: {},
+  plugins:[createPersistedState()]
 })

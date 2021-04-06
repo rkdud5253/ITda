@@ -25,6 +25,9 @@ export default {
     TopButton,
     Footer,
   },
+  mounted(){
+    console.log(this.$store.state.adminId);
+  }
 }
 </script>
 

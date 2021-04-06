@@ -207,6 +207,7 @@ export default {
         console.log(error);
       });
       
+      alert("문제 수정이 완료되었습니다!");
       this.$router.go(this.$router.push({name: 'QuizItdaList'}))
     },
     reset () {

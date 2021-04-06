@@ -41,9 +41,6 @@ public class AdminController {
     public ResponseEntity<Admin> getAdminByEmail(@RequestParam("adminEmail") @ApiParam(value = "가족 ID", required = true) String adminEmail) throws Exception {
         logger.info("getAdminByEmail - 호출");
 
-        if(adminService.getAdminByEmail(adminEmail) == null) {
-            throw new NullPointerException();
-        }
         return new ResponseEntity<Admin>(adminService.getAdminByEmail(adminEmail), HttpStatus.OK);
     }
 

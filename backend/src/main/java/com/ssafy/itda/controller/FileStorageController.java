@@ -1,5 +1,6 @@
 package com.ssafy.itda.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import com.ssafy.itda.service.FileStorageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api("FileStorageController")
 @RestController
@@ -113,4 +115,18 @@ public class FileStorageController {
 			}
 		}
 		return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
-}}
+    }
+		
+
+	@PostMapping("/upload")
+	public String upload(@RequestPart MultipartFile file) throws Exception {
+
+		String originalFileName = file.getOriginalFilename();
+		// File dest = new File("/home/ubuntu/backend/FileStorage/" + originalFileName);
+		File dest = new File("/home/ubuntu/backend/fileStorage/" + originalFileName);
+		file.transferTo(dest);
+		// TODO
+		System.out.println(dest);
+		return SUCCESS;
+	}
+}
