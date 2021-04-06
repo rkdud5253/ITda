@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "@/service/axios.service.js";
 
 export default {
   name: "DailyTraining",
@@ -94,7 +94,7 @@ export default {
     },
     getExerciseUrl: function() {
       axios
-        .get(`http://localhost:8000/itda/exercise`, {
+        .get(`/exercise`, {
           params: {
             exerciseId: this.myDailyReport.exerciseId,
           }

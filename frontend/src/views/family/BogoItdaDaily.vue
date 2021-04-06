@@ -52,7 +52,7 @@ import DailyTraining from '@/components/family/report/DailyTraining.vue'
 import DailyPhoto from '@/components/family/report/DailyPhoto.vue'
 import DailyQuiz from '@/components/family/report/DailyQuiz.vue'
 import TopButton from '@/components/family/TopButton.vue'
-import axios from 'axios'
+import axios from "@/service/axios.service.js";
 
 export default {
   name: "BogoItdaDaily",
@@ -92,7 +92,7 @@ export default {
     },
     getDailyReport() {
       axios
-        .get(`http://localhost:8000/itda/report/` + this.$route.query.date, {
+        .get(`/report/` + this.$route.query.date, {
           params: {
             userId : '1',
           }
@@ -106,7 +106,7 @@ export default {
     },
     getImage() {
       axios
-        .get(`http://localhost:8000/itda/files/image`, {
+        .get(`/files/image`, {
           params: {
             userId : '1',
             fileDate : this.$route.query.date,
@@ -121,7 +121,7 @@ export default {
     },
     getVideo() {
       axios
-        .get(`http://localhost:8000/itda/files/video`, {
+        .get(`/files/video`, {
           params: {
             userId : '1',
             fileDate : this.$route.query.date,
@@ -134,9 +134,9 @@ export default {
           console.log(error);
         });
     },
-    getExercise() {
+    getExercise() { 
       axios
-        .get(`http://localhost:8000/itda/files/exercise`, {
+        .get(`/files/exercise`, {
           params: {
             userId : '1',
             fileDate : this.$route.query.date,

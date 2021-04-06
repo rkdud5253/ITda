@@ -15,13 +15,14 @@
         :headers="headers"
         :items="questions"
         hide-default-footer
+        @click:row="goQuizDetail"
       ></v-data-table>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "@/service/axios.service.js";
 
 export default {
   name: "DailyQuiz",
@@ -96,7 +97,7 @@ export default {
   methods: {
     getQuestionContent: function() {
       axios
-        .get(`http://localhost:8000/itda/qna/result`, {
+        .get(`/qna/result`, {
           params: {
             question1Id: this.myDailyReport.question1Id,
             question2Id: this.myDailyReport.question2Id,
@@ -144,6 +145,9 @@ export default {
       this.questions[2].id = this.myDailyReport.question3Id;
       this.questions[3].id = this.myDailyReport.question4Id;
       this.questions[4].id = this.myDailyReport.question5Id;
+    },
+    goQuizDetail: function(idx) {
+      this.$router.push({path: `/family/quiz/detail/${idx.id}`})
     },
   },
 }
