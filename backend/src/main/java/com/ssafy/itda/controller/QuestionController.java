@@ -57,7 +57,7 @@ public class QuestionController {
 			@RequestParam("question4Id") @ApiParam(value = "4번 문제 ID", required = true) int question4Id,
 			@RequestParam("question5Id") @ApiParam(value = "5번 문제 ID", required = true) int question5Id)
 			throws Exception {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Integer> map = new HashMap<>();
 		map.put("question1Id", question1Id);
 		map.put("question2Id", question2Id);
 		map.put("question3Id", question3Id);

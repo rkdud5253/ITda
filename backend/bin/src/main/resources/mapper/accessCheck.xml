@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.itda.mapper.AccessCheckMapper">
+    <select id="getAccessCheckByUserName" parameterType="String" resultType="AccessCheck">
+        select *
+        from accessCheck
+        where userName = #{userName}
+    </select>
+
+    <select id="getAccessCheckByAdminId" parameterType="int" resultType="AccessCheck">
+        select *
+        from accessCheck
+        where adminId = #{adminId}
+    </select>
+
+    <insert id="postAccessCheck" parameterType="AccessCheck">
+        insert into accessCheck(userName, adminId)
+        values(#{userName}, #{adminId})
+    </insert>
+
+    <delete id="deleteAccessCheck" parameterType="int">
+        delete from accessCheck
+        where adminId = #{adminId}
+    </delete>
+</mapper>

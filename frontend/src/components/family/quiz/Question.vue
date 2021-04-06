@@ -13,7 +13,6 @@
         <div v-if="imageUrl !== ''">
           <v-img 
             class="mx-10"
-            src= {{ imageUrl }}
           >
           </v-img>
         </div>

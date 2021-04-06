@@ -4,18 +4,18 @@
 <mapper namespace="com.ssafy.itda.mapper.UserAdminMapper">
     <select id="getAdminByUserId" parameterType="int" resultType="UserAdmin">
         select *
-        from UserAdmin
+        from userAdmin
         where userId = #{userId}
     </select>
 
     <select id="getUserByAdminId" parameterType="int" resultType="UserAdmin">
         select *
-        from UserAdmin
+        from userAdmin
         where adminId = #{adminId}
     </select>
 
     <insert id="postUserAdmin" parameterType="int">
-        insert into UserAdmin(userId, adminId)
-        values(userId=#{userId}, adminId=#{adminId})
+        insert into userAdmin(userId, adminId)
+        values(#{userId}, #{adminId})
     </insert>
 </mapper>

@@ -46,6 +46,6 @@
 <script>
 import '@/components/css/senior/loader.scss';
 export default {
-  name: "SeniorMain",
+  name: "Loader",
 }
 </script>

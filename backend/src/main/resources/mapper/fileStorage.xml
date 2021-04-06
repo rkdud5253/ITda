@@ -5,8 +5,8 @@
 
 	<insert id="saveFile" parameterType="FileStorage">
 		insert into
-		fileStorage(fileId, userId, fileDate, fileName, fileUrl, fileType, fileUse)
-		values (0, #{userId}, #{fileDate}, #{fileName}, #{fileUrl}, #{fileType}, #{fileUse})
+		fileStorage(fileId, userId, fileDate, fileName, fileUrl, fileUse)
+		values (0, #{userId}, #{fileDate}, #{fileName}, #{fileUrl}, #{fileUse})
 	</insert>
 	
 	<select id="getFile" parameterType="FileStorage" resultType="FileStorage">
@@ -14,7 +14,14 @@
 		from fileStorage
 		where userId = #{userId}
 		and fileDate like #{fileDate}
-		and fileType like #{fileType}
+		and fileUse like #{fileUse}
+	</select>
+	
+	<select id="getFileCnt" parameterType="FileStorage" resultType="int">
+		select count(*)
+		from fileStorage
+		where userId = #{userId}
+		and fileDate like #{fileDate}
 		and fileUse like #{fileUse}
 	</select>
 
