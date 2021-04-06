@@ -13,5 +13,8 @@ export default {
   components: {
     MenuLoading,
   },
+  mounted() {
+    this.$store.commit("TTS", "오늘의 사진 일기를 남겨보세요.");
+  }
 }
 </script>

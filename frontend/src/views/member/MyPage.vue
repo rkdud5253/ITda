@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import axios from "@/service/axios.service.js";
 import FamilyAppBar from '@/components/family/FamilyAppBar.vue'
 
 export default {
@@ -72,11 +73,60 @@ export default {
       this.message = ''
     },
     sendName () {
-      this.startTimer()
-      this.clickButtonSeeTimer = true
+      // 중복된 이름이 있는지 체크하기
+      axios.get('/AccessCheck/', {
+        params: {
+            userName:this.seniorName,
+        }
+      }).then((res) => {
+        if(res.data.userName == this.seniorName) {
+          console.log("같은 이름으로 인증 절차가 진행 중입니다. 잠시 후에 다시 시도해주세요");
+        }
+        else{
+          // 이미 진행중인지 확인하기
+          axios.get('/AccessCheck/adminId', {
+            params: {
+              adminId: Number(this.$store.state.adminId)
+            }
+          }).then((res2) => {
+            console.log(res2.data);
+            // 있다면 제거 후 재등록
+            if(res2.data != "") {
+              console.log(res2.data);
+              axios.delete('/AccessCheck/',{
+                params:{
+                  adminId: res2.data.adminId,
+                }
+              }).then(() => {
+              }).catch(error => {
+                console.log(error);
+              });
+            }
+            console.log(Number(this.$store.state.adminId));
+            axios.post('/AccessCheck/', {
+              adminId: Number(this.$store.state.adminId),
+              userName: this.seniorName,              
+            }).then(() => {
+              this.startTimer()
+              this.clickButtonSeeTimer = true
+            }).catch(error => {
+              console.log(error);
+            });
+          }).catch(error => {
+            console.log(error);
+          })
+        }
+      }).catch(error => {
+        console.log(error);
+      })
+
+      
     },
     startTimer: function() {
-      this.timer = setInterval(() => this.countdown(), 1000);
+      if(!this.clickButtonSeeTimer)
+        this.timer = setInterval(() => this.countdown(), 1000);
+      else
+        this.totalTime = (1 * 600);
     },
     padTime: function(time) {
       return (time < 10 ? '0' : '') + time;
@@ -86,6 +136,31 @@ export default {
         this.totalTime--;
       } else {
         this.totalTime = 0;
+        this.clickButtonSeeTimer = false;
+
+        // user, admin 10분 제한 제거
+         axios.get('/AccessCheck/adminId', {
+            params: {
+              adminId: Number(this.$store.state.adminId)
+            }
+          }).then((res) => {
+            
+            console.log(res.data);
+            // 10분이 지났는데 DB에 있다면 제거
+            if(res.data != "") {
+              console.log(res.data);
+              axios.delete('/AccessCheck/',{
+                params:{
+                  adminId: res.data.adminId,
+                }
+              }).then(() => {
+              }).catch(error => {
+                console.log(error);
+              });
+            }
+          }).catch(error => {
+            console.log(error);
+          })
       }
     },
   },

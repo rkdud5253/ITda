@@ -34,6 +34,13 @@ public class UserController {
 		return new ResponseEntity<User>(userService.getUser(userId), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "어르신 수", notes = "등록된 어르신의 수를 반환한다.", response = User.class)
+	@GetMapping("/count")
+	public ResponseEntity<Integer> getUserCount() throws Exception {
+		logger.info("getUserCount - 호출");
+		return new ResponseEntity<Integer>(userService.getUserCount(), HttpStatus.OK);
+	}
+
 	@ApiOperation(value = "어르신 정보", notes = "어르신 정보를 등록한다.", response = User.class)
 	@PostMapping
 	public ResponseEntity<String> postUser(@RequestBody @ApiParam(value = "어르신 정보", required = true) User user) throws Exception {
