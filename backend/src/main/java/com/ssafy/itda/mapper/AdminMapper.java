@@ -8,6 +8,7 @@ import java.sql.SQLException;
 @Mapper
 public interface AdminMapper {
     public Admin getAdmin(int adminId) throws SQLException;
+    public Admin getAdminByEmail(String adminEmail) throws SQLException;
     public int signUp(Admin admin) throws SQLException;
     public int login (Admin admin) throws SQLException;
 }

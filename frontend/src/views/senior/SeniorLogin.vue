@@ -4,19 +4,17 @@
     <div class="nameBox">
       <div>
         <!-- username은 STT로 받아와야 합니다. -->
-        <p class="seniorName">{{ username }}</p>
+        <p class="seniorName">{{ seniorName }}</p>
         <hr class="line">
       </div>
       <p class="explain">님</p>
-      <!-- STT로 로그인 기능 구현 이후에 아래 버튼은 지워주세요. -->
-      <button @click="login"></button>
     </div>
   </div>
 </template>
 
 <script>
 
-import axios from 'axios';
+import axios from "@/service/axios.service.js";
 import '@/components/css/senior/seniorLogin.scss';
 import TitleBox from '@/components/senior/TitleBox.vue';
 export default {
@@ -24,9 +22,9 @@ export default {
   components: {
     TitleBox,
   },
-  data () {
-    return {
-      username: '김싸피'
+  data(){
+    return{
+      seniorName : ""
     }
   },
   mounted() {
@@ -34,13 +32,52 @@ export default {
   },
   methods:{
     login(){
-      const id = 1;
-      axios.get("/itda/user", {
+      axios.get("/AccessCheck", {
         params: {
-          userId:id
-      },}).then((res) => {
+          userName:this.seniorName
+        }
+      }).then((res) => {
         console.log(res.data);
-    })
+        // 존재하면 로그인 절차를 밟고
+        if(res.data.userName == this.seniorName)
+        {
+          axios.get("/user/count", { 
+          }).then((res2) => {
+            const userId = res2.data + 1;
+            
+            // 유저 정보 만들고
+            // userAdmin 등록
+            axios.post("/user",{
+              userId : userId,
+              userName : this.seniorName
+            }).then(() => {
+            }).catch(error => {
+              console.log(error);
+            })
+
+            axios.post("/useradmin",{
+              userId : userId,
+              adminId : res.data.adminId
+            }).then(() => {
+            }).catch(error => {
+              console.log(error);
+            })
+
+            console.log("등록 완료");
+            
+          }).catch(error => {
+            console.log(error);
+          })
+
+        }
+        
+        // 존재하지 않으면 확인 부탁드린다고
+        else{
+          console.log("인증 절차가 존재하지 않아요~");
+        }
+      }).catch(error => {
+        console.log(error);
+      })
   
     }   
   }

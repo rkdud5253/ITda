@@ -36,6 +36,17 @@ public class AdminController {
         return new ResponseEntity<Admin>(adminService.getAdmin(adminId), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "가족 정보", notes = "Email에 맞는 가족 정보를 반환한다.", response = Admin.class)
+    @GetMapping("/email")
+    public ResponseEntity<Admin> getAdminByEmail(@RequestParam("adminEmail") @ApiParam(value = "가족 ID", required = true) String adminEmail) throws Exception {
+        logger.info("getAdminByEmail - 호출");
+
+        if(adminService.getAdminByEmail(adminEmail) == null) {
+            throw new NullPointerException();
+        }
+        return new ResponseEntity<Admin>(adminService.getAdminByEmail(adminEmail), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "회원가입", notes = "회원가입하기", response = Admin.class)
     @PostMapping("/signup")
     public ResponseEntity<String> adminSignUp(@RequestBody @ApiParam(value = "가족 정보", required = true) Admin admin) throws Exception {
@@ -54,12 +65,15 @@ public class AdminController {
     @PostMapping("/login")
     public ResponseEntity<String> adminLogin(@RequestBody @ApiParam(value = "가족 정보", required = true) Admin admin) throws Exception {
         logger.info("adminLogin - 호출");
+
         String encryptPassword = Sha256.encrypt(admin.getAdminPwd());
         admin.setAdminPwd(encryptPassword);
+        System.out.println(admin.getAdminEmail());
+        System.out.println(admin.getAdminPwd());
 
-        if(adminService.login(admin)) {
-            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        if(adminService.login(admin) == 1) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
-        return new ResponseEntity<>(FAIL, HttpStatus.OK);
+        return new ResponseEntity<String>(FAIL, HttpStatus.OK);
     }
 }

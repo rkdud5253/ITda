@@ -12,15 +12,9 @@
     >
       <v-img
         :src="require('@/assets/family/daily1.jpg')"
-      ></v-img>
-    </v-card>
-    <v-card
-      class="mx-5 my-5"
-      elevation="5"
-    >
-      <v-img
-        :src="require('@/assets/family/daily1.jpg')"
-      ></v-img>
+      >
+      <!-- {{myImage.fileName}} -->
+      </v-img>
     </v-card>
 
   </v-container>
@@ -33,7 +27,12 @@ export default {
   components: {
 
   },
-  props: ['year', 'month', 'day'],
+  props: ['year', 'month', 'day', 'image'],
+  computed: {
+    myImage: function() {
+      return this.image[0]
+    },
+  },
 }
 </script>
 

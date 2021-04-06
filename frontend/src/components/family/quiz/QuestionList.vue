@@ -17,6 +17,7 @@
       :headers="headers"
       :items="question"
       :search="search"
+      @click:row="goQuizDetail"
     ></v-data-table>
   </v-card>
 </template>
@@ -70,7 +71,10 @@ export default {
         console.log(error);
       });
 
-    }
+    },
+    goQuizDetail: function(idx) {
+      this.$router.push({path: `/family/quiz/detail/${idx.Id}`})
+    },
   }
 }
 </script>
