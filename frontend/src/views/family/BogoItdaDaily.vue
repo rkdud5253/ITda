@@ -36,7 +36,7 @@
       <v-divider class="my-10"></v-divider>
       <DailyTraining :year="year" :month="month" :day="day" :dailyReport="dailyReport" :exercise="exercise"/>
       <v-divider class="my-10"></v-divider>
-      <DailyPhoto :year="year" :month="month" :day="day" :image="image" :video="video"/>
+      <DailyPhoto :year="year" :month="month" :day="day" :image="image"/>
       <v-divider class="my-10"></v-divider>
       <DailyQuiz :year="year" :month="month" :day="day" :dailyReport="dailyReport"/>
     </v-container>
@@ -71,7 +71,6 @@ export default {
       day: '',
       dailyReport: '',
       image: [],
-      video: [],
       exercise: [],
     };
   },
@@ -83,7 +82,6 @@ export default {
     this.day = this.arrayDate[2]
     this.getDailyReport()
     this.getImage()
-    this.getVideo()
     this.getExercise()
   },
   methods: {
@@ -95,6 +93,7 @@ export default {
         .get(`/report/` + this.$route.query.date, {
           params: {
             userId : '1',
+            reportDate : this.$route.query.date,
           }
         })
         .then((response) => {
@@ -114,21 +113,6 @@ export default {
         })
         .then((response) => {
           this.image = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    getVideo() {
-      axios
-        .get(`/files/video`, {
-          params: {
-            userId : '1',
-            fileDate : this.$route.query.date,
-          }
-        })
-        .then((response) => {
-          this.video = response.data;
         })
         .catch((error) => {
           console.log(error);
