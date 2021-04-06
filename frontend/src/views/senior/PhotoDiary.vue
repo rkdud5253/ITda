@@ -38,6 +38,9 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.$store.commit("TTS", "왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
+  },
   methods: {
   
   }

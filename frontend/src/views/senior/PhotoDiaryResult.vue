@@ -19,5 +19,8 @@ export default {
     TitleBox,
     SeniorPhoto,
   },
+  mounted() {
+    this.$store.commit("TTS", "오늘의 사진이 잘 찍혔어요!");
+  },
 }
 </script>

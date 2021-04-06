@@ -17,5 +17,8 @@ export default {
   components: {
     TitleBox,
   },
+  mounted() {
+    this.$store.commit("TTS", "오늘의 두뇌 운동이 모두 끝났습니다. 참 잘하셨습니다!");
+  },
 }
 </script>
