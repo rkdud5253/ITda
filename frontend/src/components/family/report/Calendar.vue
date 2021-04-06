@@ -45,35 +45,6 @@
           >
             Today
           </v-btn>
-          <!-- <v-menu
-            bottom
-            right
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                outlined
-                color="grey darken-2"
-                v-bind="attrs"
-                v-on="on"
-              >
-                <span>{{ typeToLabel[type] }}</span>
-                <v-icon right>
-                  mdi-menu-down
-                </v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="type = 'day'">
-                <v-list-item-title>Day</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'week'">
-                <v-list-item-title>Week</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'month'">
-                <v-list-item-title>Month</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu> -->
         </v-toolbar>
       </v-sheet>
       <v-sheet height="600">
@@ -84,56 +55,64 @@
           :type="type"
           @click:date="viewDay"
         ></v-calendar>
-        <!-- <v-menu
-          v-model="selectedOpen"
-          :close-on-content-click="false"
-          :activator="selectedElement"
-          offset-x
+
+        <v-dialog
+          v-model="dialog"
+          max-width="300"
         >
-          <v-card
-            color="grey lighten-4"
-            min-width="350px"
-            flat
-          >
-            <v-toolbar
-              :color="selectedEvent.color"
-              dark
+          <v-card>
+            <v-card-title style="justify-content: center; color: #FEA601;">
+              <h2 class="modalFont">일일 보고서</h2>
+            </v-card-title>
+            <v-card-text 
+              class="modalFont my-2" 
+              style="text-align-last: center;"
+              v-if="dailyData==true"
             >
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <h3>오늘의 보고서를 확인하시려면<br><span style="color: #FEA601">보고서 보기</span>를 클릭하세요!</h3>
+            </v-card-text>
+            <v-card-text 
+              class="modalFont my-2" 
+              style="text-align-last: center;"
+              v-if="dailyData==false"
+            >
+              <h3>어르신께서 오늘의 기능을<br>사용하지 않으셨네요<span style="color: black">😲</span><br><span style="color: #FC5355">다른 날짜</span>를 확인해 보세요~</h3>
             </v-card-text>
             <v-card-actions>
+              <v-spacer></v-spacer>
               <v-btn
-                text
-                color="secondary"
-                @click="selectedOpen = false"
+                class="modalFont"
+                v-if="dailyData==true"
+                color="#FEA601"
+                dark
+                block
+                @click="goDailyReport"
               >
-                Cancel
+                보고서 보기
+              </v-btn>
+              <v-btn
+                class="modalFont"
+                v-if="dailyData==false"
+                color="#FC5355"
+                text
+                @click="goBack"
+              >
+                돌아가기
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-menu> -->
+        </v-dialog>
+
       </v-sheet>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import axios from '@/service/axios.service.js';
 export default {
   name: "Calendar",
- data() {
+  data() {
     return{ 
       focus: '',
       type: 'month',
@@ -142,13 +121,11 @@ export default {
         week: 'Week',
         day: 'Day',
       },
-      load: false
-      // selectedEvent: {},
-      // selectedElement: null,
-      // selectedOpen: false,
-      // events: [],
-      // colors: ['orange'],
-      // names: ['Meeting'],
+      load: false,
+      todaydate: '',
+      dialog: false,
+      reportData1: '',
+      reportData2: '',
       }
     },
     mounted () {
@@ -158,22 +135,50 @@ export default {
     computed: {
       title : function () {
         return this.$refs.calendar.title;
+      },
+      dailyData :  function () {
+        return (this.reportData1 === 'success') || (this.reportData2 === 'success');
       }
     },
     methods: {
       viewDay ({ date }) {
         this.focus = date
-        this.type = 'day'
-        this.$router.push({
-            name: 'BogoItdaDaily',
-            query: {
-              date: date,
-          },
-        })
+        this.dialog = true
+        this.todaydate = date
+
+        // 체조, 퀴즈
+        axios
+          .get(`/report/daily`, {
+            params: {
+              reportDate  : date,
+              userId : '1',
+            }
+          })
+          .then((response) => {
+            console.log(response);
+            this.reportData1 = response.data
+            
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        // 사진
+        axios
+          .get(`/files/daily`, {
+            params: {
+              fileDate : date,
+              userId : '1',
+            }
+          })
+          .then((response) => {
+            console.log(response);
+            this.reportData2 = response.data
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       },
-      // getEventColor (event) {
-      //   return event.color
-      // },
       setToday () {
         this.focus = ''
       },
@@ -183,53 +188,17 @@ export default {
       next () {
         this.$refs.calendar.next()
       },
-      // showEvent ({ nativeEvent, event }) {
-      //   const open = () => {
-      //     this.selectedEvent = event
-      //     this.selectedElement = nativeEvent.target
-      //     setTimeout(() => {
-      //       this.selectedOpen = true
-      //     }, 10)
-      //   }
-
-      //   if (this.selectedOpen) {
-      //     this.selectedOpen = false
-      //     setTimeout(open, 10)
-      //   } else {
-      //     open()
-      //   }
-
-      //   nativeEvent.stopPropagation()
-      // },
-      // updateRange ({ start, end }) {
-      //   const events = []
-
-      //   const min = new Date(${start.date}T00:00:00)
-      //   const max = new Date(${end.date}T23:59:59)
-      //   const days = (max.getTime() - min.getTime()) / 86400000
-      //   const eventCount = this.rnd(days, days + 20)
-
-      //   for (let i = 0; i < eventCount; i++) {
-      //     const allDay = this.rnd(0, 3) === 0
-      //     const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-      //     const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-      //     const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-      //     const second = new Date(first.getTime() + secondTimestamp)
-
-      //     events.push({
-      //       name: this.names[this.rnd(0, this.names.length - 1)],
-      //       start: first,
-      //       end: second,
-      //       color: this.colors[this.rnd(0, this.colors.length - 1)],
-      //       timed: !allDay,
-      //     })
-      //   }
-
-      //   this.events = events
-      // },
-      // rnd (a, b) {
-      //   return Math.floor((b - a + 1) * Math.random()) + a
-      // },
+      goBack() {
+        this.dialog = false
+      },
+      goDailyReport() {
+        this.$router.push({
+            name: 'BogoItdaDaily',
+            query: {
+              date: this.todaydate,
+          },
+        })
+      },
     },
 }
 </script>
@@ -237,5 +206,14 @@ export default {
 <style>
   .theme--light.v-btn.v-btn--disabled.v-btn--has-bg {
     background-color: rgba(0, 0, 0, 0) !important;
+  }
+  @font-face {
+    font-family: 'ELAND_Choice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  .modalFont {
+    font-family: 'ELAND_Choice_M';
   }
 </style>
