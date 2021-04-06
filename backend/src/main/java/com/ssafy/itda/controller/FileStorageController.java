@@ -116,7 +116,6 @@ public class FileStorageController {
 		}
 		return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
     }
-		
 
 	@PostMapping("/upload")
 	public String upload(@RequestPart MultipartFile file) throws Exception {

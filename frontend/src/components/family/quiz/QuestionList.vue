@@ -62,6 +62,7 @@ export default {
           adminId: adminId
         }
       }).then((res) => {
+        console.log(res);
         for(let i = 0; i < res.data.length; i++)
           this.question.push({
             Id: res.data[i].questionId,

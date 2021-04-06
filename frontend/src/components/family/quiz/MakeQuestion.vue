@@ -193,7 +193,8 @@ export default {
           console.log(error);
         })
       }
-      axios.post('/qna', {
+      
+      axios.post('http://localhost:8000/itda/qna', {
           userId: Number(userId),
           adminId: Number(adminId),
           questionContent: this.name,

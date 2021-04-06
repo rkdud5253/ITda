@@ -57,7 +57,7 @@ public class QuestionController {
 			@RequestParam("question4Id") @ApiParam(value = "4번 문제 ID", required = true) int question4Id,
 			@RequestParam("question5Id") @ApiParam(value = "5번 문제 ID", required = true) int question5Id)
 			throws Exception {
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("question1Id", question1Id);
 		map.put("question2Id", question2Id);
 		map.put("question3Id", question3Id);
@@ -81,7 +81,7 @@ public class QuestionController {
 			@RequestParam("adminId") @ApiParam(value = "가족 ID", required = true) int adminId) throws Exception {
 		logger.info("getQuestionList - 호출");
 
-		return new ResponseEntity<>(questionService.getQuestionList(adminId), HttpStatus.OK);
+		return new ResponseEntity<>(questionService.getQuestionListByAdminId(adminId), HttpStatus.OK);
 	}
 
 	// @ApiOperation(value = "문제 제출", notes = "문제 DB에 등록", response =

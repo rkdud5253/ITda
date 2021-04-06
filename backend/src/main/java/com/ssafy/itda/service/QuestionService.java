@@ -31,7 +31,7 @@ public class QuestionService {
 	}
 
 	public List<Question> getQuestionListByAdminId(int adminId) throws Exception {
-		return sqlSession.getMapper(QuestionMapper.class).getQuestionList(adminId);
+		return sqlSession.getMapper(QuestionMapper.class).getQuestionListByAdminId(adminId);
 	}
 
 	public List<Question> getQuestionResult(Map<String, Object> map) throws Exception {
