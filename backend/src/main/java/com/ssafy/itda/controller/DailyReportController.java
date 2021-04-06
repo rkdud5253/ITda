@@ -53,7 +53,21 @@ public class DailyReportController {
 	    return new ResponseEntity<DailyReport>(dailyReportService.getReport(map), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정확도를 반환한다.", response = DailyReport.class)
+	@ApiOperation(value = "데일리 레포트 보기", notes = "오늘의 데일리 레포트 실행 여부를 반환한다.", response = DailyReport.class)
+	@GetMapping("/daily")
+	public ResponseEntity<String> getReportCnt(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
+			@PathVariable("reportDate") @ApiParam(value = "날짜", required = true) String reportDate) throws Exception {
+		logger.info("getReportCnt - 호출");
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("reportDate", reportDate);
+		if(dailyReportService.getReportCnt(map) == 0) {
+			return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "체조 영상 정확도", notes = "오늘의 체조 영상 정보를 입력한다.", response = DailyReport.class)
 	@PutMapping("/exercise")
 	public ResponseEntity<String> updateAccuracy(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) DailyReport report) throws Exception {
 	    logger.info("updateAccuracy - 호출");
@@ -63,7 +77,7 @@ public class DailyReportController {
 	    return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "퀴즈 결과 정보", notes = "오늘의 퀴즈 결과 정보를 반환한다.", response = DailyReport.class)
+	@ApiOperation(value = "퀴즈 결과 정보", notes = "오늘의 퀴즈 결과 정보를 입력한다.", response = DailyReport.class)
 	@PutMapping("/qna")
 	public ResponseEntity<String> updateQnAResult(@RequestBody @ApiParam(value = "데일리 보고서 정보", required = true) DailyReport report) throws Exception {
 	    logger.info("updateQnAResult - 호출");
@@ -72,4 +86,6 @@ public class DailyReportController {
 	    }
 	    return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
+	
+	
 }

@@ -124,4 +124,28 @@ public class FileStorageController {
 		map.put("use", EXERCISE);
 	    return new ResponseEntity<List<FileStorage>>(fileStorageService.getFile(map), HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "오늘의 사진파일 보기", notes = "오늘의 사진파일 저장 여부를 반환한다.", response = FileStorage.class)
+	@GetMapping("/daily")
+	public ResponseEntity<String> getFileCnt(@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
+			@RequestParam("fileDate") @ApiParam(value = "날짜", required = true) String fileDate) throws Exception {
+		logger.info("getFileCnt - 호출");
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("fileDate", fileDate);
+		map.put("type", IMAGE);
+		map.put("use", EXERCISE);
+		if(fileStorageService.getFileCnt(map) == 0) {
+			map.put("type", VIDEO);
+			map.put("use", DIARY);
+			if(fileStorageService.getFileCnt(map) == 0) {
+				map.put("type", IMAGE);
+				map.put("use", SAMPLE);
+				if(fileStorageService.getFileCnt(map) == 0) {
+				    return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+				}
+			}
+		}
+	    return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
 }

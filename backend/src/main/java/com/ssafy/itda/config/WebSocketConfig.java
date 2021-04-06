@@ -22,6 +22,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
         registry.addEndpoint("/python");
-        registry.addEndpoint("/").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/vuejs").setAllowedOriginPatterns("*").withSockJS();
     }
 }
