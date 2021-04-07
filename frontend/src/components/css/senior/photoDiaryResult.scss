@@ -3,18 +3,27 @@
 
 .photoDiaryResult {
   width: 100%;
+  height: 100vh;
+  position: relative;
   text-align: center;
 
+  .wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .titleBox {
-    @include titleBox(1320px, 75px)
+    @include titleBox($primary-yellow2, $basic-black, 1320px, 75px);
   }
 
   .nari {
-    @include nari
+    @include nari;
   }
 
   .title {
-    @include title(55px, 55px)
+    @include title(55px, 55px);
   }
 
   .seniorPhoto {
@@ -30,10 +39,10 @@
   }
 
   .line1 {
-    @include line(770px)
+    @include line(770px);
   }
 
   .line2 {
-    @include line(690px)
+    @include line(690px);
   }
 }

@@ -1,6 +1,6 @@
 @import "../color.scss";
 
-.menuLoading {
+@mixin menuLoading($left) {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,16 +19,16 @@
       width: 1020px;
       height: 240px;
     }
+
+    .speech {
+      font-size: 55px;
+      line-height: 90px;
+    
+      position: absolute;
+      top: 48px;
+      left: $left;
+      text-align: center;
+      white-space: pre-line;
+    }
   }
-}
-
-@mixin speech($left) {
-  font-size: 55px;
-  line-height: 90px;
-
-  position: absolute;
-  top: 48px;
-  left: $left;
-  text-align: center;
-  white-space: pre-line;
 }
