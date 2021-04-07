@@ -33,45 +33,43 @@ export default {
       ment: '님, 나리를 불러서 원하는 기능을 실행하세요!'
     }
   },
-  mounted() {
+  created() {
     this.$store.commit("TTS", this.username + "님 나리를 불러서 원하는 기능을 실행하세요");
+    this.connect();
   },
   methods:{
-    goDailyExercise(){
-      this.$router.go(this.$router.push({name: 'DailyExerciseLoading'}))
-    },
     connect() {
         const serverURL = "http://localhost:8000/itda/vuejs";
         
-        let recordSocket = new SockJS(serverURL);
-        this.recordStompClient = Stomp.over(recordSocket);
-        this.recordStompClient.debug = () => {};
-        this.recordStompClient.connect(
+        let Socket = new SockJS(serverURL);
+        this.StompClient = Stomp.over(Socket);
+        this.StompClient.debug = () => {};
+        this.StompClient.connect(
             {},
             (frame) => {
               // 소켓 연결 성공
               this.connected = true;
               frame;
               
-              this.recordStompClient.subscribe(
-                  "/socket/{" + this.$store.state.ipHash + "}/send",
+              this.StompClient.subscribe(
+                  "/socket/" + this.$store.state.ipHash + "/send",
                   (res) => {
                     console.log(res.body);
-                    // 어르신 이름이 제대로 들어왔다면
-                    // AccessCheck에서 확인 후,
-                    // AccessCheck 제거 및 userAdmin 생성
-                    // this.$store.state.userId = 요거;
-                    // this.$store.state.adminId = 요거;
-                    // 그리고 SeniorMain으로 이동
+                    
                     if(res.body == "오늘의 체조")
-                      this.$router.go(this.$router.push({name: 'BogoItdaMonth'}));
+                      this.$router.push({name: 'DailyExerciseLoading'});
+                      
+                    if(res.body == "가족 오락관")
+                      this.$router.push({name: 'FamilyQuizLoading'});
+                      
+                    if(res.body == "사진 일기장")
+                      this.$router.push({name: 'PhotoDiaryLoading'});
                   }
               );
             },
             (error) => {
               // 소켓 연결 실패
               console.log("소켓 연결 실패", error);
-              this.connected = false;
             }
         );
     },

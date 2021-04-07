@@ -153,7 +153,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/service/axios.service.js";
 
 export default {
   name: "MakeQuestion",
