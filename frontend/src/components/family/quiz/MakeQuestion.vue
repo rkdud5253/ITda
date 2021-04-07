@@ -205,28 +205,28 @@ export default {
       this.$router.go(this.$router.push({name: 'QuizItdaList'}))
     },
     validate () {
-      const adminId = this.$store.state.adminId;
-      const userId = this.$store.state.userId;
-      
-      // 여기 해야됌 axios.post
-
-      axios.post('/qna', {
-          userId: Number(userId),
-          adminId: Number(adminId),
-          questionContent: this.name,
-          questionImageUrl: this.imageUrl,
-          example1 : this.example1,
-          example2 : this.example2,
-          example3 : this.example3,
-          example4 : this.example4,
-          answer: this.select,
-      }).then((res) => {
-        console.log(res);
-      }).catch(error => {
-        console.log(error);
-      });
-
-      this.dialog = true
+      if(this.$refs.form.validate()) {
+        const adminId = this.$store.state.adminId;
+        const userId = this.$store.state.userId;
+        
+        axios.post('http://localhost:8000/itda/qna', {
+            userId: Number(userId),
+            adminId: Number(adminId),
+            questionContent: this.name,
+            questionImageUrl: this.imageUrl,
+            example1 : this.example1,
+            example2 : this.example2,
+            example3 : this.example3,
+            example4 : this.example4,
+            answer: this.select,
+        }).then((res) => {
+          console.log(res);
+        }).catch(error => {
+          console.log(error);
+        });
+  
+        this.dialog = true
+      }
     },
     reset () {
       this.$refs.form.reset()
