@@ -113,6 +113,36 @@
       </v-btn>
     </div>
 
+    <!-- 모달창 -->
+    <v-dialog
+      v-model="dialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>수정 하시겠습니까?</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="modifyFinish"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-card>
   </v-form>
 
@@ -164,6 +194,7 @@ export default {
         4,
       ],
       checkbox: false,
+      dialog: false,
   }),
   created(){
     this.getQuiz();
@@ -207,15 +238,16 @@ export default {
         console.log(error);
       });
       
-      alert("문제 수정이 완료되었습니다!");
-      // this.$router.go(this.$router.push({name: 'QuizItdaList'}))
-      this.$router.push({path: `/family/quiz/detail/${Number(this.$route.params.questionId)}`})
+      this.dialog = true
     },
     reset () {
       this.$refs.form.reset()
     },
     resetValidation () {
       this.$refs.form.resetValidation()
+    },
+    modifyFinish() {
+      this.$router.push({path: `/family/quiz/detail/${Number(this.$route.params.questionId)}`})
     },
   },
 }

@@ -18,11 +18,12 @@
           class="my-5"
         >
           <v-btn
+            class="mx-2"
             color="#FEA601"
             dark
             @click="goQuizList"
           >
-            문제목록
+            목록보기
           </v-btn>
         </v-col>
       </v-row>

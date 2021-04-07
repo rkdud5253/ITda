@@ -122,7 +122,6 @@ export default {
       axios
         .get(`/files/exercise`, {
           params: {
-            userId : this.$store.state.userId,
             fileDate : this.$route.query.date,
           }
         })
