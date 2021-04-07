@@ -54,7 +54,7 @@ public class FileStorageController {
 			@RequestBody @ApiParam(value = "체조 사진파일 정보", required = true) FileStorage file) throws Exception {
 		logger.info("saveExerciseImage - 호출");
 		file.setFileUse(EXERCISE);
-		if (fileStorageService.saveFile(file)) {
+		if (fileStorageService.saveSampleFile(file)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
@@ -76,27 +76,23 @@ public class FileStorageController {
 	@ApiOperation(value = "일기 사진샘플 보기", notes = "오늘의 일기 사진샘플 정보를 반환한다.", response = FileStorage.class)
 	@GetMapping
 	public ResponseEntity<List<FileStorage>> getSampleImage(
-			@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
 			@RequestParam("fileDate") @ApiParam(value = "날짜", required = true) String fileDate) throws Exception {
 		logger.info("getSampleImage - 호출");
 		Map<String, Object> map = new HashMap<>();
-		map.put("userId", userId);
 		map.put("fileDate", fileDate);
 		map.put("use", SAMPLE);
-		return new ResponseEntity<List<FileStorage>>(fileStorageService.getFile(map), HttpStatus.OK);
+		return new ResponseEntity<List<FileStorage>>(fileStorageService.getSampleFile(map), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "체조 사진파일 보기", notes = "오늘의 체조 사진파일 정보를 반환한다.", response = FileStorage.class)
+	@ApiOperation(value = "체조 사진샘플 보기", notes = "오늘의 체조 사진샘플 정보를 반환한다.", response = FileStorage.class)
 	@GetMapping("/exercise")
 	public ResponseEntity<List<FileStorage>> getExerciseImage(
-			@RequestParam("userId") @ApiParam(value = "어르신 ID.", required = true) int userId,
 			@RequestParam("fileDate") @ApiParam(value = "날짜", required = true) String fileDate) throws Exception {
 		logger.info("getExerciseImage - 호출");
 		Map<String, Object> map = new HashMap<>();
-		map.put("userId", userId);
 		map.put("fileDate", fileDate);
 		map.put("use", EXERCISE);
-		return new ResponseEntity<List<FileStorage>>(fileStorageService.getFile(map), HttpStatus.OK);
+		return new ResponseEntity<List<FileStorage>>(fileStorageService.getSampleFile(map), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "오늘의 사진파일 보기", notes = "오늘의 사진파일 저장 여부를 반환한다.", response = FileStorage.class)
@@ -116,16 +112,4 @@ public class FileStorageController {
 		}
 		return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
     }
-
-	@PostMapping("/upload")
-	public String upload(@RequestPart MultipartFile file) throws Exception {
-
-		String originalFileName = file.getOriginalFilename();
-		// File dest = new File("/home/ubuntu/backend/FileStorage/" + originalFileName);
-		File dest = new File("/home/ubuntu/backend/fileStorage/" + originalFileName);
-		file.transferTo(dest);
-		// TODO
-		System.out.println(dest);
-		return SUCCESS;
-	}
 }

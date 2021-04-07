@@ -6,9 +6,7 @@
   text-align: center;
 
   .titleBox {
-    @include titleBox(1320px, 75px);
-    background-color: $secondary-blue;
-    color: $basic-white;
+    @include titleBox($secondary-blue, $basic-white, 1320px, 99px);
   }
 
   .nari {

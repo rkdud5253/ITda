@@ -13,10 +13,12 @@
 </template>
 
 <script>
-
+import Stomp from "webstomp-client";
+import SockJS from "sockjs-client";
 import axios from "@/service/axios.service.js";
+import Sha256 from "@/lib/sha256.js"
 import '@/components/css/senior/seniorLogin.scss';
-import TitleBox from '@/components/senior/TitleBox.vue';
+import TitleBox from '@/components/senior/common/TitleBox.vue';
 export default {
   name: "SeniorLogin",
   components: {
@@ -27,10 +29,56 @@ export default {
       seniorName : ""
     }
   },
-  mounted() {
+  created() {
     this.$store.commit("TTS", "잇다에 오신 걸 환영합니다. 입장하시려면 성함을 말씀해주세요.");
+    this.connect();
   },
-  methods:{
+  methods:{ 
+    getIpAddress(){
+      return fetch('https://api.ipify.org?format=json')
+      .then(x => x.json())
+      .then(({ ip }) => {
+          console.log(Sha256(ip));
+          this.ip = Sha256(ip);
+      });
+    },
+    connect() {
+        const serverURL = "http://localhost:8000/itda/vuejs";
+        
+        let recordSocket = new SockJS(serverURL);
+        this.recordStompClient = Stomp.over(recordSocket);
+        this.recordStompClient.debug = () => {};
+        this.recordStompClient.connect(
+            {},
+            (frame) => {
+              // 소켓 연결 성공
+              this.connected = true;
+              frame;
+              
+              this.getIpAddress();
+              
+              this.recordStompClient.subscribe(
+                  "/socket/{" + this.$store.state.ipHash + "}/send",
+                  (res) => {
+                    console.log(res.body);
+                    // 어르신 이름이 제대로 들어왔다면
+                    // AccessCheck에서 확인 후,
+                    // AccessCheck 제거 및 userAdmin 생성
+                    // this.$store.state.userId = 요거;
+                    // this.$store.state.adminId = 요거;
+                    // 그리고 SeniorMain으로 이동
+                    if(res.body == "오늘의 체조")
+                      this.$router.go(this.$router.push({name: 'BogoItdaMonth'}));
+                  }
+              );
+            },
+            (error) => {
+              // 소켓 연결 실패
+              console.log("소켓 연결 실패", error);
+              this.connected = false;
+            }
+        );
+    },
     login(){
       axios.get("/AccessCheck", {
         params: {
