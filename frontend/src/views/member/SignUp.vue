@@ -135,8 +135,7 @@ export default {
           }).then((res2) => {
             if(res2.data == "success"){
             // 회원 가입이 완료되었습니다
-              alert("회원 가입이 완료되었습니다!");
-              this.$router.go(this.$router.push({name: 'Main'}))
+              this.$router.push({name: 'Main'})
             }
             else 
               // 회원 가입이 실패하였습니다

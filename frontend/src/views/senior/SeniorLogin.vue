@@ -125,7 +125,6 @@ export default {
           }).catch(error => {
             console.log(error); 
           })
-
         }
         
         // 존재하지 않으면 확인 부탁드린다고

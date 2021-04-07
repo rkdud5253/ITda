@@ -16,13 +16,6 @@
 		where userId=#{userId}
 	</select>
 
-	<select id="getQuestionListByAdminId" parameterType="int"
-			resultType="Question">
-		select *
-		from question
-		where adminId=#{adminId}
-	</select>
-
 	<select id="getQuestionResult" parameterType="Map"
 		resultType="Question">
 		select *
