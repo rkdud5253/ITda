@@ -14,6 +14,7 @@
 <script>
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
+import axios from '@/service/axios.service.js'
 import '@/components/css/senior/seniorMain.scss';
 import TitleBox from '@/components/senior/common/TitleBox.vue';
 import DailyExerciseMenu from '@/components/senior/main/DailyExerciseMenu.vue';
@@ -34,8 +35,17 @@ export default {
     }
   },
   created() {
-    this.$store.commit("TTS", this.username + "님 나리를 불러서 원하는 기능을 실행하세요");
     this.connect();
+    axios.get("/user", {
+      params: {
+        userId : this.$store.state.userId
+      }
+    }).then((res) => {
+      this.username = res.data.userName;
+    })
+  },
+  mounted() {
+    this.$store.commit("TTS", this.username + "님 나리를 불러서 원하는 기능을 실행하세요");
   },
   methods:{
     connect() {
@@ -48,7 +58,6 @@ export default {
             {},
             (frame) => {
               // 소켓 연결 성공
-              this.connected = true;
               frame;
               
               this.StompClient.subscribe(

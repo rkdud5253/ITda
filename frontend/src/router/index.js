@@ -10,6 +10,7 @@ import QuizItdaList from '@/views/family/QuizItdaList.vue'
 import QuizItdaMakeQuestion from '@/views/family/QuizItdaMakeQuestion.vue'
 import QuizItdaModifyQuestion from '@/views/family/QuizItdaModifyQuestion.vue'
 import QuizItdaQuestion from '@/views/family/QuizItdaQuestion.vue'
+import Wait from "@/views/senior/Wait.vue";
 import Splash from "@/views/senior/Splash.vue";
 import SeniorMain from "@/views/senior/SeniorMain.vue";
 import SeniorLogin from "@/views/senior/SeniorLogin.vue";
@@ -22,6 +23,7 @@ import PhotoDiaryResult from "@/views/senior/photo/PhotoDiaryResult.vue";
 import FamilyQuizLoading from "@/views/senior/quiz/FamilyQuizLoading.vue";
 import FamilyQuiz from "@/views/senior/quiz/FamilyQuiz.vue";
 import FamilyQuizResult from "@/views/senior/quiz/FamilyQuizResult.vue";
+import NotFound from "@/views/NotFound.vue";
 
 Vue.use(VueRouter)
 
@@ -104,6 +106,14 @@ const routes = [
     component: QuizItdaQuestion,
     meta: {
       title: '퀴즈잇다 | 문제보기',
+    },
+  },
+  {
+    path: '/senior/wait',
+    name: 'Wait',
+    component: Wait,
+    meta: {
+      title: '잇다 :: 대기화면',
     },
   },
   {
@@ -200,6 +210,14 @@ const routes = [
     component: FamilyQuizResult,
     meta: {
       title: '잇다 | 가족 오락관',
+    },
+  },
+  {
+    path: '*',
+    name:'not-found',
+    component: NotFound,
+    meta: {
+      title: '알 수 없는 페이지',
     },
   },
 ]

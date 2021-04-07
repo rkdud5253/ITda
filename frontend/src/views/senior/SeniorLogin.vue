@@ -16,7 +16,6 @@
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
 import axios from "@/service/axios.service.js";
-import Sha256 from "@/lib/sha256.js"
 import '@/components/css/senior/seniorLogin.scss';
 import TitleBox from '@/components/senior/common/TitleBox.vue';
 export default {
@@ -30,20 +29,13 @@ export default {
     }
   },
   created() {
-    if(this.$store.state.userId > 0) // 로그인되어 있을 때,
-      this.$router.push({name: 'SeniorMain'});
-    this.$store.commit("TTS", "잇다에 오신 걸 환영합니다. 입장하시려면 성함을 말씀해주세요.");
     this.connect();
   },
+  mounted() {
+    this.$store.commit("TTS", "잇다에 오신 걸 환영합니다. 입장하시려면 성함을 말씀해주세요.");
+  },
   methods:{ 
-    getIpAddress(){
-      return fetch('https://api.ipify.org?format=json')
-      .then(x => x.json())
-      .then(({ ip }) => {
-          console.log(Sha256(ip));
-          this.$store.commit("setIpHash",Sha256(ip));
-      });
-    },
+    
     connect() {
         const serverURL = "http://localhost:8000/itda/vuejs";
         
@@ -54,10 +46,7 @@ export default {
             {},
             (frame) => {
               // 소켓 연결 성공
-              this.connected = true;
               frame;
-              
-              this.getIpAddress();
               
               this.StompClient.subscribe(
                   "/socket/" + this.$store.state.ipHash + "/send",
