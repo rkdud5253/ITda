@@ -150,11 +150,11 @@ export default {
       ],
       example3: '',
       example3Rules: [
-        v => (v && v.length <= 20) || '객관식 답안은20자 미만으로 작성해 주세요',
+        v => (v.length <= 20) || '객관식 답안은20자 미만으로 작성해 주세요',
       ],
       example4: '',
       example4Rules: [
-        v => (v && v.length <= 20) || '객관식 답안은 20자 미만으로 작성해 주세요',
+        v => (v.length <= 20) || '객관식 답안은 20자 미만으로 작성해 주세요',
       ],
       select: null,
       items: [
@@ -208,7 +208,8 @@ export default {
       });
       
       alert("문제 수정이 완료되었습니다!");
-      this.$router.go(this.$router.push({name: 'QuizItdaList'}))
+      // this.$router.go(this.$router.push({name: 'QuizItdaList'}))
+      this.$router.push({path: `/family/quiz/detail/${Number(this.$route.params.questionId)}`})
     },
     reset () {
       this.$refs.form.reset()

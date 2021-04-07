@@ -27,10 +27,10 @@
             </v-col>
           </v-row>
           <v-row class="question-num">
-            <v-col>
+            <v-col v-if="this.example3 != ''">
               <h3><v-icon color="black">mdi-numeric-3-box</v-icon>{{example3}}</h3>
             </v-col>
-            <v-col>
+            <v-col v-if="this.example4 != ''">
               <h3><v-icon color="black">mdi-numeric-4-box</v-icon>{{example4}}</h3>
             </v-col>
           </v-row>

@@ -152,11 +152,11 @@ export default {
       ],
       example3: '',
       example3Rules: [
-        v => (v && v.length <= 20) || '객관식 답안은20자 미만으로 작성해 주세요',
+        v => (v.length <= 20) || '객관식 답안은20자 미만으로 작성해 주세요',
       ],
       example4: '',
       example4Rules: [
-        v => (v && v.length <= 20) || '객관식 답안은 20자 미만으로 작성해 주세요',
+        v => (v.length <= 20) || '객관식 답안은 20자 미만으로 작성해 주세요',
       ],
       select: null,
       items: [

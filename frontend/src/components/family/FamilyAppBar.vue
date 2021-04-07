@@ -174,6 +174,7 @@
         <v-list-item
           link
           v-if="loginStateResult==true"
+          @click="logout"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-off</v-icon>
@@ -216,6 +217,36 @@
       </v-list>
 
     </v-navigation-drawer>
+
+    <!-- 모달창 -->
+    <v-dialog
+      v-model="dialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>연결된 어르신이 없습니다.<br>어르신 등록을 통해 연결해 주세요.</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="myPage"
+          >
+            등록하기
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app-bar>
 </template>
 
@@ -225,6 +256,7 @@ export default {
   data () {
     return {
       drawer: null,
+      dialog: false,
     }
   },
   computed: {
@@ -245,8 +277,7 @@ export default {
       if (this.$store.state.adminId >= 1) {
         if (this.$store.state.userId == 0) {
           console.log(this.$store.state.userId)
-          alert("등록된 어르신이 없습니다. 먼저 어르신을 등록해 연결해주세요.")
-          this.$router.go(this.$router.push({ name: 'MyPage' }))
+          this.dialog = true
         } else {
           this.$router.go(this.$router.push({ name: 'BogoItdaMonth' }))
         }
@@ -257,8 +288,7 @@ export default {
     goQuiz() {
       if (this.$store.state.adminId >= 1) {
         if (this.$store.state.userId == 0) {
-          alert("등록된 어르신이 없습니다. 먼저 어르신을 등록해 연결해주세요.")
-          this.$router.go(this.$router.push({ name: 'MyPage' }))
+          this.dialog = true
         } else {
           this.$router.go(this.$router.push({ name: 'QuizItdaList' }))
         }
@@ -278,7 +308,6 @@ export default {
     logout() {
       // this.$store.state.adminId == 0
       localStorage.clear()
-      // alert("로그아웃 되었습니다.")
       this.$router.go(this.$router.push({name: 'Main'}))
     },
   },
