@@ -13,7 +13,6 @@ public class FileStorage {
 	@NotNull
 	@ApiModelProperty(value = "파일 ID")
 	private int fileId;
-	@NotNull
 	@ApiModelProperty(value = "어르신 ID")
 	private int userId;
 	@NotNull
