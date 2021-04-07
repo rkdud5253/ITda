@@ -97,7 +97,7 @@ export default {
           }).then((res2) => {
             console.log(res2)
             this.$store.commit("adminLogin", res2.data.adminId);
-            alert("로그인에 성공하였습니다!");
+            // alert("로그인에 성공하였습니다!");
             this.getUserId()
             this.$router.push({name: 'Main'});
           }).catch(error => {

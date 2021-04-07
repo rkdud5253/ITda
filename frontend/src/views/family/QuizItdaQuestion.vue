@@ -20,9 +20,9 @@
           <v-btn
             color="#FEA601"
             dark
-            @click="$router.go(-1)"
+            @click="goQuizList"
           >
-            뒤로
+            문제목록
           </v-btn>
         </v-col>
       </v-row>
@@ -45,6 +45,11 @@ export default {
     FamilyAppBar,
     TopButton,
     Question,
+  },
+  methods: {
+    goQuizList() {
+      this.$router.go(this.$router.push({name: 'QuizItdaList'}))
+    },
   },
 }
 </script>
