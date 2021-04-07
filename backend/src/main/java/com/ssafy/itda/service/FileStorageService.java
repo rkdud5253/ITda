@@ -24,6 +24,10 @@ public class FileStorageService {
 	public boolean saveFile(FileStorage file) throws Exception {
 		return sqlSession.getMapper(FileStorageMapper.class).saveFile(file) == 1;
 	}
+	
+	public boolean saveSampleFile(FileStorage file) throws Exception {
+		return sqlSession.getMapper(FileStorageMapper.class).saveSampleFile(file) == 1;
+	}
 
 	public List<FileStorage> getFile(Map<String, Object> map) throws Exception {
 		FileStorage file = new FileStorage();
@@ -31,6 +35,13 @@ public class FileStorageService {
 		file.setUserId((int) map.get("userId"));
 		file.setFileUse((String) map.get("use"));
 		return sqlSession.getMapper(FileStorageMapper.class).getFile(file);
+	}
+	
+	public List<FileStorage> getSampleFile(Map<String, Object> map) throws Exception {
+		FileStorage file = new FileStorage();
+		file.setFileDate((String) map.get("fileDate"));
+		file.setFileUse((String) map.get("use"));
+		return sqlSession.getMapper(FileStorageMapper.class).getSampleFile(file);
 	}
 
 	public int getFileCnt(Map<String, Object> map) throws Exception {
