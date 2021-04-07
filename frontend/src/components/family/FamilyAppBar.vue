@@ -278,7 +278,7 @@ export default {
     logout() {
       // this.$store.state.adminId == 0
       localStorage.clear()
-      alert("로그아웃 되었습니다.")
+      // alert("로그아웃 되었습니다.")
       this.$router.go(this.$router.push({name: 'Main'}))
     },
   },
