@@ -30,6 +30,8 @@ export default {
     }
   },
   created() {
+    if(this.$store.state.userId > 0) // 로그인되어 있을 때,
+      this.$router.push({name: 'SeniorMain'});
     this.$store.commit("TTS", "잇다에 오신 걸 환영합니다. 입장하시려면 성함을 말씀해주세요.");
     this.connect();
   },
@@ -39,16 +41,16 @@ export default {
       .then(x => x.json())
       .then(({ ip }) => {
           console.log(Sha256(ip));
-          this.ip = Sha256(ip);
+          this.$store.commit("setIpHash",Sha256(ip));
       });
     },
     connect() {
         const serverURL = "http://localhost:8000/itda/vuejs";
         
-        let recordSocket = new SockJS(serverURL);
-        this.recordStompClient = Stomp.over(recordSocket);
-        this.recordStompClient.debug = () => {};
-        this.recordStompClient.connect(
+        let Socket = new SockJS(serverURL);
+        this.StompClient = Stomp.over(Socket);
+        this.StompClient.debug = () => {};
+        this.StompClient.connect(
             {},
             (frame) => {
               // 소켓 연결 성공
@@ -57,47 +59,50 @@ export default {
               
               this.getIpAddress();
               
-              this.recordStompClient.subscribe(
-                  "/socket/{" + this.$store.state.ipHash + "}/send",
+              this.StompClient.subscribe(
+                  "/socket/" + this.$store.state.ipHash + "/send",
                   (res) => {
                     console.log(res.body);
-                    // 어르신 이름이 제대로 들어왔다면
-                    // AccessCheck에서 확인 후,
-                    // AccessCheck 제거 및 userAdmin 생성
-                    // this.$store.state.userId = 요거;
-                    // this.$store.state.adminId = 요거;
-                    // 그리고 SeniorMain으로 이동
-                    if(res.body == "오늘의 체조")
-                      this.$router.go(this.$router.push({name: 'BogoItdaMonth'}));
+
+                    let name = res.body;
+
+                    if(name != "")
+                      this.login(name);
                   }
               );
             },
             (error) => {
               // 소켓 연결 실패
               console.log("소켓 연결 실패", error);
-              this.connected = false;
             }
         );
     },
-    login(){
+    login(name){
+      // 어르신 이름이 제대로 들어왔다면
+      // AccessCheck에서 확인 후,
+      // AccessCheck 제거 및 userAdmin 생성
+      // this.$store.state.userId = 요거;
+      // this.$store.state.adminId = 요거;
+      // 그리고 SeniorMain으로 이동
+
       axios.get("/AccessCheck", {
         params: {
-          userName:this.seniorName
+          userName:name
         }
       }).then((res) => {
         console.log(res.data);
         // 존재하면 로그인 절차를 밟고
-        if(res.data.userName == this.seniorName)
+        if(res.data.userName == name)
         {
           axios.get("/user/count", { 
           }).then((res2) => {
             const userId = res2.data + 1;
-            
+
             // 유저 정보 만들고
             // userAdmin 등록
             axios.post("/user",{
               userId : userId,
-              userName : this.seniorName
+              userName : name
             }).then(() => {
             }).catch(error => {
               console.log(error);
@@ -111,10 +116,14 @@ export default {
               console.log(error);
             })
 
+            this.$store.commit("userLogin", userId);
+            this.$store.commit("adminLogin", res.data.adminId);
+
             console.log("등록 완료");
             
+            this.$router.push({name: 'SeniorMain'});
           }).catch(error => {
-            console.log(error);
+            console.log(error); 
           })
 
         }
