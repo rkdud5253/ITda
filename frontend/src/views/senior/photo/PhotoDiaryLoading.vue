@@ -7,7 +7,7 @@
 
 <script>
 import '@/components/css/senior/photoDiary.scss';
-import MenuLoading from '@/components/senior/MenuLoading.vue';
+import MenuLoading from '@/components/senior/common/MenuLoading.vue';
 export default {
   name: "PhotoDiaryLoading",
   components: {

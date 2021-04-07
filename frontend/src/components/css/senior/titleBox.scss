@@ -1,7 +1,8 @@
 @import "../color.scss";
 
-@mixin titleBox($width, $margin-top) {
-  background:$primary-yellow2;
+@mixin titleBox($background-color, $color, $width, $margin-top) {
+  background-color: $background-color;
+  color: $color;
   width: $width;
   height: 120px;
   border-radius: 20px;

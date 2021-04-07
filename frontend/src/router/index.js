@@ -13,15 +13,15 @@ import QuizItdaQuestion from '@/views/family/QuizItdaQuestion.vue'
 import Splash from "@/views/senior/Splash.vue";
 import SeniorMain from "@/views/senior/SeniorMain.vue";
 import SeniorLogin from "@/views/senior/SeniorLogin.vue";
-import DailyExerciseLoading from "@/views/senior/DailyExerciseLoading.vue";
-import DailyExercise from "@/views/senior/DailyExercise.vue";
-import DailyExerciseResult from "@/views/senior/DailyExerciseResult.vue";
-import PhotoDiaryLoading from "@/views/senior/PhotoDiaryLoading.vue";
-import PhotoDiary from "@/views/senior/PhotoDiary.vue";
-import PhotoDiaryResult from "@/views/senior/PhotoDiaryResult.vue";
-import FamilyQuizLoading from "@/views/senior/FamilyQuizLoading.vue";
-import FamilyQuiz from "@/views/senior/FamilyQuiz.vue";
-import FamilyQuizResult from "@/views/senior/FamilyQuizResult.vue";
+import DailyExerciseLoading from "@/views/senior/exercise/DailyExerciseLoading.vue";
+import DailyExercise from "@/views/senior/exercise/DailyExercise.vue";
+import DailyExerciseResult from "@/views/senior/exercise/DailyExerciseResult.vue";
+import PhotoDiaryLoading from "@/views/senior/photo/PhotoDiaryLoading.vue";
+import PhotoDiary from "@/views/senior/photo/PhotoDiary.vue";
+import PhotoDiaryResult from "@/views/senior/photo/PhotoDiaryResult.vue";
+import FamilyQuizLoading from "@/views/senior/quiz/FamilyQuizLoading.vue";
+import FamilyQuiz from "@/views/senior/quiz/FamilyQuiz.vue";
+import FamilyQuizResult from "@/views/senior/quiz/FamilyQuizResult.vue";
 
 Vue.use(VueRouter)
 

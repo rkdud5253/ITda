@@ -1,17 +1,19 @@
 <template>
   <div class="seniorMain">
-    <TitleBox :title="username + ment" />
-    <div class="menuContainer">
-      <DailyExerciseMenu />
-      <PhotoDiaryMenu />
-      <FamilyGameMenu />
+    <div class="wrap">
+      <TitleBox :title="username + ment" />
+      <div class="menuContainer">
+        <DailyExerciseMenu />
+        <PhotoDiaryMenu />
+        <FamilyGameMenu />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import '@/components/css/senior/seniorMain.scss';
-import TitleBox from '@/components/senior/TitleBox.vue';
+import TitleBox from '@/components/senior/common/TitleBox.vue';
 import DailyExerciseMenu from '@/components/senior/main/DailyExerciseMenu.vue';
 import PhotoDiaryMenu from '@/components/senior/main/PhotoDiaryMenu.vue';
 import FamilyGameMenu from '@/components/senior/main/FamilyGameMenu.vue';

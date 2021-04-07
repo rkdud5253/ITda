@@ -11,11 +11,10 @@
   align-items: center;
 }
 
-@mixin menuButton($left, $color) {
+@mixin menuButton($color) {
   width: 280px;
   height: 80px;
   top: 80%;
-	left: $left;
 	transform: translate(-50%, -50%);
 
   background: $color;
@@ -23,7 +22,6 @@
   font-size: 48px;
   color: $basic-white;
 
-  display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -32,30 +30,31 @@
 
 .dailyExerciseMenu {
   .exerciseImage {
-    @include menuImage($secondary-red)
+    @include menuImage($secondary-red);
   }
 
   .exerciseButton {
-    @include menuButton(19%, $secondary-red)
+    @include menuButton($secondary-red);
   }
 }
 
 .photoDiaryMenu {
   .diaryImage {
-    @include menuImage($secondary-yellow)
+    @include menuImage($secondary-yellow);
+    margin: 0 110px;
   }
 
   .diaryButton {
-    @include menuButton(50%, $secondary-yellow)
+    @include menuButton($secondary-yellow);
   }
 }
 
 .familyGameMenu {
   .gameImage {
-    @include menuImage($secondary-blue)
+    @include menuImage($secondary-blue);
   }
 
   .gameButton {
-    @include menuButton(81%, $secondary-blue)
+    @include menuButton($secondary-blue);
   }
 }
