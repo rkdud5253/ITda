@@ -243,14 +243,25 @@ export default {
     },
     goReport() {
       if (this.$store.state.adminId >= 1) {
-        this.$router.go(this.$router.push({ name: 'BogoItdaMonth' }))
+        if (this.$store.state.userId == 0) {
+          console.log(this.$store.state.userId)
+          alert("등록된 어르신이 없습니다. 먼저 어르신을 등록해 연결해주세요.")
+          this.$router.go(this.$router.push({ name: 'MyPage' }))
+        } else {
+          this.$router.go(this.$router.push({ name: 'BogoItdaMonth' }))
+        }
       } else {
         this.$router.go(this.$router.push({ name: 'Login' }))
       }
     },
     goQuiz() {
       if (this.$store.state.adminId >= 1) {
-        this.$router.go(this.$router.push({ name: 'QuizItdaList' }))
+        if (this.$store.state.userId == 0) {
+          alert("등록된 어르신이 없습니다. 먼저 어르신을 등록해 연결해주세요.")
+          this.$router.go(this.$router.push({ name: 'MyPage' }))
+        } else {
+          this.$router.go(this.$router.push({ name: 'QuizItdaList' }))
+        }
       } else {
         this.$router.go(this.$router.push({ name: 'Login' }))
       }
@@ -267,6 +278,7 @@ export default {
     logout() {
       // this.$store.state.adminId == 0
       localStorage.clear()
+      alert("로그아웃 되었습니다.")
       this.$router.go(this.$router.push({name: 'Main'}))
     },
   },

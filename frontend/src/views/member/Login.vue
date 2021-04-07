@@ -95,8 +95,10 @@ export default {
               adminEmail: this.member.email
             }
           }).then((res2) => {
+            console.log(res2)
             this.$store.commit("adminLogin", res2.data.adminId);
             alert("로그인에 성공하였습니다!");
+            this.getUserId()
             this.$router.push({name: 'Main'});
           }).catch(error => {
             console.log(error);
@@ -110,6 +112,18 @@ export default {
     },
     goSignUp() {
       this.$router.go(this.$router.push({name: 'SignUp'}))
+    },
+    getUserId() {
+      axios.get('/useradmin/admin', {
+        params: {
+          adminId: Number(this.$store.state.adminId)
+        }
+      }).then((res) => {
+        console.log(res.data[0].userId)
+        if(res.data != "") {
+          this.$store.commit("userLogin",res.data[0].userId)
+        }
+      })
     },
   },
 }
