@@ -23,6 +23,7 @@ export default new Vuex.Store({
     TTS(state, speechText){
       if (typeof SpeechSynthesisUtterance === "undefined" || typeof window.speechSynthesis === "undefined") {
         alert("이 브라우저는 음성 합성을 지원하지 않습니다.");
+        console.log("이브라우저");
         return;
       }
       
@@ -33,7 +34,7 @@ export default new Vuex.Store({
       speechMsg.pitch = 1;
       speechMsg.lang = "ko-KR";
       speechMsg.text = speechText;
-      
+
       // SpeechSynthesisUtterance에 저장된 내용을 바탕으로 음성합성 실행  
       window.speechSynthesis.speak(speechMsg);
     }

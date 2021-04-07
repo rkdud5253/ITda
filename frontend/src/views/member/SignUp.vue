@@ -180,35 +180,34 @@ export default {
   },
   methods: {
     signUp(){
-      if(this.$refs.form.validate()) {
-        // 중복 유뮤
-        axios.get("/admin/email",{
-          params:{
-            adminEmail: this.member.email
-          }
-        }).then((res) => {
-          if(res.data.adminId > 0) {
-            // 이메일 중복
-            this.emailDialog = true
-          }
-          else {
-            axios.post("/admin/signup",{
-              adminEmail:this.member.email,
-              adminPwd:this.member.password,
-              adminName:this.member.name,
-              adminPhone:this.member.phone,
-            }).then((res2) => {
-              if(res2.data == "success"){
-                // 회원 가입 완료
-                this.$router.go(this.$router.push({name: 'Login'}))
-              }
-              else 
-                // 회원 가입 실패
-                this.notSignUpDialog = true
-            })
-          }
-        })
-      } 
+      // 중복 유뮤
+      axios.get("/admin/email",{
+        params:{
+          adminEmail: this.member.email
+        }
+      }).then((res) => {
+        if(res.data.adminId > 0) {
+          // 이메일 중복
+          this.emailDialog = true
+        }
+        else {
+          axios.post("/admin/signup",{
+            adminEmail:this.member.email,
+            adminPwd:this.member.password,
+            adminName:this.member.name,
+            adminPhone:this.member.phone,
+          }).then((res2) => {
+            if(res2.data == "success"){
+            // 회원 가입이 완료되었습니다
+              this.$router.push({name: 'Main'})
+            }
+            else 
+              // 회원 가입 실패
+              this.notSignUpDialog = true
+          })
+        }
+      })
+      
     },
     goLogin() {
       this.$router.go(this.$router.push({name: 'Login'}))

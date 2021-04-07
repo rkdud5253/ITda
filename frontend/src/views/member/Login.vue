@@ -113,36 +113,34 @@ export default {
   },
   methods: {
     login(){
-      if(this.$refs.form.validate()) {
-        // axios.get -> 
-        // store.state 저장
-        // 홈으로 가기
-        axios.post("/admin/login", {
-          adminEmail: this.member.email,
-          adminPwd: this.member.password,
-        }).then((res) => {
-          console.log(res.data);
-          if(res.data == "success") {
-            // 로그인에 성공하였습니다.
-            axios.get("/admin/email",{
-              params:{
-                adminEmail: this.member.email
-              }
-            }).then((res2) => {
-              console.log(res2)
-              this.$store.commit("adminLogin", res2.data.adminId);
-              this.getUserId()
-              this.$router.push({name: 'Main'});
-            }).catch(error => {
-              console.log(error);
-            })
-          }
-          else {
-            // 로그인 실패
-            this.dialog = true
-          }
-        });
-      }
+      // axios.get -> 
+      // store.state 저장
+      // 홈으로 가기
+      axios.post("/admin/login", {
+        adminEmail: this.member.email,
+        adminPwd: this.member.password,
+      }).then((res) => {
+        console.log(res.data);
+        if(res.data == "success") {
+          // 로그인에 성공하였습니다.
+          axios.get("/admin/email",{
+            params:{
+              adminEmail: this.member.email
+            }
+          }).then((res2) => {
+            console.log(res2)
+            this.$store.commit("adminLogin", res2.data.adminId);
+            this.getUserId()
+            this.$router.push({name: 'Main'});
+          }).catch(error => {
+            console.log(error);
+          })
+        }
+        else {
+          // 로그인 실패
+          this.dialog = true
+        }
+      });
     },
     goSignUp() {
       this.$router.go(this.$router.push({name: 'SignUp'}))
