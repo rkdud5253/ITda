@@ -133,7 +133,21 @@ export default {
     countdown: function() {
       if(this.totalTime >= 1) {
         this.totalTime--;
-      } else {
+        axios.get('/useradmin/admin', {
+          params: {
+            adminId: Number(this.$store.state.adminId)
+          }
+        }).then((res) => {
+          console.log(res.data[0].userId)
+          if(res.data != "") {
+            this.$store.commit("userLogin",res.data[0].userId)
+            // this.$store.state.userId = res.data[0].userId;
+            this.totalTime = 0;
+            this.clickButtonSeeTimer = false;
+            alert("등록이 완료되었습니다.")
+          }
+          }
+        )} else {
         this.totalTime = 0;
         this.clickButtonSeeTimer = false;
 

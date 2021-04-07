@@ -151,12 +151,13 @@ export default {
           .get(`/report/daily`, {
             params: {
               reportDate  : date,
-              userId : '1',
+              userId : this.$store.state.userId,
             }
           })
           .then((response) => {
             console.log(response);
             this.reportData1 = response.data
+            console.log(this.$store.state.userId)
             
           })
           .catch((error) => {
@@ -168,7 +169,7 @@ export default {
           .get(`/files/daily`, {
             params: {
               fileDate : date,
-              userId : '1',
+              userId : this.$store.state.userId,
             }
           })
           .then((response) => {
