@@ -116,6 +116,36 @@
       </v-btn>
     </div>
 
+    <!-- 모달창 -->
+    <v-dialog
+      v-model="dialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>문제 등록 완료!</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="makeQuizFinish"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-card>
   </v-form>
 
@@ -166,6 +196,7 @@ export default {
         4,
       ],
       checkbox: false,
+      dialog: false,
   }),
   methods: {
     goQuizList() {
@@ -209,8 +240,8 @@ export default {
       }).catch(error => {
         console.log(error);
       });
-      alert("문제 등록이 완료되었습니다!");
-      this.$router.push({name: 'QuizItdaList'})
+
+      this.dialog = true
     },
     reset () {
       this.$refs.form.reset()
@@ -222,7 +253,10 @@ export default {
       const file = e;
       this.imageUrl = URL.createObjectURL(file);
       console.log(this.imageUrl);
-    }
+    },
+    makeQuizFinish() {
+      this.$router.push({name: 'QuizItdaList'})
+    },
   },
 }
 </script>

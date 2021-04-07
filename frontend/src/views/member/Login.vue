@@ -48,6 +48,38 @@
         </div>
       </v-card>
     </v-container>
+
+    <!-- 모달창 -->
+    <v-dialog
+      v-model="dialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>로그인에 실패하였습니다.</h4>
+          <h4>이메일과 비밀번호를 다시 확인해 주세요.</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="notLogin"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-app>
 </template>
 
@@ -76,6 +108,7 @@ export default {
         email: "",
         password: "",
       },
+      dialog: false,
     };
   },
   methods: {
@@ -97,7 +130,6 @@ export default {
           }).then((res2) => {
             console.log(res2)
             this.$store.commit("adminLogin", res2.data.adminId);
-            // alert("로그인에 성공하였습니다!");
             this.getUserId()
             this.$router.push({name: 'Main'});
           }).catch(error => {
@@ -105,8 +137,8 @@ export default {
           })
         }
         else {
-          // 로그인에 실패하였습니다.
-          alert("로그인에 실패하였습니다!");
+          // 로그인 실패
+          this.dialog = true
         }
       });
     },
@@ -124,6 +156,9 @@ export default {
           this.$store.commit("userLogin",res.data[0].userId)
         }
       })
+    },
+    notLogin() {
+      this.dialog = false
     },
   },
 }
