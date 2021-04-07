@@ -221,6 +221,9 @@ export default {
     validate () {
       const adminId = this.$store.state.adminId;
       const userId = this.$store.state.userId;
+
+      // 문제 수정시 이미지도 바꾸기
+      
       axios.put('/qna', {
           questionId:  Number(this.$route.params.questionId),
           userId: Number(userId),

@@ -198,8 +198,8 @@ export default {
             adminPhone:this.member.phone,
           }).then((res2) => {
             if(res2.data == "success"){
-              // 회원 가입 완료
-              this.$router.go(this.$router.push({name: 'Login'}))
+            // 회원 가입이 완료되었습니다
+              this.$router.push({name: 'Main'})
             }
             else 
               // 회원 가입 실패

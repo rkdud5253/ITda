@@ -121,7 +121,7 @@ export default {
         });
     },
     goQuizModify() {
-      this.$router.go(this.$router.push({name: 'QuizItdaModifyQuestion', params: Number(this.$route.params.questionId)}))
+      this.$router.push({name: 'QuizItdaModifyQuestion', params: Number(this.$route.params.questionId)})
     },
   },
 }

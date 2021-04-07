@@ -153,7 +153,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/service/axios.service.js";
 
 export default {
   name: "MakeQuestion",
@@ -208,7 +208,9 @@ export default {
       const adminId = this.$store.state.adminId;
       const userId = this.$store.state.userId;
       
-      axios.post('http://localhost:8000/itda/qna', {
+      // 여기 해야됌 axios.post
+
+      axios.post('/qna', {
           userId: Number(userId),
           adminId: Number(adminId),
           questionContent: this.name,
