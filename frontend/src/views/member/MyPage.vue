@@ -47,6 +47,67 @@
       </v-form>
       </v-card>
     </v-container>
+
+    <!-- 인증중 모달창 -->
+    <v-dialog
+      v-model="dialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>같은 이름으로 인증 절차가 진행 중입니다.</h4>
+          <h4>잠시 후에 다시 시도해주세요!</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="exitDialog"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- 인증성공 모달창 -->
+    <v-dialog
+      v-model="passDialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>등록 완료!</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="exitpassDialog"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -68,6 +129,8 @@ export default {
     totalTime: (1 * 600),
     clickButtonSeeTimer: false,
     userName: '',
+    dialog: false,
+    passDialog: false,
   }),
   created() {
     if (this.$store.state.userId >= 1) {
@@ -89,7 +152,8 @@ export default {
         }
       }).then((res) => {
         if(res.data.userName == this.seniorName) {
-          alert("같은 이름으로 인증 절차가 진행 중입니다. 잠시 후에 다시 시도해주세요!");
+          // 같은 이름으로 인증 절차 진행 중!
+          this.dialog = true
         }
         else{
           // 이미 진행중인지 확인하기
@@ -154,7 +218,8 @@ export default {
             // this.$store.state.userId = res.data[0].userId;
             this.totalTime = 0;
             this.clickButtonSeeTimer = false;
-            alert("등록이 완료되었습니다.")
+            // 등록완료
+            this.passDialog = true
           }
           }
         )} else {
@@ -195,6 +260,13 @@ export default {
         console.log(res.data.userName)
         this.userName = res.data.userName
       })
+    },
+    exitDialog() {
+      this.dialog = false
+    },
+    exitpassDialog() {
+      this.passDialog = false
+      this.$router.go(this.$router.push({name: 'MyPage'}))
     },
   },
   computed: {

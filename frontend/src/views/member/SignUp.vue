@@ -75,6 +75,67 @@
         </div>
       </v-card>
     </v-container>
+
+    <!-- 이메일 중복 모달창 -->
+    <v-dialog
+      v-model="emailDialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>중복된 이메일 주소입니다.</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="notSignUp"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- 회원가입 실패 모달창 -->
+    <v-dialog
+      v-model="notSignUpDialog"
+      max-width="300"
+    >
+      <v-card>
+        <v-card-title style="justify-content: center; color: #FEA601;">
+          <h2 class="modalFont my-2"></h2>
+        </v-card-title>
+        <v-card-text 
+          class="modalFont my-2" 
+          style="text-align-last: center;"
+        >
+          <h4>회원가입을 실패하였습니다.</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="modalFont"
+            color="#FEA601"
+            dark
+            block
+            @click="notSignUp"
+          >
+            확인
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-app>
 </template>
 
@@ -108,11 +169,13 @@ export default {
         (v) => (v && v.length >= 7 && v.length <= 11) || "7~11자리 입력",
       ],
       member: {
-        email: "",
-        password: "",
-        name: "",
-        phone: "",
+        email: '',
+        password: '',
+        name: '',
+        phone: '',
       },
+      emailDialog: false,
+      notSignUpDialog: false,
     };
   },
   methods: {
@@ -124,7 +187,8 @@ export default {
         }
       }).then((res) => {
         if(res.data.adminId > 0) {
-          alert("중복된 이메일 주소가 있습니다!");
+          // 이메일 중복
+          this.emailDialog = true
         }
         else {
           axios.post("/admin/signup",{
@@ -138,8 +202,8 @@ export default {
               this.$router.push({name: 'Main'})
             }
             else 
-              // 회원 가입이 실패하였습니다
-              alert("회원 가입이 실패하였습니다!");
+              // 회원 가입 실패
+              this.notSignUpDialog = true
           })
         }
       })
@@ -147,6 +211,9 @@ export default {
     },
     goLogin() {
       this.$router.go(this.$router.push({name: 'Login'}))
+    },
+    notSignUp() {
+      this.emailDialog = false
     },
   },
 }

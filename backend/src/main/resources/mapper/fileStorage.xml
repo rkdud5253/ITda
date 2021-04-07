@@ -9,11 +9,24 @@
 		values (#{userId}, #{fileDate}, #{fileName}, #{fileUrl}, #{fileUse})
 	</insert>
 	
+	<insert id="saveSampleFile" parameterType="FileStorage">
+		insert into
+		fileStorage(fileDate, fileName, fileUrl, fileUse)
+		values (#{fileDate}, #{fileName}, #{fileUrl}, #{fileUse})
+	</insert>
+	
 	<select id="getFile" parameterType="FileStorage" resultType="FileStorage">
 		select *
 		from fileStorage
 		where userId = #{userId}
 		and fileDate like #{fileDate}
+		and fileUse like #{fileUse}
+	</select>
+	
+	<select id="getSampleFile" parameterType="FileStorage" resultType="FileStorage">
+		select *
+		from fileStorage
+		where fileDate like #{fileDate}
 		and fileUse like #{fileUse}
 	</select>
 	

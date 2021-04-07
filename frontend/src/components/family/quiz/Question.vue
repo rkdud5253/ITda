@@ -55,7 +55,7 @@
     </v-container>
 
     <!-- 버튼 -->
-    <div style="text-align-last: center;">
+    <div v-if="this.watchModifyBtn == true" style="text-align-last: center;">
       <v-btn
         class="mx-2 my-10"
         color="#597ED2"
@@ -88,7 +88,8 @@ export default {
       example2:'',
       example3:'',
       example4:'',
-      answer:0
+      answer:0,
+      watchModifyBtn: false,
     }
   },
   created(){
@@ -109,6 +110,12 @@ export default {
             this.example3 = res.data.example3;
             this.example4 = res.data.example4;
             this.answer = res.data.answer;
+            
+            // 내가 올린 게시물만 수정 가능
+            if (this.$store.state.adminId == res.data.adminId) {
+              this.watchModifyBtn = true
+            }
+            
         }).catch(error => {
             console.log(error);
         });
