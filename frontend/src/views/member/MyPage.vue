@@ -3,10 +3,14 @@
     <!-- 어르신등록 -->
     <FamilyAppBar />
     <v-container class="my-15" style="text-align: -webkit-center;">
-      <v-card class="senior-name-card">
+      <v-card class="senior-name-card1" v-if="this.$store.state.userId >= 1">
         <h1 class="pt-10 pb-2" style="color: #FEA601">어르신 등록</h1>
-        <p>어르신의 성함을 입력한 후 아이콘을 클릭하세요</p>
+        <h2 class="pt-15"><span style="color: #FC5355">{{ this.userName }}</span>님이 연결되었습니다.</h2>
+      </v-card>
+      <v-card class="senior-name-card2" v-if="this.$store.state.userId == 0">
+        <h1 class="pt-10 pb-2" style="color: #FEA601">어르신 등록</h1>
         <v-form>
+          <p>어르신의 성함을 입력한 후 아이콘을 클릭하세요</p>
           <v-container>
           <v-row>
             <v-col cols="12">
@@ -63,7 +67,13 @@ export default {
     timer: null,
     totalTime: (1 * 600),
     clickButtonSeeTimer: false,
+    userName: '',
   }),
+  created() {
+    if (this.$store.state.userId >= 1) {
+      this.getUserName()
+    }
+  },
   methods: {
     sendMessage () {
       this.seniorName = this.message
@@ -176,6 +186,16 @@ export default {
           })
       }
     },
+    getUserName () {
+      axios.get('/user', {
+        params: {
+          userId: Number(this.$store.state.userId)
+        }
+      }).then((res) => {
+        console.log(res.data.userName)
+        this.userName = res.data.userName
+      })
+    },
   },
   computed: {
     minutes: function() {
@@ -191,7 +211,11 @@ export default {
 </script>
 
 <style>
-  .senior-name-card {
+  .senior-name-card1 {
+    width: 450px;
+    height: 300px;
+  }
+  .senior-name-card2 {
     width: 450px;
     height: 480px;
   }
