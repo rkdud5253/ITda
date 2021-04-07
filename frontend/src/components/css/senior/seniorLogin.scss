@@ -6,15 +6,15 @@
   text-align: center;
 
   .titleBox {
-    @include titleBox(1320px, 150px)
+    @include titleBox($primary-yellow2, $basic-black, 1320px, 150px);
   }
 
   .nari {
-    @include nari
+    @include nari;
   }
 
   .title {
-    @include title(55px, 55px)
+    @include title(55px, 55px);
   }
 
   .nameBox {

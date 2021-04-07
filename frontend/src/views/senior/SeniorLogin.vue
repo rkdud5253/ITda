@@ -18,8 +18,7 @@ import SockJS from "sockjs-client";
 import axios from "@/service/axios.service.js";
 import Sha256 from "@/lib/sha256.js"
 import '@/components/css/senior/seniorLogin.scss';
-import TitleBox from '@/components/senior/TitleBox.vue';
-
+import TitleBox from '@/components/senior/common/TitleBox.vue';
 export default {
   name: "SeniorLogin",
   components: {

@@ -92,7 +92,7 @@ export default {
       axios
         .get(`/report/` + this.$route.query.date, {
           params: {
-            userId : '1',
+            userId : this.$store.state.userId,
             reportDate : this.$route.query.date,
           }
         })
@@ -107,7 +107,7 @@ export default {
       axios
         .get(`/files/image`, {
           params: {
-            userId : '1',
+            userId : this.$store.state.userId,
             fileDate : this.$route.query.date,
           }
         })
@@ -122,7 +122,7 @@ export default {
       axios
         .get(`/files/exercise`, {
           params: {
-            userId : '1',
+            userId : this.$store.state.userId,
             fileDate : this.$route.query.date,
           }
         })

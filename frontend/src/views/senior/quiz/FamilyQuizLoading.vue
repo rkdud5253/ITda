@@ -8,7 +8,7 @@
 
 <script>
 import '@/components/css/senior/familyQuiz.scss';
-import MenuLoading from '@/components/senior/MenuLoading.vue';
+import MenuLoading from '@/components/senior/common/MenuLoading.vue';
 export default {
   name: "FamilyQuizLoading",
   components: {

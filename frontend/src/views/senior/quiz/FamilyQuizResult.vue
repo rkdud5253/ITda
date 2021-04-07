@@ -11,7 +11,7 @@
 
 <script>
 import '@/components/css/senior/familyQuizResult.scss';
-import TitleBox from '@/components/senior/TitleBox.vue';
+import TitleBox from '@/components/senior/common/TitleBox.vue';
 export default {
   name: "SeniorMain",
   components: {

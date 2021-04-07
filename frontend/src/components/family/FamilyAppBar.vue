@@ -59,6 +59,7 @@
           text
           class="hidden-sm-and-down"
           @click="myPage"
+          v-if="loginStateResult==true"
         >
           <h4>어르신등록</h4>
         </v-btn>
@@ -66,6 +67,8 @@
           :ripple="false"
           text
           class="hidden-sm-and-down"
+          @click="logout"
+          v-if="loginStateResult==true"
         >
           <h4>로그아웃</h4>
         </v-btn>
@@ -76,6 +79,7 @@
           text
           class="hidden-sm-and-down"
           @click="signUp"
+          v-if="loginStateResult==false"
         >
           <h4>회원가입</h4>
         </v-btn>
@@ -84,6 +88,7 @@
           text
           class="hidden-sm-and-down"
           @click="login"
+          v-if="loginStateResult==false"
         >
           <h4>로그인</h4>
         </v-btn>
@@ -156,6 +161,7 @@
         <v-list-item
           link
           @click="myPage"
+          v-if="loginStateResult==true"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-box</v-icon>
@@ -167,6 +173,7 @@
         </v-list-item>
         <v-list-item
           link
+          v-if="loginStateResult==true"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-off</v-icon>
@@ -183,6 +190,7 @@
         <v-list-item
           link
           @click="signUp"
+          v-if="loginStateResult==false"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-plus</v-icon>
@@ -195,6 +203,7 @@
         <v-list-item
           link
           @click="login"
+          v-if="loginStateResult==false"
         >
           <v-list-item-icon>
             <v-icon>mdi-account-check</v-icon>
@@ -218,16 +227,44 @@ export default {
       drawer: null,
     }
   },
+  computed: {
+    loginStateResult : function () {
+      if(this.$store.state.adminId >= 1) {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
   methods: {
     goMain() {
       this.$router.go(this.$router.push({name: 'Main'}))
       // this.$vuetify.goTo(0)
     },
     goReport() {
-      this.$router.go(this.$router.push({name: 'BogoItdaMonth'}))
+      if (this.$store.state.adminId >= 1) {
+        if (this.$store.state.userId == 0) {
+          console.log(this.$store.state.userId)
+          alert("등록된 어르신이 없습니다. 먼저 어르신을 등록해 연결해주세요.")
+          this.$router.go(this.$router.push({ name: 'MyPage' }))
+        } else {
+          this.$router.go(this.$router.push({ name: 'BogoItdaMonth' }))
+        }
+      } else {
+        this.$router.go(this.$router.push({ name: 'Login' }))
+      }
     },
     goQuiz() {
-      this.$router.go(this.$router.push({name: 'QuizItdaList'}))
+      if (this.$store.state.adminId >= 1) {
+        if (this.$store.state.userId == 0) {
+          alert("등록된 어르신이 없습니다. 먼저 어르신을 등록해 연결해주세요.")
+          this.$router.go(this.$router.push({ name: 'MyPage' }))
+        } else {
+          this.$router.go(this.$router.push({ name: 'QuizItdaList' }))
+        }
+      } else {
+        this.$router.go(this.$router.push({ name: 'Login' }))
+      }
     },
     login() {
       this.$router.go(this.$router.push({name: 'Login'}))
@@ -237,6 +274,12 @@ export default {
     },
     myPage() {
       this.$router.go(this.$router.push({name: 'MyPage'}))
+    },
+    logout() {
+      // this.$store.state.adminId == 0
+      localStorage.clear()
+      alert("로그아웃 되었습니다.")
+      this.$router.go(this.$router.push({name: 'Main'}))
     },
   },
 }

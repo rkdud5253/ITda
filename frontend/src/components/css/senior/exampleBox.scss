@@ -2,12 +2,13 @@
 @import '../color.scss';
 
 .exampleBox {
-  margin-top: 50px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
   max-width: 1050px;
+  margin: auto;
+  margin-top: 50px;
 
   .example {
     font-size: 45px;

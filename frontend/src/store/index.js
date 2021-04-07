@@ -17,6 +17,9 @@ export default new Vuex.Store({
     setIpHash(state, ipHash){
       state.ipHash = ipHash;
     },
+    userLogin(state, userId){
+      state.userId = userId;
+    },
     TTS(state, speechText){
       if (typeof SpeechSynthesisUtterance === "undefined" || typeof window.speechSynthesis === "undefined") {
         alert("이 브라우저는 음성 합성을 지원하지 않습니다.");
