@@ -31,6 +31,7 @@
           label="사진"
           color="#597ED2"
           @change="onChangeImages"
+          ref="questionImage"
         ></v-file-input>
         <v-img v-if="imageUrl" :src="imageUrl">
         </v-img>
@@ -139,6 +140,7 @@ export default {
         v => !!v || '문제 제목은 필수입니다',
         v => (v && v.length <= 50) || '제목은 50자 미만으로 작성해 주세요',
       ],
+      imageInfo: null,
       imageUrl: null,
       example1: '',
       example1Rules: [
@@ -174,25 +176,6 @@ export default {
     validate () {
       const adminId = this.$store.state.adminId;
       const userId = this.$store.state.userId;
-
-      const bodyFormData = new FormData();
-      const file = {fileName: "z", imageUrl: this.imageUrl};
-      bodyFormData.append("file", file);
-      
-      if(this.imageUrl != null) {
-        axios.post('http://localhost:8000/itda/files/upload/',{
-          bodyFormData
-          },{
-            headers: {
-               "Content-Type": `multipart/form-data; boundary=${bodyFormData._boundary}`
-               }
-            }
-        ).then((res) => {
-          console.log(res);
-        }).catch(error => {
-          console.log(error);
-        })
-      }
       
       axios.post('http://localhost:8000/itda/qna', {
           userId: Number(userId),
@@ -220,8 +203,13 @@ export default {
     },
     onChangeImages(e) {
       const file = e;
-      this.imageUrl = URL.createObjectURL(file);
-      console.log(this.imageUrl);
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageUrl = reader.result
+        console.log(this.imageUrl);
+      }
+      
     }
   },
 }

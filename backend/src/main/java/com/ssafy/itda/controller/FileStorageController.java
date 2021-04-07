@@ -116,16 +116,4 @@ public class FileStorageController {
 		}
 		return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
     }
-
-	@PostMapping("/upload")
-	public String upload(@RequestPart MultipartFile file) throws Exception {
-
-		String originalFileName = file.getOriginalFilename();
-		// File dest = new File("/home/ubuntu/backend/FileStorage/" + originalFileName);
-		File dest = new File("/home/ubuntu/backend/fileStorage/" + originalFileName);
-		file.transferTo(dest);
-		// TODO
-		System.out.println(dest);
-		return SUCCESS;
-	}
 }

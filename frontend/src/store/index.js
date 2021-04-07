@@ -8,10 +8,14 @@ export default new Vuex.Store({
   state: {
     adminId:0,
     userId:0,
+    ipHash:"",
   },
   mutations: {
     adminLogin(state, adminId){
       state.adminId = adminId;
+    },
+    setIpHash(state, ipHash){
+      state.ipHash = ipHash;
     },
     userLogin(state, userId){
       state.userId = userId;
