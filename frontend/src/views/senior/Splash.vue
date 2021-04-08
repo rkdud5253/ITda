@@ -3,7 +3,7 @@
     <img class="logo"
     src="@/assets/ITdaLogo.png"
     >
-    <p>홀로 어르신과 가족을 잇는 다리</p>
+    <p>나와 가족을 잇는 다리</p>
   </div>
 </template>
 

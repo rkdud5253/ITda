@@ -193,6 +193,15 @@ export default {
         this.wrongNumbers += "/" + this.wrong[index];
       }
     },
+    onChangeImages(e) {
+      const file = e;
+    
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.items[this.i].questionImageUrl = reader.result
+      }
+    },
   },  
 }
 </script>

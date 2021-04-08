@@ -10,12 +10,7 @@
         </v-card-title>
         
         <!-- 이미지 있을때 보여주고, 아니면 안보여지게 해야함 -->
-        <div v-if="imageUrl !== ''">
-          <v-img 
-            class="mx-10"
-          >
-          </v-img>
-        </div>
+        <v-img v-if="imageUrl" :src="imageUrl"></v-img>
         <!-- 보기 -->
         <div class="mx-10 my-10">
           <v-row class="question-num">
@@ -94,6 +89,7 @@ export default {
   },
   created(){
     this.getQuiz();
+    this.onChangeImages();
   },
   methods: {
     getQuiz(){
@@ -102,7 +98,6 @@ export default {
                 questionId: Number(this.$route.params.questionId)
             }
         }).then((res) => {
-            console.log(res.data);
             this.content = res.data.questionContent;
             this.imageUrl = res.data.questionImageUrl;
             this.example1 = res.data.example1;
@@ -123,6 +118,16 @@ export default {
     goQuizModify() {
       this.$router.push({name: 'QuizItdaModifyQuestion', params: Number(this.$route.params.questionId)})
     },
+    onChangeImages(e) {
+      const file = e;
+    
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageUrl = reader.result
+      }
+      
+    }
   },
 }
 </script>

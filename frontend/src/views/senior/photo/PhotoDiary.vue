@@ -73,6 +73,7 @@ export default {
     }
     this.date = this.year + '-' + this.month + '-' + this.day;
     this.getFileInfo();
+    this.onChangeImages();
   },
   mounted() {
     this.$store.commit("TTS", "왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
@@ -89,6 +90,7 @@ export default {
         this.fileInfo.fileUrl = res.data[0].fileUrl;
         this.fileInfo.fileId = res.data[0].fileId;
         this.fileInfo.fileName = res.data[0].fileName;
+        console.log(this.date)
       }).catch(error => {
           console.log(error);
       });
@@ -125,6 +127,15 @@ export default {
               console.log("소켓 연결 실패", error);
             }
         );
+    },
+    onChangeImages(e) {
+      const file = e;
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.fileInfo.fileUrl = reader.result
+      }
+     
     },
   }
 }

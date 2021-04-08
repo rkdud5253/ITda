@@ -3,8 +3,10 @@
     <div class="wrap">
       <TitleBox title="오늘의 체조 시간입니다." />
       <div class="videos">
-        <div class="video1">오늘의 체조 동작 사진</div>
-        {{fileInfo[i].fileUrl}}
+        <img
+        class="exampleImage"
+        :src="fileInfo[i].fileUrl"
+        >
         <div class="video2">어르신 실시간 영상</div>
       </div>
       <div class="explainBox">
@@ -60,6 +62,7 @@ export default {
     }
     this.date = this.year + '-' + this.month + '-' + this.day;
     this.getFileInfo();
+    this.onChangeImages();
   },
   mounted() {
     // 사진 배열로 몇 개 하기 - 일단 3장
@@ -118,6 +121,15 @@ export default {
       }).catch(error => {
           console.log(error);
       });
+    },
+    onChangeImages(e) {
+      const file = e;
+    
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.fileInfo[this.i].fileUrl = reader.result
+      }
     },
   }
 }

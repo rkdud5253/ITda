@@ -7,10 +7,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: $primary-yellow2;
+  background-color: $primary-yellow1;
 
   .logo {
-    width: 30%;
+    width: 25%;
     border-radius: 350px;
     animation: float 1.5s ease-in-out forwards;
   }
@@ -18,9 +18,8 @@
   p {
     margin-top: 50px;
     font-weight: bold;
-    font-size: 55px;
+    font-size: 50px;
     color: $basic-black;
-    // text-shadow: 4px 4px $basic-black;
     animation: float 1.5s ease-in-out forwards;
   }
 }

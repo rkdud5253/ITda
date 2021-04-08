@@ -34,18 +34,16 @@
     display: flex;
     justify-content: center;
 
-      .video1 {
-        width: 660px;
-        height: 371.25px;
-        background-color: $basic-black;
-        color: $basic-white;
-      }
-    
-      .video2 {
-        width: 660px;
-        height: 371.25px;
-        background-color: gray;
-      }
+    .exampleImage {
+      width: 660px;
+      height: 371.25px;
+    }
+  
+    .video2 {
+      width: 660px;
+      height: 371.25px;
+      background-color: gray;
+    }
   }
 
   .explainBox {
