@@ -30,7 +30,11 @@
           prepend-icon="mdi-camera"
           label="사진"
           color="#597ED2"
+          @change="onChangeImages"
+          ref="questionImage"
         ></v-file-input>
+        <v-img v-if="image" :src="image">
+        </v-img>
 
         <!-- 보기 -->
         <div class="mx-10 my-10">
@@ -195,6 +199,7 @@ export default {
       ],
       checkbox: false,
       dialog: false,
+      imageUrl: null,
   }),
   created(){
     this.getQuiz();
@@ -253,6 +258,16 @@ export default {
     },
     modifyFinish() {
       this.$router.push({path: `/family/quiz/detail/${Number(this.$route.params.questionId)}`})
+    },
+    onChangeImages(e) {
+      const file = e;
+    
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.image = reader.result
+        console.log(this.image);
+      }
     },
   },
 }

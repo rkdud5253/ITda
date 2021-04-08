@@ -2,10 +2,11 @@
   <div class="dailyExercise">
     <div class="wrap">
       <TitleBox title="오늘의 체조 시간입니다." />
-      <div class="videos">
+      <div class="videos" v-if="i>=0">
         <img
         class="exampleImage"
         :src="fileInfo[i].fileUrl"
+        alt=""
         >
         <div class="video2">어르신 실시간 영상</div>
       </div>
@@ -35,7 +36,7 @@ export default {
   },
   data() {
     return {
-      i: 0,
+      i: -1,
       fileInfo: [
         {
           fileUrl: '',
@@ -61,20 +62,19 @@ export default {
       this.day = '0' + this.day;
     }
     this.date = this.year + '-' + this.month + '-' + this.day;
-    this.getFileInfo();
-    this.onChangeImages();
+
+    this.connect();
   },
   mounted() {
     // 사진 배열로 몇 개 하기 - 일단 3장
     this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
-    setTimeout(()=>this.send("poseNetRun"),7000); // 대사 끝나면 poseNet 실행
+    setTimeout(()=>this.send({ sttMessage: "poseNetRun"}),7000); // 대사 끝나면 poseNet 실행
     // 체조 사진 
-    // for문으로 몇 초마다 다음 동작으로 axios.get
-    axios.get('/exercise',{
-
-    })
-    // 모든 동작이 끝나면 
-    // this.$router.push({name: 'DailyExerciseResult'});
+    // for문으로 15초 마다 다음 동작으로 axios.get
+    
+    setTimeout(()=>this.getFileInfo(),7000);
+    setTimeout(()=>this.getFileInfo(),22000);
+    setTimeout(()=>this.getFileInfo(),37000);
   },
   methods: {
     send(msg){
@@ -115,9 +115,12 @@ export default {
           fileDate: this.date,
         }
       }).then((res) => {
+        console.log(res.data);
+        this.i+=1;
         this.fileInfo[this.i].fileUrl = res.data[this.i].fileUrl;
         this.fileInfo[this.i].fileId = res.data[this.i].fileId;
         this.fileInfo[this.i].fileName = res.data[this.i].fileName;
+        this.onChangeImages();
       }).catch(error => {
           console.log(error);
       });
@@ -130,7 +133,7 @@ export default {
       reader.onload = () => {
         this.fileInfo[this.i].fileUrl = reader.result
       }
-    },
+    }
   }
 }
 </script>

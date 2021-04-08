@@ -63,6 +63,7 @@
         class="mx-2 my-10"
         color="#FC5355"
         dark
+        @click="deleteQuiz"
       >
         삭제하기
       </v-btn>
@@ -89,7 +90,6 @@ export default {
   },
   created(){
     this.getQuiz();
-    this.onChangeImages();
   },
   methods: {
     getQuiz(){
@@ -118,15 +118,20 @@ export default {
     goQuizModify() {
       this.$router.push({name: 'QuizItdaModifyQuestion', params: Number(this.$route.params.questionId)})
     },
-    onChangeImages(e) {
-      const file = e;
-    
-      let reader = new FileReader()
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imageUrl = reader.result
-      }
-      
+    goQuizList() {
+      this.$router.push({name: 'QuizItdaList'});
+    },
+    deleteQuiz(){
+      axios.delete('/qna',{
+            params:{
+                questionId: Number(this.$route.params.questionId)
+            }
+        }).then((res) => {
+          if(res.data == 'success')
+            this.goQuizList();
+        }).catch(error => {
+            console.log(error);
+        });
     }
   },
 }
