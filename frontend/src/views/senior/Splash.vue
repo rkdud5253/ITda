@@ -19,8 +19,7 @@ export default {
     this.connect();
   },
   mounted() {
-    this.goToNextPage();
-    setInterval(this.goToNextPage(),5000);
+    setTimeout(()=>this.goToNextPage(), 5000);
   },
   methods:{
       getIpAddress(){
@@ -32,9 +31,7 @@ export default {
         });
       },
       send(msg){
-        this.StompClient.send(JSON.stringify({
-            sttMessage:msg
-        }));
+        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
       },
       connect() {
         const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
@@ -46,10 +43,10 @@ export default {
             {},
             (frame) => {
                 // 소켓 연결 성공
+                this.connected = true;
                 frame;
                 
                 this.getIpAddress();
-
                 this.StompClient.subscribe("/socket/" + this.$store.state.ipHash + "/send",
                   () => {
                   }
@@ -58,11 +55,13 @@ export default {
             (error) => {
               // 소켓 연결 실패
               console.log("소켓 연결 실패", error);
+              this.connected = false;
             }
         );
     },
     goToNextPage() {
-      this.send(this.$store.state.userId);
+      
+      this.send({ sttMessage: this.$store.state.userId })
 
       if(this.$store.state.userId > 0)
         this.$router.push({name:"SeniorMain"});

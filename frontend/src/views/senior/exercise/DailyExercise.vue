@@ -67,7 +67,7 @@ export default {
   mounted() {
     // 사진 배열로 몇 개 하기 - 일단 3장
     this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
-    setInterval(this.send("poseNetRun"),7000); // 대사 끝나면 poseNet 실행
+    setTimeout(()=>this.send("poseNetRun"),7000); // 대사 끝나면 poseNet 실행
     // 체조 사진 
     // for문으로 몇 초마다 다음 동작으로 axios.get
     axios.get('/exercise',{
@@ -78,9 +78,7 @@ export default {
   },
   methods: {
     send(msg){
-      this.StompClient.send(JSON.stringify({
-        sttMessage:msg
-      }));
+        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
     },
     connect() {
         const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";

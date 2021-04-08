@@ -2,6 +2,7 @@ package com.ssafy.itda.service;
 
 import com.ssafy.itda.domain.Question;
 import com.ssafy.itda.domain.WrongQuestion;
+import com.ssafy.itda.mapper.AccessCheckMapper;
 import com.ssafy.itda.mapper.QuestionMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,5 +133,9 @@ public class QuestionService {
 
 	public boolean updateQuestion(Question question) throws Exception {
 		return sqlSession.getMapper(QuestionMapper.class).updateQuestion(question) == 1;
+	}
+
+	public boolean deleteQuestion(int questionId) throws Exception{
+		return sqlSession.getMapper(QuestionMapper.class).deleteQuestion(questionId) == 1;
 	}
 }

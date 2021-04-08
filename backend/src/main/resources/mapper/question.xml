@@ -44,9 +44,8 @@
 	</insert>
 
 	<select id="questionGetSize" resultType="int">
-		select count(*)
-		from
-		question
+		select MAX(questionId)
+		from question
 	</select>
 
 	<update id="updateQuestion" parameterType="Question">
@@ -58,4 +57,9 @@
 		answer=#{answer}
 		where questionId=#{questionId}
 	</update>
+
+	<delete id="deleteQuestion" parameterType="int">
+		delete from question
+		where questionId = #{questionId}
+	</delete>
 </mapper>
