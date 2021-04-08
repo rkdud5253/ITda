@@ -180,6 +180,7 @@ export default {
   },
   methods: {
     signUp(){
+      if(this.$refs.form.validate()) {
       // 중복 유뮤
       axios.get("/admin/email",{
         params:{
@@ -207,7 +208,7 @@ export default {
           })
         }
       })
-      
+      }
     },
     goLogin() {
       this.$router.go(this.$router.push({name: 'Login'}))

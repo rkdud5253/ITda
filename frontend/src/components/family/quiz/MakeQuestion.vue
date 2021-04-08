@@ -205,6 +205,7 @@ export default {
       this.$router.go(this.$router.push({name: 'QuizItdaList'}))
     },
     validate () {
+      if(this.$refs.form.validate()) {
       const adminId = this.$store.state.adminId;
       const userId = this.$store.state.userId;
       
@@ -227,6 +228,7 @@ export default {
       });
 
       this.dialog = true
+      }
     },
     reset () {
       this.$refs.form.reset()

@@ -76,12 +76,7 @@ export default {
   },
   mounted() {
     this.$store.commit("TTS", "왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
-    setInterval(this.send("poseNetRun"), 4000); // 대사 끝나고 smileNet 실행
-    // 체조 사진 
-    // for문으로 몇 초마다 다음 동작으로 axios.get
-    
-    // 모든 동작이 끝나면 
-    // this.$router.push({name: 'DailyExerciseResult'});
+    setInterval(this.send("smileNetRun"), 6000); // 대사 끝나고 smileNet 실행
   },
   methods: {
     getFileInfo(){
@@ -104,7 +99,7 @@ export default {
       }));
     },
     connect() {
-        const serverURL = "http://localhost:8000/itda/vuejs";
+        const serverURL = "http://j4a404.p.ssafy.io/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -122,6 +117,8 @@ export default {
                     
                     if(res.body == "그만")
                       this.$router.push({name: 'SeniorMain'});
+                    else if(res.body == "촬영 완료") // 넘겨받음
+                      this.$router.push({name: 'PhotoDiaryResult'});
                   }
               );
             },

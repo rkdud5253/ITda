@@ -24,7 +24,7 @@ export default {
             });
         },
         connect() {
-            const serverURL = "http://localhost:8000/itda/vuejs";
+            const serverURL = "http://j4a404.p.ssafy.io/itda/vuejs";
             
             let Socket = new SockJS(serverURL);
             this.StompClient = Stomp.over(Socket);

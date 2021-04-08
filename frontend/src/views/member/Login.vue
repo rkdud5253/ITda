@@ -113,9 +113,11 @@ export default {
   },
   methods: {
     login(){
+      if(this.$refs.form.validate()) {
       // axios.get -> 
       // store.state 저장
       // 홈으로 가기
+      
       axios.post("/admin/login", {
         adminEmail: this.member.email,
         adminPwd: this.member.password,
@@ -141,6 +143,7 @@ export default {
           this.dialog = true
         }
       });
+      }
     },
     goSignUp() {
       this.$router.go(this.$router.push({name: 'SignUp'}))
