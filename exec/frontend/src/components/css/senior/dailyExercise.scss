@@ -1,0 +1,103 @@
+@import 'titleBox';
+@import 'line';
+@import 'menuLoading';
+@import '../color.scss';
+
+.dailyExercise {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column-reverse;
+
+  .wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .titleBox {
+    @include titleBox($secondary-red, $basic-white, 1320px, 10px);
+  }
+
+  .nari {
+    @include nari;
+  }
+
+  .title {
+    @include title(55px, 55px);
+  }
+
+  .videos {
+    display: flex;
+    justify-content: center;
+
+    .exampleImage {
+      width: 660px;
+      height: 371.25px;
+    }
+  
+    .video {
+      width: 660px;
+      height: 371.25px;
+      text-align: center;
+      position: relative;
+      background-color: $basic-black;
+
+      .explain {
+        color: $basic-white;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 22px;
+      }
+    }
+  }
+
+  .explainBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 75px;
+
+    .explainLine {
+
+      .explain {
+        font-size: 50px;
+        line-height: 70px;
+      }
+    }
+  }
+
+  .line {
+    @include line(760px);
+  }
+
+  .goToMainBlue {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    position: absolute;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -50%);
+  }
+}
+
+.dailyExerciseLoading {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: $secondary-red;
+  padding-top: 50px;
+
+  .menuLoading {
+    @include menuLoading(18%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

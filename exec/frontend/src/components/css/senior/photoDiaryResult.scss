@@ -1,0 +1,48 @@
+@import 'titleBox';
+@import 'line';
+
+.photoDiaryResult {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+
+  .wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .titleBox {
+    @include titleBox($primary-yellow2, $basic-black, 1320px, 75px);
+  }
+
+  .nari {
+    @include nari;
+  }
+
+  .title {
+    @include title(55px, 55px);
+  }
+
+  .seniorPhoto {
+    .image {
+      width: 660px;
+      height: 371.25px;
+    }
+  }
+
+  .explain {
+    font-size: 50px;
+    margin-top: 50px;
+  }
+
+  .line1 {
+    @include line(770px);
+  }
+
+  .line2 {
+    @include line(690px);
+  }
+}

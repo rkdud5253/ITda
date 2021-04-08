@@ -1,0 +1,24 @@
+@import "../color.scss";
+
+@mixin titleBox($background-color, $color, $width, $margin-top) {
+  background-color: $background-color;
+  color: $color;
+  width: $width;
+  height: 120px;
+  border-radius: 20px;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: $margin-top;
+}
+
+@mixin nari {
+  width: 220px;
+  height: 220px;
+}
+
+@mixin title($font-size, $line-height) {
+  font-size: $font-size;
+  line-height: $line-height;
+}
