@@ -2,10 +2,10 @@
   <div class="dailyExercise">
     <div class="wrap">
       <TitleBox title="오늘의 체조 시간입니다." />
-      <div class="videos" v-if="i>=0">
+      <div class="videos">
         <img
         class="exampleImage"
-        :src="fileInfo[i].fileUrl"
+        :src="fileInfo[0].fileUrl"
         alt=""
         >
         <div class="video">
@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      i: -1,
+      i: 0,
       fileInfo: [
         {
           fileUrl: '',
@@ -79,8 +79,16 @@ export default {
     // for문으로 15초 마다 다음 동작으로 axios.get
     
     setTimeout(()=>this.getFileInfo(),7000);
-    setTimeout(()=>this.getFileInfo(),22000);
-    setTimeout(()=>this.getFileInfo(),37000);
+    
+    setTimeout(()=>this.getFileInfo(),11000);
+    setTimeout(()=>this.send({ sttMessage: "nextPose"}),11000);
+
+    setTimeout(()=>this.getFileInfo(),15000);
+    setTimeout(()=>this.send({ sttMessage: "nextPose"}),15000);
+
+    setTimeout(()=>this.send({ sttMessage: "poseNetStop"}),20000);
+
+    setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),20000);
   },
   methods: {
     send(msg){
@@ -122,10 +130,10 @@ export default {
         }
       }).then((res) => {
         console.log(res.data);
+        this.fileInfo[0].fileUrl = res.data[this.i].fileUrl;
+        this.fileInfo[0].fileId = res.data[this.i].fileId;
+        this.fileInfo[0].fileName = res.data[this.i].fileName;
         this.i+=1;
-        this.fileInfo[this.i].fileUrl = res.data[this.i].fileUrl;
-        this.fileInfo[this.i].fileId = res.data[this.i].fileId;
-        this.fileInfo[this.i].fileName = res.data[this.i].fileName;
         this.onChangeImages();
       }).catch(error => {
           console.log(error);
@@ -137,7 +145,7 @@ export default {
       let reader = new FileReader()
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.fileInfo[this.i].fileUrl = reader.result
+        this.fileInfo[0].fileUrl = reader.result
       }
     }
   }
