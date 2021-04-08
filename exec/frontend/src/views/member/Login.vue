@@ -28,6 +28,7 @@
             color="#FEA601"
             outlined
             dense
+            @keyup.enter="login"
           ></v-text-field>
           <v-btn
             style="width:100%; height:40px; margin-top: 20px;"
