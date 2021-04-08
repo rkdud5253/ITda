@@ -26,7 +26,6 @@ export default {
   },
   mounted() {
     this.$store.commit("TTS", "오늘의 사진이 잘 찍혔어요!");
-    setTimeout(()=>this.$router.push({name: 'SeniorMain'}), 5000);
   },
   methods:{
     send(msg){
