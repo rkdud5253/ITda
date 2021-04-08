@@ -1,0 +1,60 @@
+@import "../color.scss";
+
+@mixin menuImage($border-color) {
+  width: 360px;
+  height: 480px;
+  border-radius: 20px;
+  border: 20px solid $border-color;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin menuButton($color) {
+  width: 280px;
+  height: 80px;
+  top: 80%;
+	transform: translate(-50%, -50%);
+
+  background: $color;
+  border-radius: 20px;
+  font-size: 48px;
+  color: $basic-white;
+
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+
+.dailyExerciseMenu {
+  .exerciseImage {
+    @include menuImage($secondary-red);
+  }
+
+  .exerciseButton {
+    @include menuButton($secondary-red);
+  }
+}
+
+.photoDiaryMenu {
+  .diaryImage {
+    @include menuImage($secondary-yellow);
+    margin: 0 110px;
+  }
+
+  .diaryButton {
+    @include menuButton($secondary-yellow);
+  }
+}
+
+.familyGameMenu {
+  .gameImage {
+    @include menuImage($secondary-blue);
+  }
+
+  .gameButton {
+    @include menuButton($secondary-blue);
+  }
+}
