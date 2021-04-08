@@ -11,9 +11,8 @@
       elevation="5"
     >
       <v-img
-        :src="require('@/assets/family/daily1.jpg')"
+        :src="myImage.fileUrl"
       >
-      <!-- {{myImage.fileName}} -->
       </v-img>
     </v-card>
 
@@ -31,6 +30,21 @@ export default {
   computed: {
     myImage: function() {
       return this.image[0]
+    },
+  },
+  created() {
+    this.onChangeImages();
+  },
+  methods: {
+    onChangeImages(e) {
+      const file = e;
+    
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.myImage.fileUrl = reader.result
+      }
+      // this.myImage.fileUrl = "data:image/jpeg;base64," + this.myImage.fileUrl;
     },
   },
 }

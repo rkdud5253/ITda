@@ -1,8 +1,8 @@
 <template>
   <div class="exampleImage">
     <img class="image"
-      src="@/assets/senior/ExampleImage.jpg"
-    >{{myFileInfo.fileUrl}}
+      :src="myFileInfo.fileUrl"
+    >
   </div>
 </template>
 

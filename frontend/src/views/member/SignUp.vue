@@ -200,7 +200,7 @@ export default {
           }).then((res2) => {
             if(res2.data == "success"){
             // 회원 가입이 완료되었습니다
-              this.$router.push({name: 'Main'})
+              this.$router.push({name: 'Login'})
             }
             else 
               // 회원 가입 실패
