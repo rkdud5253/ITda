@@ -33,6 +33,7 @@
                 <h2>{{ year }}년 {{ month }}월 {{ day }}일</h2>
                 <h1>평균 정확도</h1>
                 <h1 style="color: #FC5355; font-size: xxx-large;">{{this.accuracyAverage}}%</h1>
+                <h5 style="color: #FC5355;">["왼팔, 오른팔, 왼다리, 오른다리"]</h5>
                 <h5 style="color: #FC5355;">{{this.exerciseAccuracy}}</h5>
                 <link rel="stylesheet" href="">
                 <!-- <v-btn

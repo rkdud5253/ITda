@@ -3,7 +3,7 @@
     <div class="wrap">
       <TitleBox :title="items[i].questionContent"/>
       <div v-if="questionImageUrl" class="question">{{ questionImageUrl }}</div>
-      <img v-if="!questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg">
+      <img v-if="!questionImageUrl" class="defaultImage" :src="items[i].questionImageUrl">
       <ExampleBox 
         :example1="items[i].example1"
         :example2="items[i].example2"
@@ -47,7 +47,8 @@ export default {
     }
   },
   created() {
-    this.getQuiz()
+    this.getQuiz();
+    this.onChangeImages();
   },
   watch: {
     items: function() {
@@ -60,7 +61,7 @@ export default {
       axios.get('/qna',{
         params:{
           // userId: Number(this.$store.state.userId)
-          userId: 1
+          userId: 4
         }
       }).then((res) => {
         console.log(res.data);
@@ -82,6 +83,15 @@ export default {
       }).catch(error => {
           console.log(error);
       });
+    },
+    onChangeImages(e) {
+      const file = e;
+    
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.items[this.i].questionImageUrl = reader.result
+      }
     },
   },  
 }
