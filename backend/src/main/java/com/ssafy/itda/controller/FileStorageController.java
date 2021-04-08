@@ -54,7 +54,7 @@ public class FileStorageController {
 			@RequestBody @ApiParam(value = "체조 사진파일 정보", required = true) FileStorage file) throws Exception {
 		logger.info("saveExerciseImage - 호출");
 		file.setFileUse(EXERCISE);
-		if (fileStorageService.saveFile(file)) {
+		if (fileStorageService.saveSampleFile(file)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
