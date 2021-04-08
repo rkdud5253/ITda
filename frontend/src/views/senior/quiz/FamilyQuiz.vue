@@ -2,7 +2,7 @@
   <div class="familyQuiz">
     <div class="wrap" v-if="items.length > 0">
       <TitleBox :title="items[idx].questionContent"/>
-      <div v-if="items[idx].questionImageUrl" class="question">{{ items[idx].questionImageUrl }}</div>
+      <img v-if="items[idx].questionImageUrl" class="question" :src="items[idx].questionImageUrl">
       <img v-if="!items[idx].questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg">
       <ExampleBox 
         :example1="items[idx].example1"
@@ -60,6 +60,9 @@ export default {
     this.getDate();
     this.getQuiz();
     setTimeout(()=>this.$store.commit("TTS", this.items[this.idx].questionContent),500);
+    
+    // 2번으로 찍는 Interval
+    // setInterval(()=>this.solving(2),1500);
   },
   methods: {
     getDate() {
