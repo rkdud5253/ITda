@@ -2,7 +2,6 @@ package com.ssafy.itda.service;
 
 import com.ssafy.itda.domain.Question;
 import com.ssafy.itda.domain.WrongQuestion;
-import com.ssafy.itda.mapper.AccessCheckMapper;
 import com.ssafy.itda.mapper.QuestionMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

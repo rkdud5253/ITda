@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     goQuizMake() {
-      this.$router.go(this.$router.push({name: 'QuizItdaMakeQuestion'}))
+      this.$router.push({name: 'QuizItdaMakeQuestion'});
     },
   },
 }

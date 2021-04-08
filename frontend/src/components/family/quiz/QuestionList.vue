@@ -18,6 +18,7 @@
       :items="question"
       :search="search"
       @click:row="goQuizDetail"
+      style="cursor:pointer"
     ></v-data-table>
   </v-card>
 </template>
