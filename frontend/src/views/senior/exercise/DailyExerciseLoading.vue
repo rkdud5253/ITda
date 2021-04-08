@@ -14,11 +14,11 @@ export default {
     MenuLoading,
   },
   created(){
-    setInterval("goDailyExercise", 5000);
+    setTimeout(()=>this.goDailyExercise(), 5000);
   },
   methods:{
     goDailyExercise(){
-     this.$router.push({name: 'DailyExercise'})
+      this.$router.push({name: 'DailyExercise'})
     }
   }
 }

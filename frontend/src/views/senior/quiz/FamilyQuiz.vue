@@ -1,14 +1,14 @@
 <template>
   <div class="familyQuiz">
-    <div class="wrap">
-      <TitleBox :title="items[i].questionContent"/>
-      <div v-if="questionImageUrl" class="question">{{ questionImageUrl }}</div>
-      <img v-if="!questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg">
+    <div class="wrap" v-if="items.length > 0">
+      <TitleBox :title="items[idx].questionContent"/>
+      <div v-if="items[idx].questionImageUrl" class="question">{{ items[idx].questionImageUrl }}</div>
+      <img v-if="!items[idx].questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg">
       <ExampleBox 
-        :example1="items[i].example1"
-        :example2="items[i].example2"
-        :example3="items[i].example3"
-        :example4="items[i].example4"
+        :example1="items[idx].example1"
+        :example2="items[idx].example2"
+        :example3="items[idx].example3"
+        :example4="items[idx].example4"
       />
     </div>
     <div class="goBox">
@@ -24,7 +24,9 @@ import TitleBox from '@/components/senior/common/TitleBox.vue';
 import ExampleBox from '@/components/senior/quiz/ExampleBox.vue';
 import GoToMainRed from '@/components/senior/common/GoToMainRed.vue';
 import GoNext from '@/components/senior/common/GoNext.vue';
-import axios from "@/service/axios.service.js";
+import axios from '@/service/axios.service.js'
+import Stomp from "webstomp-client";
+import SockJS from "sockjs-client";
 
 export default {
   name: "FamilyQuiz",
@@ -42,25 +44,41 @@ export default {
   },
   data() {
     return {
-      i: 0,
+      idx: 0,
       items: [],
+      right: [],
+      wrong: [],
+      rightNumbers: '',
+      wrongNumbers: '',
+      date: '',
+      year: '',
+      month: '',
+      day: '',
     }
   },
   created() {
-    this.getQuiz()
-  },
-  watch: {
-    items: function() {
-      // console.log(this.items[this.i].questionContent)
-      this.$store.commit("TTS", this.items[this.i].questionContent);
-    }
+    this.getDate();
+    this.getQuiz();
+    setTimeout(()=>this.$store.commit("TTS", this.items[this.idx].questionContent),500);
   },
   methods: {
+    getDate() {
+      this.date = new Date();
+      this.year = this.date.getFullYear();
+      this.month = (this.date.getMonth()+1);
+      this.day = this.date.getDate();
+      if(this.month < 10){
+        this.month = '0' + this.month;
+      }
+      if(this.day < 10){
+        this.day = '0' + this.day;
+      }
+      this.date = this.year + '-' + this.month + '-' + this.day;
+    },
     getQuiz(){
       axios.get('/qna',{
         params:{
-          // userId: Number(this.$store.state.userId)
-          userId: 1
+          userId: Number(this.$store.state.userId)
         }
       }).then((res) => {
         console.log(res.data);
@@ -82,6 +100,98 @@ export default {
       }).catch(error => {
           console.log(error);
       });
+    },
+    send(msg){
+        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
+    },
+    connect() {
+        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+        
+        let Socket = new SockJS(serverURL);
+        this.StompClient = Stomp.over(Socket);
+        this.StompClient.debug = () => {};
+        this.StompClient.connect(
+            {},
+            (frame) => {
+              // 소켓 연결 성공
+              frame;
+              
+              this.StompClient.subscribe(
+                  "/socket/" + this.$store.state.ipHash + "/send",
+                  (res) => {
+                    console.log(res.body);
+                    
+                    if(res.body == "그만")
+                      this.$router.push({name: 'SeniorMain'});
+                    else if(res.body == "1번" || res.body == "1") // 넘겨받음
+                      this.solving(1);
+                    else if(res.body == "2번" || res.body == "2") // 넘겨받음
+                      this.solving(2);
+                    else if(res.body == "3번" || res.body == "3") // 넘겨받음
+                      this.solving(3);
+                    else if(res.body == "4번" || res.body == "4") // 넘겨받음
+                      this.solving(4);
+                  }
+              );  
+            },
+            (error) => {
+              // 소켓 연결 실패
+              console.log("소켓 연결 실패", error);
+            }
+        );
+    },
+    solving(answer){
+      if(this.items[this.idx].answer == answer)  // 정답
+        this.right.push(this.items[this.idx].questionId);
+      else // 오답
+        this.wrong.push(this.items[this.idx].questionId);
+        
+      // 정답은 ~번입니다 TTS
+      this.$store.commit("TTS", "정답은" + answer + "번입니다.");
+
+      //idx가 5일때 
+      this.idx+=1;
+
+      if(this.idx < 5)
+        setTimeout(()=> this.$store.commit("TTS", "다음 문제입니다. " + this.items[this.idx].questionContent),2000);
+
+      else {
+        this.getWrong();
+        this.getRight();
+
+        this.setQuizResult();
+
+        setTimeout(() => this.$router.push({name:"FamilyQuizResult"}), 500);
+      }
+    },
+    setQuizResult(){
+      axios
+      .put('/report/qna',{
+          // userId: Number(this.$store.state.userId)
+          userId: 1,
+          reportDate: this.date,
+          question1Id: this.items[0].questionId,
+          question2Id: this.items[1].questionId,
+          question3Id: this.items[2].questionId,
+          question4Id: this.items[3].questionId,
+          question5Id: this.items[4].questionId,
+          rightNumbers: this.rightNumbers,
+          wrongNumbers: this.wrongNumbers,
+      }).then((res) => {
+        console.log(res.data);
+      }).catch(error => {
+          console.log(error);
+      });
+    },
+    getWrong(){
+      for (let index = 0; index < this.right.length; index++) {
+        this.rightNumbers += "/" + this.right[index];
+      }
+    },
+    getRight(){
+      for (let index = 0; index < this.wrong.length; index++) {
+        this.wrongNumbers += "/" + this.wrong[index];
+      }
     },
   },  
 }

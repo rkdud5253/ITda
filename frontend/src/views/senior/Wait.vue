@@ -33,6 +33,7 @@ export default {
                 {},
                 (frame) => {
                     // 소켓 연결 성공
+                    this.connected = true;
                     frame;
               
                     this.getIpAddress();
@@ -50,6 +51,7 @@ export default {
                 (error) => {
                     // 소켓 연결 실패
                     console.log("소켓 연결 실패", error);
+              this.connected = false;
                 }
             );
         }

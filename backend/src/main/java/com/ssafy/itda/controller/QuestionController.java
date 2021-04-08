@@ -109,4 +109,17 @@ public class QuestionController {
 
 		return new ResponseEntity<>(FAIL, HttpStatus.OK);
 	}
+
+	// @ApiOperation(value = "문제 삭제", notes = "문제 DB에 삭제", response =
+	// Question.class)
+	@DeleteMapping
+	public ResponseEntity<String> deleteQuestion(@RequestParam("questionId") int questionId) throws Exception {
+		logger.info("deleteQuestion - 호출");
+
+		if (questionService.deleteQuestion(questionId)) {
+			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>(FAIL, HttpStatus.OK);
+	}
 }

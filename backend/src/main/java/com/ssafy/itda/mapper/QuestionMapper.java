@@ -17,4 +17,5 @@ public interface QuestionMapper {
   public int questionGetSize() throws SQLException;
   public int postQuestion(Question question) throws SQLException;
   public int updateQuestion(Question question) throws SQLException;
+  public int deleteQuestion (int questionId) throws SQLException;
 }

@@ -14,6 +14,13 @@ export default {
   components: {
     MenuLoading,
   },
-  // TTS
+  created(){
+    setTimeout(()=>this.goFamilyQuiz(), 5000);
+  },
+  methods:{
+    goFamilyQuiz(){
+      this.$router.push({name: 'FamilyQuiz'})
+    }
+  }
 }
 </script>
