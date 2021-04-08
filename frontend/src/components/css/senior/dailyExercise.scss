@@ -39,10 +39,21 @@
       height: 371.25px;
     }
   
-    .video2 {
+    .video {
       width: 660px;
       height: 371.25px;
-      background-color: gray;
+      text-align: center;
+      position: relative;
+      background-color: $basic-black;
+
+      .explain {
+        color: $basic-white;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 22px;
+      }
     }
   }
 

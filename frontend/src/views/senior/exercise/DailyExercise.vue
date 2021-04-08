@@ -8,7 +8,13 @@
         :src="fileInfo[i].fileUrl"
         alt=""
         >
-        <div class="video2">어르신 실시간 영상</div>
+        <div class="video">
+          <h3 class="explain">
+            이곳에는 PoseNet을 이용한<br> 어르신 실시간 영상이 들어갑니다.<br>
+            실행을 위해서는<br> Raspberry Pi가 필요하므로,<br>
+            발표 시 시연으로<br> 보여드릴 예정입니다.
+          </h3>
+        </div>
       </div>
       <div class="explainBox">
         <div class="explainLine">
