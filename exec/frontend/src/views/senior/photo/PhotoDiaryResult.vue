@@ -28,9 +28,6 @@ export default {
     this.$store.commit("TTS", "오늘의 사진이 잘 찍혔어요!");
   },
   methods:{
-    send(msg){
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
-    },
     connect() {
         const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
         
@@ -50,12 +47,8 @@ export default {
                     
                     if(res.body == "다시")
                       this.$router.push({name: 'PhotoDiary'});
-                    else if(res.body == "저장") {
-                     
-                      this.send({ sttMessage: "upload" });
+                    else if(res.body == "저장") 
                       this.$router.push({name: 'SeniorMain'});
-                       
-                    }
                   }
               );
             },

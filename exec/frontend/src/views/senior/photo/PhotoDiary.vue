@@ -77,7 +77,7 @@ export default {
   },
   mounted() {
     this.$store.commit("TTS", "왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
-    setTimeout(()=>this.send("smileNetRun"), 6000); // 대사 끝나고 smileNet 실행
+    // setTimeout(()=>this.send("smileNetRun"), 6000); // 대사 끝나고 smileNet 실행
   },
   methods: {
     getFileInfo(){
@@ -94,9 +94,6 @@ export default {
       }).catch(error => {
           console.log(error);
       });
-    },
-    send(msg){
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
     },
     connect() {
         const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
@@ -117,7 +114,7 @@ export default {
                     
                     if(res.body == "그만")
                       this.$router.push({name: 'SeniorMain'});
-                    else if(res.body == "captured") // 넘겨받음
+                    else if(res.body == "찰칵") // 넘겨받음
                       this.$router.push({name: 'PhotoDiaryResult'});
                   }
               );

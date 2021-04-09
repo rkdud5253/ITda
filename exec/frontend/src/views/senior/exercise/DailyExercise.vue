@@ -75,20 +75,21 @@ export default {
     // 사진 배열로 몇 개 하기 - 일단 3장
     this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
     setTimeout(()=>this.send({ sttMessage: "poseNetRun"}),7000); // 대사 끝나면 poseNet 실행
+    
     // 체조 사진 
     // for문으로 15초 마다 다음 동작으로 axios.get
     
     setTimeout(()=>this.getFileInfo(),7000);
     
-    setTimeout(()=>this.getFileInfo(),11000);
-    setTimeout(()=>this.send({ sttMessage: "nextPose"}),11000);
+    setTimeout(()=>this.getFileInfo(),17000);
+    // setTimeout(()=>this.send({ sttMessage: "nextPose"}),11000);
 
-    setTimeout(()=>this.getFileInfo(),15000);
-    setTimeout(()=>this.send({ sttMessage: "nextPose"}),15000);
+    setTimeout(()=>this.getFileInfo(),27000);
+    // setTimeout(()=>this.send({ sttMessage: "nextPose"}),15000);
 
-    setTimeout(()=>this.send({ sttMessage: "poseNetStop"}),20000);
+    // setTimeout(()=>this.send({ sttMessage: "poseNetStop"}),20000);
 
-    setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),20000);
+    setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),37000);
   },
   methods: {
     send(msg){

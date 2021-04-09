@@ -74,7 +74,7 @@ export default {
               if(res.body == "오늘의 체조")
                 this.$router.push({name: 'DailyExerciseLoading'});
                 
-              if(res.body == "가족 오락관")
+              if(res.body == "가족오락관")
                 this.$router.push({name: 'FamilyQuizLoading'});
                 
               if(res.body == "사진 일기장")

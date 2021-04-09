@@ -6,6 +6,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import springfox.documentation.spring.web.json.Json;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 @Controller
 @CrossOrigin(origins = "*", allowCredentials="true",allowedHeaders = "*")
@@ -15,10 +19,11 @@ public class SocketController {
     public SocketController() {
 
     }
-    @MessageMapping("/socket/{ip}/receive")
-    @SendTo("/socket/{ip}/send")
+    @MessageMapping("")
+    @SendTo("")
     public String SocketHandler(@DestinationVariable String ip, String sttMessage) {
-        System.out.println(1);
+        System.out.println(sttMessage.getClass().getName());
+        System.out.println(sttMessage);
         return sttMessage;
     }
 }
