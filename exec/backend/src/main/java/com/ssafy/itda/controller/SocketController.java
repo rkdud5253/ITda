@@ -19,8 +19,8 @@ public class SocketController {
     public SocketController() {
 
     }
-    @MessageMapping("")
-    @SendTo("")
+    @MessageMapping("/socket/{ip}/receive")
+    @SendTo("/socket/{ip}/send")
     public String SocketHandler(@DestinationVariable String ip, String sttMessage) {
         System.out.println(sttMessage.getClass().getName());
         System.out.println(sttMessage);
