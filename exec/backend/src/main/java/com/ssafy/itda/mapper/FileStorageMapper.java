@@ -15,10 +15,12 @@ public interface FileStorageMapper {
 	
 	public int saveSampleFile(FileStorage file) throws Exception;
 	
-	public List<FileStorage> getFile(FileStorage file) throws SQLException;
+	public FileStorage getFile(FileStorage file) throws SQLException;
 	
 	public List<FileStorage> getSampleFile(FileStorage file) throws SQLException;
 	
 	public int getFileCnt(FileStorage file) throws SQLException;
+	
+	public int createFileInfo(Map<String, Object> map) throws SQLException;
 
 }
