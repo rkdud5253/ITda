@@ -30,9 +30,6 @@ export default {
     setTimeout(()=>this.$router.push({name: 'SeniorMain'}), 10000);
   },
   methods:{
-    send(msg){
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
-      },
     connect() {
       const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
       

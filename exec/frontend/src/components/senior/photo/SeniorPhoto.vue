@@ -10,4 +10,6 @@
 export default {
   name: "SeniorPhoto",
 }
+
+
 </script>

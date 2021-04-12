@@ -56,7 +56,7 @@ export default {
       day: '',
     }
   },
-  created() {
+  mounted() {
     this.getDate();
     this.getQuiz();
     setTimeout(()=>this.$store.commit("TTS", this.items[this.idx].questionContent),500);
@@ -104,11 +104,8 @@ export default {
           console.log(error);
       });
     },
-    send(msg){
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
-    },
     connect() {
-        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+        const serverURL = "http://:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -126,13 +123,13 @@ export default {
                     
                     if(res.body == "그만")
                       this.$router.push({name: 'SeniorMain'});
-                    else if(res.body == "1번" || res.body == "1") // 넘겨받음
+                    if(res.body == "1번" || res.body == "1" || res.body == "일" || res.body == "일번") // 넘겨받음
                       this.solving(1);
-                    else if(res.body == "2번" || res.body == "2") // 넘겨받음
+                    if(res.body == "2번" || res.body == "2" || res.body == "이" || res.body == "이번") // 넘겨받음
                       this.solving(2);
-                    else if(res.body == "3번" || res.body == "3") // 넘겨받음
+                    if(res.body == "3번" || res.body == "3" || res.body == "삼" || res.body == "삼번") // 넘겨받음
                       this.solving(3);
-                    else if(res.body == "4번" || res.body == "4") // 넘겨받음
+                    if(res.body == "4번" || res.body == "4" || res.body == "사" || res.body == "사번") // 넘겨받음
                       this.solving(4);
                   }
               );  
@@ -144,6 +141,8 @@ export default {
         );
     },
     solving(answer){
+      console.log(answer);
+
       if(this.items[this.idx].answer == answer)  // 정답
         this.right.push(this.items[this.idx].questionId);
       else // 오답

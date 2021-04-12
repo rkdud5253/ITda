@@ -59,14 +59,6 @@
       >
         수정하기
       </v-btn>
-      <v-btn
-        class="mx-2 my-10"
-        color="#FC5355"
-        dark
-        @click="deleteQuiz"
-      >
-        삭제하기
-      </v-btn>
     </div>
   </v-card>
 </template>

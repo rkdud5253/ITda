@@ -31,7 +31,8 @@ export default {
         });
       },
       send(msg){
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
+        console.log(msg);
+        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", "asdf", {});
       },
       connect() {
         const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
@@ -61,7 +62,7 @@ export default {
     },
     goToNextPage() {
       
-      this.send({ sttMessage: this.$store.state.userId })
+      this.send(toString(this.$store.state.userId))
 
       if(this.$store.state.userId > 0)
         this.$router.push({name:"SeniorMain"});
