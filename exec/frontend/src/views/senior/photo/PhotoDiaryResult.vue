@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     myImage: function() {
-      return this.image[0]
+      return this.image
     },
   },
   created(){
@@ -71,8 +71,7 @@ export default {
         }
       })
       .then((response) => {
-        console.log(response.data);
-        this.fileUrl = response.data[0];  
+        this.fileUrl = response.data;  
       })
       .catch((error) => {
         console.log(error);
