@@ -39,7 +39,7 @@ export default {
   created() {
     this.connect();
 
-    // 유저 ID 전달
+    // userId 전달
     axios.post("/order",{
       hashIp:this.$store.state.ipHash,
       command:"userId=" + this.$store.state.userId
