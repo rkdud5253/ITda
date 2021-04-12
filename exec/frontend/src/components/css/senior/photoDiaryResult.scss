@@ -15,7 +15,7 @@
   }
 
   .titleBox {
-    @include titleBox($primary-yellow2, $basic-black, 1320px, 75px);
+    @include titleBox($primary-yellow2, $basic-black, 1320px, 20px);
   }
 
   .nari {
@@ -27,10 +27,7 @@
   }
 
   .seniorPhoto {
-    .image {
-      width: 660px;
-      height: 371.25px;
-    }
+    width: 660px;
   }
 
   .explain {
