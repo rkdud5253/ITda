@@ -9,6 +9,7 @@
     <v-card
       class="mx-5 my-5"
       elevation="5"
+      v-if="myImage != undefined"
     >
       <v-img
         :src="myImage.fileUrl"
@@ -33,19 +34,11 @@ export default {
     },
   },
   created() {
-    this.onChangeImages();
+  },
+  mounted() {
   },
   methods: {
-    onChangeImages(e) {
-      const file = e;
-    
-      let reader = new FileReader()
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.myImage.fileUrl = reader.result
-      }
-      // this.myImage.fileUrl = "data:image/jpeg;base64," + this.myImage.fileUrl;
-    },
+   
   },
 }
 </script>
