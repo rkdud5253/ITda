@@ -75,13 +75,13 @@ public class FileStorageController {
 
 	@ApiOperation(value = "일기 사진샘플 보기", notes = "오늘의 일기 사진샘플 정보를 반환한다.", response = FileStorage.class)
 	@GetMapping
-	public ResponseEntity<List<FileStorage>> getSampleImage(
+	public ResponseEntity<FileStorage> getSampleImage(
 			@RequestParam("fileDate") @ApiParam(value = "날짜", required = true) String fileDate) throws Exception {
 		logger.info("getSampleImage - 호출");
 		Map<String, Object> map = new HashMap<>();
 		map.put("fileDate", fileDate);
 		map.put("fileUse", SAMPLE);
-		return new ResponseEntity<List<FileStorage>>(fileStorageService.getSampleFile(map), HttpStatus.OK);
+		return new ResponseEntity<FileStorage>(fileStorageService.getSampleFile(map).get(0), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "체조 사진샘플 보기", notes = "오늘의 체조 사진샘플 정보를 반환한다.", response = FileStorage.class)
