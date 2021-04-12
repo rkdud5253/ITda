@@ -73,7 +73,7 @@ export default {
   },
   mounted() {
     // 사진 배열로 몇 개 하기 - 일단 3장
-    this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
+    // this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
     setTimeout(()=>this.send({ sttMessage: "poseNetRun"}),7000); // 대사 끝나면 poseNet 실행
     
     // 체조 사진 

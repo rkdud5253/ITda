@@ -12,11 +12,22 @@ import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
 import "@/components/css/senior/splash.scss";
 import Sha256 from "@/lib/sha256.js"
+import axios from "@/service/axios.service.js";
 
 export default {
   name: "Splash",
   created() {
     this.connect();
+
+    
+    // 시작 화면에서 명령어 지우고 시작
+    axios.delete("/order",{
+      params:{
+        hashIp:this.$store.state.ipHash
+      }
+    }).then(() => {
+    })
+
   },
   mounted() {
     setTimeout(()=>this.goToNextPage(), 5000);
@@ -29,10 +40,6 @@ export default {
             console.log(Sha256(ip));
             this.$store.commit("setIpHash",Sha256(ip));
         });
-      },
-      send(msg){
-        console.log(msg);
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", "asdf", {});
       },
       connect() {
         const serverURL = "http://localhost:8000/itda/vuejs";
@@ -61,8 +68,6 @@ export default {
         );
     },
     goToNextPage() {
-      
-      this.send(toString(this.$store.state.userId))
 
       if(this.$store.state.userId > 0)
         this.$router.push({name:"SeniorMain"});
