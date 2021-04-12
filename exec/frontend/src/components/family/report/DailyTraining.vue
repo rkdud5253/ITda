@@ -10,6 +10,7 @@
     <v-card
       class="mx-5 my-5"
       elevation="5"
+      v-if="myDailyReport.exerciseAccuracy" 
     >
       <v-carousel
         cycle
@@ -36,21 +37,12 @@
                 <h5 style="color: #FC5355;">[12가지의 신체 부위별 평균 정확도]</h5>
                 <h5 style="color: #FC5355;">{{this.exerciseAccuracy}}</h5>
                 <link rel="stylesheet" href="">
-                <!-- <v-btn
-                  class="mt-5"
-                  color="#FC5355"
-                  dark
-                  small
-                  @click="goTrainingLink"
-                >
-                  오늘의 체조 보러가기
-                </v-btn> -->
               </div>
             </v-row>
           </v-sheet>
         </v-carousel-item>
         <v-carousel-item
-          v-for="(item,i) in myExercise"
+          v-for="(item,i) in exercises"
           :key="i"
           :src="item.fileUrl"
         ></v-carousel-item>
@@ -68,51 +60,30 @@ export default {
   components: {
 
   },
-  props: ['year', 'month', 'day', 'dailyReport', 'exercise'],
+  props: ['year', 'month', 'day', 'dailyReport'],
   data () {
       return {
-        items: [],
-        trainingLink: [],
-        exerciseUrl: '',
         exerciseAccuracy: [],
         accuracyAverage: '',
+        exercises: [],
       }
   },
   computed: {
     myDailyReport: function() {
       return this.dailyReport
     },
-    myExercise: function() {
-      return this.exercise
-    },
   },
   watch: {
-    myExercise: function() {
-      this.getExerciseUrl();
-    },
     myDailyReport: function() {
       this.myDailyReport;
       this.getExerciseAccuracy();
+      this.getExercise();
     },
   },
   methods: {
     goTrainingLink: function() {
       window.open(this.exerciseUrl)
       // 백에서 매일 체조링크 가져와서 보여주기
-    },
-    getExerciseUrl: function() {
-      axios
-        .get(`/exercise`, {
-          params: {
-            exerciseId: this.myDailyReport.exerciseId,
-          }
-        })
-        .then((response) => {
-          this.exerciseUrl = response.data.exerciseUrl;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     getExerciseAccuracy: function() {
       this.exerciseAccuracy = this.myDailyReport.exerciseAccuracy.split('/')
@@ -121,6 +92,20 @@ export default {
         sum += Number(this.exerciseAccuracy[index]);
       }
       this.accuracyAverage = sum / this.exerciseAccuracy.length;
+    },
+    getExercise() { 
+      axios
+        .get(`/files/exercise`, {
+          params: {
+            fileDate : this.$route.query.date,
+          }
+        })
+        .then((response) => {
+          this.exercises = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 }

@@ -3,14 +3,10 @@
     <div class="wrap">
       <TitleBox title="오늘의 사진이 잘 찍혔어요!" />
       <img class="seniorPhoto" :src="fileUrl.fileUrl">
-      <p class="explain">사진이 마음에 드시면 "저장"</p>
+      <p class="explain">사진이 마음에 드시면 "나리야 저장"</p>
       <hr class="line1">
-      <p class="explain">다시 찍으시려면 “다시”</p>
+      <p class="explain">다시 찍으시려면 “나리야 다시”</p>
       <hr class="line2">
-    </div>
-    <div class="goBox">
-      <Again />
-      <Save />
     </div>
   </div>
 </template>
@@ -18,8 +14,6 @@
 <script>
 import '@/components/css/senior/photoDiaryResult.scss';
 import TitleBox from '@/components/senior/common/TitleBox.vue';
-import Again from '@/components/senior/photo/Again.vue';
-import Save from '@/components/senior/photo/Save.vue';
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
 import axios from '@/service/axios.service.js'
@@ -28,8 +22,6 @@ export default {
   name: "PhotoDiaryResult",
   components: {
     TitleBox,
-    Again,
-    Save,
   },
   data() {
     return {
@@ -42,7 +34,7 @@ export default {
   },
   computed: {
     myImage: function() {
-      return this.image[0]
+      return this.image
     },
   },
   created(){
@@ -79,8 +71,7 @@ export default {
         }
       })
       .then((response) => {
-        console.log(response.data);
-        this.fileUrl = response.data[0];  
+        this.fileUrl = response.data;  
       })
       .catch((error) => {
         console.log(error);

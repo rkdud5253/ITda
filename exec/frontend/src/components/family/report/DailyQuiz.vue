@@ -10,6 +10,7 @@
     <v-card
       class="mx-5 my-5"
       elevation="5"
+      v-if="myDailyReport.question1Id"
     >
       <v-data-table
         :headers="headers"
@@ -89,6 +90,7 @@ export default {
   },
   watch: {
     myDailyReport: function() {
+      this.myDailyReport;
       this.getQuestionId();
       this.getQuestionContent();
       this.getQuestionResult();
