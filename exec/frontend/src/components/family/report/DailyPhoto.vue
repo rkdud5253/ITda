@@ -30,7 +30,7 @@ export default {
   props: ['year', 'month', 'day', 'image'],
   computed: {
     myImage: function() {
-      return this.image[0]
+      return this.image
     },
   },
   created() {
