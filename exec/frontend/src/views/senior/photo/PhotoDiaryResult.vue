@@ -2,7 +2,7 @@
   <div class="photoDiaryResult">
     <div class="wrap">
       <TitleBox title="오늘의 사진이 잘 찍혔어요!" />
-      <img :src="fileUrl">
+      <img class="seniorPhoto" :src="fileUrl.fileUrl">
       <p class="explain">사진이 마음에 드시면 "나리야 저장"</p>
       <hr class="line1">
       <p class="explain">다시 찍으시려면 “나리야 다시”</p>
@@ -32,6 +32,11 @@ export default {
       day:''
     }
   },
+  computed: {
+    myImage: function() {
+      return this.image[0]
+    },
+  },
   created(){
 
     this.date = new Date();
@@ -51,55 +56,57 @@ export default {
     
   },
   mounted() {
-    this.$store.commit("TTS", "오늘의 사진이 잘 찍혔어요!");
-    setTimeout(()=>this.$router.push({name: 'SeniorMain'}), 8000);
+    // this.$store.commit("TTS", "오늘의 사진이 잘 찍혔어요!");
+    // setTimeout(()=>this.$router.push({name: 'SeniorMain'}), 8000);
   },
   methods:{
      getImage() {
-      axios
-        .get(`/files/image`, {
-          params: {
-            userId : this.$store.state.userId,
-            fileDate : this.date,
-          }
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.fileurl = response.data[0].fileUrl;  
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    axios
+      .get(`/files/image`, {
+        params: {
+          // userId : this.$store.state.userId,
+          // 현재 테스트용으로 userId 1로 설정 중
+          userId : 1,
+          fileDate : this.date,
+        }
+      })
+      .then((response) => {
+        console.log(response.data);
+        this.fileUrl = response.data[0];  
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
     connect() {
-        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
-        
-        let Socket = new SockJS(serverURL);
-        this.StompClient = Stomp.over(Socket);
-        this.StompClient.debug = () => {};
-        this.StompClient.connect(
-            {},
-            (frame) => {
-              // 소켓 연결 성공
-              frame;
+      const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+      
+      let Socket = new SockJS(serverURL);
+      this.StompClient = Stomp.over(Socket);
+      this.StompClient.debug = () => {};
+      this.StompClient.connect(
+        {},
+        (frame) => {
+          // 소켓 연결 성공
+          frame;
+          
+          this.StompClient.subscribe(
+            "/socket/" + this.$store.state.ipHash + "/send",
+            (res) => {
+              console.log(res.body);
               
-              this.StompClient.subscribe(
-                  "/socket/" + this.$store.state.ipHash + "/send",
-                  (res) => {
-                    console.log(res.body);
-                    
-                    if(res.body == "다시")
-                      this.$router.push({name: 'PhotoDiary'});
-                    else if(res.body == "저장") 
-                      this.$router.push({name: 'SeniorMain'});
-                  }
-              );
-            },
-            (error) => {
-              // 소켓 연결 실패
-              console.log("소켓 연결 실패", error);
+              if(res.body == "다시")
+                this.$router.push({name: 'PhotoDiary'});
+              else if(res.body == "저장") 
+                this.$router.push({name: 'SeniorMain'});
             }
-        );
+          );
+        },
+        (error) => {
+          // 소켓 연결 실패
+          console.log("소켓 연결 실패", error);
+        }
+      );
     },
   }
 }
