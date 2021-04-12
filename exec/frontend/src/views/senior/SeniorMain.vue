@@ -38,18 +38,13 @@ export default {
   },
   created() {
     this.connect();
-    axios.get("/user", {
-      params: {
-        userId : this.$store.state.userId
-      }
-    }).then((res) => {
-      this.username = res.data.userName;
-      // console.log(this.username)
-      if (this.username) {
-      this.$store.commit("TTS", this.username + "님 나리를 불러서 원하는 기능을 실행하세요.");
-    } else {
-      this.$store.commit("TTS", "어르신 등록 후 잇다를 이용해주세요.");
-    }
+
+    // 유저 ID 전달
+    axios.post("/order",{
+      hashIp:this.$store.state.ipHash,
+      command:"userId=" + this.$store.state.userId
+    }).then(() => {
+
     })
   },
   methods:{

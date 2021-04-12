@@ -32,7 +32,7 @@ export default {
     this.connect();
   },
   mounted() {
-    this.$store.commit("TTS", "잇다에 오신 걸 환영합니다. 입장하시려면 성함을 말씀해주세요.");
+    // this.$store.commit("TTS", "잇다에 오신 걸 환영합니다. 입장하시려면 성함을 말씀해주세요.");
   },
   methods:{ 
     
@@ -113,6 +113,13 @@ export default {
 
             console.log("등록 완료");
             
+            // userId 전달
+            axios.post("/order",{
+              hashIp:this.$store.state.ipHash,
+              command:"userId=" + this.$store.state.userId
+            }).then(() => {
+            })
+
             this.$router.push({name: 'SeniorMain'});
           }).catch(error => {
             console.log(error); 

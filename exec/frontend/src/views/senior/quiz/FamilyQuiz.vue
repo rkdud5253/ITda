@@ -2,8 +2,8 @@
   <div class="familyQuiz">
     <div class="wrap" v-if="items.length > 0">
       <TitleBox :title="items[idx].questionContent"/>
-      <img v-if="items[idx].questionImageUrl" class="question" :src="items[idx].questionImageUrl" alt="">
-      <img v-if="!items[idx].questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg" alt="">
+      <img v-if="items[idx].questionImageUrl" class="question" :src="items[idx].questionImageUrl">
+      <img v-if="!items[idx].questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg">
       <ExampleBox 
         :example1="items[idx].example1"
         :example2="items[idx].example2"
@@ -59,7 +59,10 @@ export default {
   mounted() {
     this.getDate();
     this.getQuiz();
-    this.connect();
+    setTimeout(()=>this.$store.commit("TTS", this.items[this.idx].questionContent),500);
+    
+    // 2번으로 찍는 Interval
+    // setInterval(()=>this.solving(2),1500);
   },
   methods: {
     getDate() {
@@ -102,7 +105,7 @@ export default {
       });
     },
     connect() {
-        const serverURL = "http://localhost:8000/itda/vuejs";
+        const serverURL = "http://:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -112,7 +115,6 @@ export default {
             (frame) => {
               // 소켓 연결 성공
               frame;
-              console.log("socket connected");
               
               this.StompClient.subscribe(
                   "/socket/" + this.$store.state.ipHash + "/send",
@@ -149,10 +151,13 @@ export default {
       // 정답은 ~번입니다 TTS
       this.$store.commit("TTS", "정답은" + answer + "번입니다.");
 
-      //idx가 5일때
-      if(this.idx < 4)
-        this.idx += 1;
-      else{
+      //idx가 5일때 
+      this.idx+=1;
+
+      if(this.idx < 5)
+        setTimeout(()=> this.$store.commit("TTS", "다음 문제입니다. " + this.items[this.idx].questionContent),2000);
+
+      else {
         this.getWrong();
         this.getRight();
 
@@ -188,6 +193,15 @@ export default {
     getRight(){
       for (let index = 0; index < this.wrong.length; index++) {
         this.wrongNumbers += "/" + this.wrong[index];
+      }
+    },
+    onChangeImages(e) {
+      const file = e;
+    
+      let reader = new FileReader()
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.items[this.i].questionImageUrl = reader.result
       }
     },
   },  
