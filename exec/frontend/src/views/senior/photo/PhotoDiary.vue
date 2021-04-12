@@ -87,9 +87,9 @@ export default {
           fileDate: this.date,
         }
       }).then((res) => {
-        this.fileInfo.fileUrl = res.data[0].fileUrl;
-        this.fileInfo.fileId = res.data[0].fileId;
-        this.fileInfo.fileName = res.data[0].fileName;
+        this.fileInfo.fileUrl = res.data.fileUrl;
+        this.fileInfo.fileId = res.data.fileId;
+        this.fileInfo.fileName = res.data.fileName;
         console.log(this.date)
       }).catch(error => {
           console.log(error);
