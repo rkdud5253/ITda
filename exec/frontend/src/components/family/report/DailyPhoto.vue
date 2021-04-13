@@ -8,6 +8,14 @@
 
     <v-card
       class="mx-5 my-5"
+      flat
+      style="text-align: center;"
+      v-if="myImage.fileUrl == undefined"
+    >
+      <h2 class="px-5 py-10">오늘 어르신께서 찍은 사진이 없어요😯</h2>
+    </v-card>
+    <v-card
+      class="mx-5 my-5"
       elevation="5"
       v-if="myImage != undefined"
     >

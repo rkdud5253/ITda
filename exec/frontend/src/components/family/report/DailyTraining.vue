@@ -9,6 +9,14 @@
 
     <v-card
       class="mx-5 my-5"
+      flat
+      style="text-align: center;"
+      v-if="!myDailyReport.exerciseAccuracy"
+    >
+      <h2 class="px-5 py-10">오늘 어르신께서 체조 기능을 사용하지 않으셨어요😮</h2>
+    </v-card>
+    <v-card
+      class="mx-5 my-5"
       elevation="5"
       v-if="myDailyReport.exerciseAccuracy" 
     >
@@ -86,12 +94,14 @@ export default {
       // 백에서 매일 체조링크 가져와서 보여주기
     },
     getExerciseAccuracy: function() {
-      this.exerciseAccuracy = this.myDailyReport.exerciseAccuracy.split('/')
-      let sum = 0;
-      for (let index = 0; index < this.exerciseAccuracy.length; index++) {
-        sum += Number(this.exerciseAccuracy[index]);
+      if (this.myDailyReport.exerciseAccuracy) {
+        this.exerciseAccuracy = this.myDailyReport.exerciseAccuracy.split('/')
+        let sum = 0;
+        for (let index = 0; index < this.exerciseAccuracy.length; index++) {
+          sum += Number(this.exerciseAccuracy[index]);
+        }
+        this.accuracyAverage = sum / this.exerciseAccuracy.length;
       }
-      this.accuracyAverage = sum / this.exerciseAccuracy.length;
     },
     getExercise() { 
       axios

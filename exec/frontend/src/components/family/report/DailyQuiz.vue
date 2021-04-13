@@ -9,6 +9,14 @@
 
     <v-card
       class="mx-5 my-5"
+      flat
+      style="text-align: center;"
+      v-if="!myDailyReport.question1Id"
+    >
+      <h2 class="px-5 py-10">오늘 어르신께서 푸신 문제가 없어요😲</h2>
+    </v-card>
+    <v-card
+      class="mx-5 my-5"
       elevation="5"
       v-if="myDailyReport.question1Id"
     >
@@ -120,26 +128,27 @@ export default {
         });
     },
     getQuestionResult: function() {
-      this.arrayWrong = this.myDailyReport.wrongNumbers.split('/')
-      this.arrayRight = this.myDailyReport.rightNumbers.split('/')
-      for (let i = 0; i < this.arrayWrong.length; i++) {
-        let ei = this.arrayWrong[i];
-        for (let j = 0; j < this.questions.length; j++) {
-          if(ei == this.questions[j].id){
-            this.questions[j].passNonpass = 'X';
+      if (this.myDailyReport.question1Id) {
+        this.arrayWrong = this.myDailyReport.wrongNumbers.split('/')
+        this.arrayRight = this.myDailyReport.rightNumbers.split('/')
+        for (let i = 0; i < this.arrayWrong.length; i++) {
+          let ei = this.arrayWrong[i];
+          for (let j = 0; j < this.questions.length; j++) {
+            if(ei == this.questions[j].id){
+              this.questions[j].passNonpass = 'X';
+            }
+          }
+        }
+  
+        for (let i = 0; i < this.arrayRight.length; i++) {
+          let ei = this.arrayRight[i];
+          for (let j = 0; j < this.questions.length; j++) {
+            if(ei == this.questions[j].id){
+              this.questions[j].passNonpass = 'O';
+            }
           }
         }
       }
-
-      for (let i = 0; i < this.arrayRight.length; i++) {
-        let ei = this.arrayRight[i];
-        for (let j = 0; j < this.questions.length; j++) {
-          if(ei == this.questions[j].id){
-            this.questions[j].passNonpass = 'O';
-          }
-        }
-      }
-
     },
     getQuestionId: function() {
       this.questions[0].id = this.myDailyReport.question1Id;
