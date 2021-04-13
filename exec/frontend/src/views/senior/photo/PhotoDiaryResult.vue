@@ -80,14 +80,14 @@ export default {
       })
       .then((response) => {
         console.log(response.data);
-        this.fileUrl = response.data[0];  
+        this.fileUrl = response.data;  
       })
       .catch((error) => {
         console.log(error);
       });
     },
     connect() {
-      const serverURL = "http://localhost:8000/itda/vuejs";
+      const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
       
       let Socket = new SockJS(serverURL);
       this.StompClient = Stomp.over(Socket);
