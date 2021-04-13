@@ -62,7 +62,7 @@ export default {
     this.connect();
     console.log(this.idx);
     // 2번으로 찍는 Interval
-    setInterval(()=>this.solving(2),1500);
+    //setInterval(()=>this.solving(2),1500);
   },
   methods: {
     getDate() {
