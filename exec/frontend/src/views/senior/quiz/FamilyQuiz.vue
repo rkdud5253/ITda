@@ -60,9 +60,9 @@ export default {
     this.getDate();
     this.getQuiz();
     this.connect();
-    
+    console.log(this.idx);
     // 2번으로 찍는 Interval
-    // setInterval(()=>this.solving(2),1500);
+    setInterval(()=>this.solving(2),1500);
   },
   methods: {
     getDate() {
@@ -105,7 +105,7 @@ export default {
       });
     },
     connect() {
-        const serverURL = "http://localhost:8000/itda/vuejs";
+        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -143,13 +143,10 @@ export default {
     solving(answer){
       console.log(answer);
 
-      if(this.items[this.idx].answer == answer)  // 정답
+      if(this.items[this.idx].answer == answer)  // 정답  
         this.right.push(this.items[this.idx].questionId);
       else // 오답
         this.wrong.push(this.items[this.idx].questionId);
-        
-      // 정답은 ~번입니다 TTS
-      this.$store.commit("TTS", "정답은" + answer + "번입니다.");
 
       //idx가 5일
       if(this.idx < 4)

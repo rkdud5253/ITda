@@ -21,11 +21,20 @@ export default {
 
     
     // 시작 화면에서 명령어 지우고 시작
-    axios.delete("/order",{
+    axios.get("/order",{
       params:{
         hashIp:this.$store.state.ipHash
       }
-    }).then(() => {
+    }).then((res) => {
+      console.log(res);
+      if(res.data.command != null) {
+        axios.delete("/order",{
+          params:{
+            hashIp:this.$store.state.ipHash
+          }
+        }).then(() => {
+        })
+      }
     })
 
   },
@@ -42,7 +51,7 @@ export default {
         });
       },
       connect() {
-        const serverURL = "http://localhost:8000/itda/vuejs";
+        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);

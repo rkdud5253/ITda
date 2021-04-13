@@ -39,17 +39,33 @@ export default {
   created() {
     this.connect();
 
-    // userId 전달
-    axios.post("/order",{
-      hashIp:this.$store.state.ipHash,
-      command:"userId=" + this.$store.state.userId
-    }).then(() => {
+    axios.get("/order",{
+      params:{
+        hashIp:this.$store.state.ipHash
+      }
+    }).then((res) => {
+      console.log(res);
+      if(res.data.command != null) {
+        axios.delete("/order",{
+          params:{
+            hashIp:this.$store.state.ipHash
+          }
+        }).then(() => {
+        })
+      }
+      // userId 전달
+      axios.post("/order",{
+        hashIp:this.$store.state.ipHash,
+        command:"userId=" + this.$store.state.userId
+      }).then(() => {
 
+      })
     })
+
   },
   methods:{
     connect() {
-      const serverURL = "http://localhost:8000/itda/vuejs";
+      const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
       
       let Socket = new SockJS(serverURL);
       this.StompClient = Stomp.over(Socket);
@@ -67,10 +83,10 @@ export default {
               console.log(res.body);
               
               if(res.body == "오늘의 체조")
-                this.$router.push({name: 'DailyExerciseLoading'});
+                this.$route.go(this.$router.push({name: 'DailyExerciseLoading'}));
                 
               if(res.body == "가족오락관")
-                this.$router.push({name: 'FamilyQuizLoading'});
+                this.$route.go(this.$router.push({name: 'FamilyQuizLoading'}));
                 
               if(res.body == "사진 일기장")
                 this.$router.push({name: 'PhotoDiaryLoading'});
