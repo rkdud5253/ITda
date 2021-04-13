@@ -87,6 +87,7 @@ export default {
             passNonpass: '',
           },
         ],
+        qId: [],
         arrayWrong: [],
         arrayRight: [],
       }
@@ -99,9 +100,7 @@ export default {
   watch: {
     myDailyReport: function() {
       this.myDailyReport;
-      this.getQuestionId();
       this.getQuestionContent();
-      this.getQuestionResult();
     },
   },
   methods: {
@@ -117,11 +116,11 @@ export default {
           }
         })
         .then((response) => {
-          this.questions[0].name = response.data[0].questionContent;
-          this.questions[1].name = response.data[1].questionContent;
-          this.questions[2].name = response.data[2].questionContent;
-          this.questions[3].name = response.data[3].questionContent;
-          this.questions[4].name = response.data[4].questionContent;
+          for (let idx = 0; idx < response.data.length; idx++) {
+            this.questions[idx].name = response.data[idx].questionContent;
+            this.qId[idx] = response.data[idx].questionId;
+          }
+          this.getQuestionResult();
         })
         .catch((error) => {
           console.log(error);
@@ -134,31 +133,27 @@ export default {
         for (let i = 0; i < this.arrayWrong.length; i++) {
           let ei = this.arrayWrong[i];
           for (let j = 0; j < this.questions.length; j++) {
-            if(ei == this.questions[j].id){
+            if(ei == this.qId[j]){
               this.questions[j].passNonpass = 'X';
             }
           }
         }
-  
         for (let i = 0; i < this.arrayRight.length; i++) {
           let ei = this.arrayRight[i];
           for (let j = 0; j < this.questions.length; j++) {
-            if(ei == this.questions[j].id){
+            if(ei == this.qId[j]){
               this.questions[j].passNonpass = 'O';
             }
           }
         }
       }
     },
-    getQuestionId: function() {
-      this.questions[0].id = this.myDailyReport.question1Id;
-      this.questions[1].id = this.myDailyReport.question2Id;
-      this.questions[2].id = this.myDailyReport.question3Id;
-      this.questions[3].id = this.myDailyReport.question4Id;
-      this.questions[4].id = this.myDailyReport.question5Id;
-    },
     goQuizDetail: function(idx) {
-      this.$router.push({path: `/family/quiz/detail/${idx.id}`})
+      if(this.qId[idx.No-1] == null){
+        alert("삭제된 문제입니다.");
+      } else{
+        this.$router.push({path: `/family/quiz/detail/${this.qId[idx.No-1]}`})
+      }
     },
   },
 }
