@@ -65,6 +65,31 @@ export default {
     //setInterval(()=>this.solving(2),1500);
   },
   methods: {
+    sendCommand(){
+      axios.get("/order",{
+        params:{
+          hashIp:this.$store.state.ipHash
+        }
+      }).then((res) => {
+        console.log(res);
+        if(res.data.command != null) {
+          axios.delete("/order",{
+            params:{
+              hashIp:this.$store.state.ipHash
+            }
+          }).then(() => {
+          })
+        }
+        // userId 전달
+        axios.post("/order",{
+          hashIp:this.$store.state.ipHash,
+          command:this.items[this.idx].questionContent
+        }).then(() => {
+
+        })
+      })
+
+    },
     getDate() {
       this.date = new Date();
       this.year = this.date.getFullYear();
@@ -100,6 +125,8 @@ export default {
             answer: res.data[i].answer,
           });
         }
+
+        this.sendCommand();
       }).catch(error => {
           console.log(error);
       });
@@ -149,8 +176,11 @@ export default {
         this.wrong.push(this.items[this.idx].questionId);
 
       //idx가 5일
-      if(this.idx < 4)
+      if(this.idx < 4) {
         this.idx+=1;
+        
+        this.sendCommand();
+      }
       else {
         this.getWrong();
         this.getRight();

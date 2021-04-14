@@ -39,6 +39,29 @@ export default {
 
   },
   mounted() {
+    axios.get("/order",{
+      params:{
+        hashIp:this.$store.state.ipHash
+      }
+    }).then((res) => {
+      console.log(res);
+      if(res.data.command != null) {
+        axios.delete("/order",{
+          params:{
+            hashIp:this.$store.state.ipHash
+          }
+        }).then(() => {
+        })
+      }
+      // userId 전달
+      axios.post("/order",{
+        hashIp:this.$store.state.ipHash,
+        command:"userId=" + this.$store.state.userId
+      }).then(() => {
+
+      })
+    })
+
     setTimeout(()=>this.goToNextPage(), 5000);
   },
   methods:{
@@ -79,7 +102,7 @@ export default {
     goToNextPage() {
 
       if(this.$store.state.userId > 0)
-        this.$router.push({name:"SeniorMain"});
+        this.$route.go(this.$router.push({name:"SeniorMain"}));
       else
         this.$router.push({name:"SeniorLogin"});
     }

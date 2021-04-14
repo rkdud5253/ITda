@@ -74,26 +74,42 @@ export default {
   mounted() {
     // 사진 배열로 몇 개 하기 - 일단 3장
     // this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
-    setTimeout(()=>this.send({ sttMessage: "poseNetRun"}),7000); // 대사 끝나면 poseNet 실행
-    
+    this.sendCommand();
     // 체조 사진 
-    // for문으로 15초 마다 다음 동작으로 axios.get
-    
+    // for문으로 10초 마다 다음 동작으로 axios.get
+    setTimeout(()=>this.sendCommand(),7000);
     setTimeout(()=>this.getFileInfo(),7000);
     
     setTimeout(()=>this.getFileInfo(),17000);
-    // setTimeout(()=>this.send({ sttMessage: "nextPose"}),11000);
 
     setTimeout(()=>this.getFileInfo(),27000);
-    // setTimeout(()=>this.send({ sttMessage: "nextPose"}),15000);
-
-    // setTimeout(()=>this.send({ sttMessage: "poseNetStop"}),20000);
 
     setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),37000);
   },
   methods: {
-    send(msg){
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
+    sendCommand(){
+      axios.get("/order",{
+      params:{
+        hashIp:this.$store.state.ipHash
+      }
+    }).then((res) => {
+      console.log(res);
+      if(res.data.command != null) {
+        axios.delete("/order",{
+          params:{
+            hashIp:this.$store.state.ipHash
+          }
+        }).then(() => {
+        })
+      }
+      // userId 전달
+      axios.post("/order",{
+        hashIp:this.$store.state.ipHash,
+        command:"exercise"
+      }).then(() => {
+
+      })
+    })
     },
     connect() {
         const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
@@ -135,20 +151,10 @@ export default {
         this.fileInfo[0].fileId = res.data[this.i].fileId;
         this.fileInfo[0].fileName = res.data[this.i].fileName;
         this.i+=1;
-        this.onChangeImages();
       }).catch(error => {
           console.log(error);
       });
     },
-    onChangeImages(e) {
-      const file = e;
-    
-      let reader = new FileReader()
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.fileInfo[0].fileUrl = reader.result
-      }
-    }
   }
 }
 </script>

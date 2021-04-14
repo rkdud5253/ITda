@@ -38,30 +38,6 @@ export default {
   },
   created() {
     this.connect();
-
-    axios.get("/order",{
-      params:{
-        hashIp:this.$store.state.ipHash
-      }
-    }).then((res) => {
-      console.log(res);
-      if(res.data.command != null) {
-        axios.delete("/order",{
-          params:{
-            hashIp:this.$store.state.ipHash
-          }
-        }).then(() => {
-        })
-      }
-      // userId 전달
-      axios.post("/order",{
-        hashIp:this.$store.state.ipHash,
-        command:"userId=" + this.$store.state.userId
-      }).then(() => {
-
-      })
-    })
-
   },
   methods:{
     connect() {
@@ -89,7 +65,7 @@ export default {
                 this.$route.go(this.$router.push({name: 'FamilyQuizLoading'}));
                 
               if(res.body == "사진 일기장")
-                this.$router.push({name: 'PhotoDiaryLoading'});
+                this.$route.go(this.$router.push({name: 'PhotoDiaryLoading'}));
             }
           );
         },
