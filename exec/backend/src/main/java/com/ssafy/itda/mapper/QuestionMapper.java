@@ -14,6 +14,7 @@ public interface QuestionMapper {
   public List<Question> getQuestionList(int userId) throws SQLException;
   public List<Question> getQuestionListByAdminId(int adminId) throws SQLException;
   public List<Question> getQuestionResult(Map<String, Object> map) throws SQLException;
+  public Question getRandomQuestion() throws SQLException;
   public int questionGetSize() throws SQLException;
   public int postQuestion(Question question) throws SQLException;
   public int updateQuestion(Question question) throws SQLException;

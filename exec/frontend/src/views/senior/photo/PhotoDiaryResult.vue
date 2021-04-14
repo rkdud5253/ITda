@@ -60,8 +60,8 @@ export default {
     this.date = this.year + '-' + this.month + '-' + this.day;
 
     this.getImage();
+
     this.connect();
-    
   },
   mounted() {
     // this.$store.commit("TTS", "오늘의 사진이 잘 찍혔어요!");
@@ -87,7 +87,7 @@ export default {
       });
     },
     connect() {
-      const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+      const serverURL = "http://localhost:8000/itda/vuejs";
       
       let Socket = new SockJS(serverURL);
       this.StompClient = Stomp.over(Socket);
@@ -103,10 +103,21 @@ export default {
             (res) => {
               console.log(res.body);
               
-              if(res.body == "다시")
+              if(res.body == "다시") {
+                
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                } 
                 this.$router.push({name: 'PhotoDiary'});
-              else if(res.body == "저장") 
+              }
+              
+              else if(res.body == "저장") {
+                
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                } 
                 this.$router.push({name: 'SeniorMain'});
+              }
             }
           );
         },

@@ -95,7 +95,7 @@ export default {
       });
     },
     connect() {
-        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+        const serverURL = "http://localhost:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -111,10 +111,20 @@ export default {
                   (res) => {
                     console.log(res.body);
                     
-                    if(res.body == "그만")
+                    if(res.body == "그만") {
+                      
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'SeniorMain'});
-                    else if(res.body == "찰칵") // 넘겨받음
+                    }
+                    else if(res.body == "찰칵"){
+                      
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'PhotoDiaryResult'});
+                    }
                   }
               );
             },

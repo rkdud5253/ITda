@@ -37,7 +37,7 @@ export default {
   methods:{ 
     
     connect() {
-        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+        const serverURL = "http://localhost:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -113,12 +113,9 @@ export default {
 
             console.log("등록 완료");
             
-            // userId 전달
-            axios.post("/order",{
-              hashIp:this.$store.state.ipHash,
-              command:"userId=" + this.$store.state.userId
-            }).then(() => {
-            })
+            if (this.StompClient !== null) {
+                this.StompClient.disconnect();
+            }
 
             this.$router.push({name: 'SeniorMain'});
           }).catch(error => {

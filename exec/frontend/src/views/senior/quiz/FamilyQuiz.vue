@@ -78,15 +78,26 @@ export default {
               hashIp:this.$store.state.ipHash
             }
           }).then(() => {
+            
+            // userId 전달
+            axios.post("/order",{
+              hashIp:this.$store.state.ipHash,
+              command:this.items[this.idx].questionContent
+            }).then(() => {
+
+            })
           })
         }
-        // userId 전달
-        axios.post("/order",{
-          hashIp:this.$store.state.ipHash,
-          command:this.items[this.idx].questionContent
-        }).then(() => {
+        else{
+          
+         // userId 전달  
+          axios.post("/order",{
+            hashIp:this.$store.state.ipHash,
+            command:this.items[this.idx].questionContent
+          }).then(() => {
 
-        })
+          })
+        }
       })
 
     },
@@ -125,14 +136,14 @@ export default {
             answer: res.data[i].answer,
           });
         }
-
-        this.sendCommand();
+        setTimeout(() => this.sendCommand(), 1500);
+        
       }).catch(error => {
           console.log(error);
       });
     },
     connect() {
-        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+        const serverURL = "http://localhost:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -148,8 +159,15 @@ export default {
                   (res) => {
                     console.log(res.body);
                     
-                    if(res.body == "그만")
+                    if(res.body == "그만") {
+                      
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'SeniorMain'});
+                    }
+                    if(res.body == "다음")
+                      this.solving(5);
                     if(res.body == "1번" || res.body == "1" || res.body == "일" || res.body == "일번") // 넘겨받음
                       this.solving(1);
                     if(res.body == "2번" || res.body == "2" || res.body == "이" || res.body == "이번") // 넘겨받음
@@ -187,6 +205,11 @@ export default {
 
         this.setQuizResult();
 
+        
+        if (this.StompClient !== null) {
+          this.StompClient.disconnect();
+        } 
+
         setTimeout(() => this.$router.push({name:"FamilyQuizResult"}), 500);
       }
     },
@@ -208,6 +231,14 @@ export default {
       }).catch(error => {
           console.log(error);
       });
+      // 1) 맞춘 문제들 중 틀린 문제가 있다면
+      // 틀린 문제에서 제거!
+      // 2) 틀린 문제들 중 틀린 문제에 없다면
+      // 틀린 문제에 등록!
+      
+      // axios.get('/wrong',{
+        
+      // })
     },
     getWrong(){
       for (let index = 0; index < this.right.length; index++) {

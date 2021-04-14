@@ -40,7 +40,7 @@ export default {
   },
   methods:{
     connect() {
-      const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+      const serverURL = "http://localhost:8000/itda/vuejs";
       
       let Socket = new SockJS(serverURL);
       this.StompClient = Stomp.over(Socket);
@@ -57,14 +57,25 @@ export default {
             (res) => {
               console.log(res.body);
               
-              if(res.body == "오늘의 체조")
-                this.$route.go(this.$router.push({name: 'DailyExerciseLoading'}));
-                
-              if(res.body == "가족오락관")
-                this.$route.go(this.$router.push({name: 'FamilyQuizLoading'}));
-                
-              if(res.body == "사진 일기장")
-                this.$route.go(this.$router.push({name: 'PhotoDiaryLoading'}));
+              if(res.body == "오늘의 체조"){  
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                }
+
+                this.$router.push({name: 'DailyExerciseLoading'});
+              }                
+              if(res.body == "가족오락관"){
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                }
+                this.$router.push({name: 'FamilyQuizLoading'});
+              }
+              if(res.body == "사진 일기장"){
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                } 
+                this.$router.push({name: 'PhotoDiaryLoading'});
+              }
             }
           );
         },

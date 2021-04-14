@@ -36,7 +36,7 @@ public class QuestionController {
 			@RequestParam("userId") @ApiParam(value = "유저 ID", required = true) int userId) throws Exception {
 		logger.info("getQuestion - 호출");
 
-		return new ResponseEntity<>(questionService.setQuestionList(userId), HttpStatus.OK);
+		return new ResponseEntity<>(questionService.getRandomQuestionList(userId), HttpStatus.OK);
 	}
 
 	// @ApiOperation(value = "문제 1개 반환", notes = "id가 맞는 문제 1개 반환", response =

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class QuestionService {
 		return sqlSession.getMapper(QuestionMapper.class).getQuestionResult(map);
 	}
 
-	public List<Question> setQuestionList(int userId) throws Exception {
+	public List<Question> getRandomQuestionList(int userId) throws Exception {
 		// wrongQuestion 어르신 Id 기준으로 탐색 -> 2개까지만
 		// 틀린 문제 2개 >> 가족이 낸 문제 2개까지 >> 나머지는 랜덤 문제
 
@@ -100,26 +101,27 @@ public class QuestionService {
 			size--;
 		}
 
-		List<Question> responseQuestionList = new ArrayList<>(); // response 문제 리스트
-		size = questionGetSize();
-
-		random.setSeed(System.currentTimeMillis());
+		Question randomQuestion = getRandomQuestion();
 
 		// 틀린 문제 끗끗
 		while (questionCnt > 0) {
-			int index = random.nextInt(size) + 1;
-			while (questionList.contains(index)) {
-				random.setSeed(System.currentTimeMillis());
-				index = random.nextInt(size) + 1;
+			while (questionList.contains(randomQuestion.getQuestionId())) {
+				randomQuestion = getRandomQuestion();
 			}
-			questionList.add(index);
+			questionList.add(randomQuestion.getQuestionId());
 			questionCnt--;
 		}
+
+		List<Question> responseQuestionList = new ArrayList<>(); // response 문제 리스트
 
 		for (int i = 0; i < questionList.size(); i++)
 			responseQuestionList.add(getQuestion(questionList.get(i)));
 
 		return responseQuestionList;
+	}
+
+	public Question getRandomQuestion() throws Exception{
+		return sqlSession.getMapper(QuestionMapper.class).getRandomQuestion();
 	}
 
 	public int questionGetSize() throws Exception {
@@ -134,7 +136,7 @@ public class QuestionService {
 		return sqlSession.getMapper(QuestionMapper.class).updateQuestion(question) == 1;
 	}
 
-	public boolean deleteQuestion(int questionId) throws Exception{
-		return sqlSession.getMapper(QuestionMapper.class).deleteQuestion(questionId) == 1;
+	public boolean deleteQuestion(int questionId) throws Exception {
+		return sqlSession.getMapper(QuestionMapper.class).deleteQuestion(questionId) == 1 ;
 	}
 }

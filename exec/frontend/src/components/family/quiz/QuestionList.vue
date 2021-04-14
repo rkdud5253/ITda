@@ -53,6 +53,7 @@ export default {
   },
   created(){
     this.getList();
+    console.log(this.question.length);
   },
   methods:{
     getList(){

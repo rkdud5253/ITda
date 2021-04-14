@@ -62,4 +62,11 @@
 		delete from question
 		where questionId = #{questionId}
 	</delete>
+
+	<select id="getRandomQuestion" resultType="Question">
+		select *
+		from question
+		order by rand() limit 1;
+	</select>
+
 </mapper>
