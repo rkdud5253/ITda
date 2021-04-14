@@ -158,7 +158,10 @@ export default {
       axios
       .get('/files/exercise',{
         params:{
-          fileDate: this.date,
+          // 이거는 연습용
+          fileDate: "2021-04-09"
+          // 원래는 이거
+          // fileDate: this.date
         }
       }).then((res) => {
         console.log(res.data);
