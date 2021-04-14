@@ -95,24 +95,35 @@ export default {
     }).then((res) => {
       console.log(res);
       if(res.data.command != null) {
-        axios.delete("/order",{
-          params:{
-            hashIp:this.$store.state.ipHash
-          }
-        }).then(() => {
-        })
-      }
-      // userId 전달
-      axios.post("/order",{
-        hashIp:this.$store.state.ipHash,
-        command:"exercise"
-      }).then(() => {
+          axios.delete("/order",{
+            params:{
+              hashIp:this.$store.state.ipHash
+            }
+          }).then(() => {
+            
+            // userId 전달
+            axios.post("/order",{
+              hashIp:this.$store.state.ipHash,
+              command:"exercise"
+            }).then(() => {
 
-      })
+            })
+          })
+        }
+        else{
+          
+         // userId 전달  
+          axios.post("/order",{
+            hashIp:this.$store.state.ipHash,
+            command:"exercise"
+          }).then(() => {
+
+          })
+        }
     })
     },
     connect() {
-        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
+        const serverURL = "http://localhost:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -128,8 +139,12 @@ export default {
                   (res) => {
                     console.log(res.body);
                     
-                    if(res.body == "그만")
+                    if(res.body == "그만"){
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'SeniorMain'});
+                    }
                   }
               );
             },

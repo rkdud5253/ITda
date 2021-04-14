@@ -20,9 +20,9 @@
         where userId=#{userId}
     </select>
 
-    <delete id="deleteWrongQuestion" parameterType="int">
+    <delete id="deleteWrongQuestion" parameterType="wrongQuestion">
         delete from wrongQuestion
-        where questionId=#{questionId}
+        where userId=#{userId}, questionId=#{questionId}
     </delete>
 
 </mapper>
