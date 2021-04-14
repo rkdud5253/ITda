@@ -208,9 +208,8 @@ export default {
       if(this.$refs.form.validate()) {
       const adminId = this.$store.state.adminId;
       const userId = this.$store.state.userId;
-      
-      // 여기 해야됌 axios.post
 
+      // 문제 만들기
       axios.post('/qna', {
           userId: Number(userId),
           adminId: Number(adminId),
@@ -239,9 +238,9 @@ export default {
     makeQuizFinish() {
       this.$router.push({name: 'QuizItdaList'})
     },
+    // 이미지 첨부
     onChangeImages(e) {
       const file = e;
-    
       let reader = new FileReader()
       reader.readAsDataURL(file);
       reader.onload = () => {

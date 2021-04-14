@@ -227,9 +227,7 @@ export default {
       if(this.$refs.form.validate()) {
       const adminId = this.$store.state.adminId;
       const userId = this.$store.state.userId;
-
-      // 문제 수정시 이미지도 바꾸기
-      
+      // 수정하기
       axios.put('/qna', {
           questionId:  Number(this.$route.params.questionId),
           userId: Number(userId),
@@ -259,14 +257,13 @@ export default {
     modifyFinish() {
       this.$router.push({path: `/family/quiz/detail/${Number(this.$route.params.questionId)}`})
     },
+    // 이미지 교체
     onChangeImages(e) {
       const file = e;
-    
       let reader = new FileReader()
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.image = reader.result
-        console.log(this.image);
       }
     },
   },

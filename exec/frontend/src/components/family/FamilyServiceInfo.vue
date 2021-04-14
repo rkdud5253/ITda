@@ -52,17 +52,6 @@
                   오늘의 체조 영상과 정확도를 확인하세요
                 </div>
               </v-col>
-
-              <!-- <v-col align-self="end">
-                <v-chip
-                  class="text-uppercase ma-0"
-                  color="primary"
-                  label
-                  small
-                >
-                  보고서 보러가기
-                </v-chip>
-              </v-col> -->
             </v-row>
           </v-img>
         </v-col>

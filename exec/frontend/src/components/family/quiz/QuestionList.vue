@@ -53,7 +53,6 @@ export default {
   },
   created(){
     this.getList();
-    console.log(this.question.length);
   },
   methods:{
     getList(){
@@ -64,7 +63,7 @@ export default {
           adminId: adminId
         }
       }).then((res) => {
-        console.log(res);
+        // 문제 가져오기
         for(let i = 0; i < res.data.length; i++)
           this.question.push({
             Id: res.data[i].questionId,
