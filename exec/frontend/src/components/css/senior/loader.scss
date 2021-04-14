@@ -145,16 +145,13 @@ $debug-animation-count: 1; // infinite | 1
 }
 
 .party-popper {
-	position: absolute;
-	// left: 31%;
-	bottom: 2.5vh;
-  font-size: 70px;
-  line-height: 2px;
-  transform: translateX(-50%);
+  width: 80px;
+  position: absolute;
+  left: 21.5%;
+  transform: translateY(-75%);
 }
 
 .cannon {
   position: absolute;
   bottom: 2.5vh;
-  // left: 31%;
 }
