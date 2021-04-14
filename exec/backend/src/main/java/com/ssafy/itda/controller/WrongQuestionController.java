@@ -35,8 +35,11 @@ public class WrongQuestionController {
             @RequestParam("userId") @ApiParam(value = "유저 ID", required = true) int userId,
             @RequestParam("questionId") @ApiParam(value = "문제 ID", required = true) int questionId) throws Exception {
         logger.info("getWrongQuestion - 호출");
-
-        return new ResponseEntity<>(WrongQuestionService.getWrongQuestion(userId,questionId), HttpStatus.OK);
+        WrongQuestion wrongQuestion = new WrongQuestion();
+        wrongQuestion.setUserId(userId);
+        wrongQuestion.setQuestionId(questionId);
+        
+        return new ResponseEntity<>(WrongQuestionService.getWrongQuestion(wrongQuestion), HttpStatus.OK);
     }
 
     @GetMapping("/list")
@@ -63,9 +66,13 @@ public class WrongQuestionController {
     // @ApiOperation(value = "문제 삭제", notes = "문제 DB에 삭제", response =
     // WrongQuestion.class)
     @DeleteMapping
-    public ResponseEntity<String> deleteWrongQuestion(@RequestBody WrongQuestion wrongQuestion) throws Exception {
+    public ResponseEntity<String> deleteWrongQuestion(@RequestParam("userId") @ApiParam(value = "유저 ID", required = true) int userId,
+            @RequestParam("questionId") @ApiParam(value = "문제 ID", required = true) int questionId) throws Exception {
         logger.info("deleteWrongQuestion - 호출");
-
+        WrongQuestion wrongQuestion = new WrongQuestion();
+        wrongQuestion.setUserId(userId);
+        wrongQuestion.setQuestionId(questionId);
+        
         if (WrongQuestionService.deleteWrongQuestion(wrongQuestion)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }

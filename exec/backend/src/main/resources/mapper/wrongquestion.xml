@@ -3,26 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.itda.mapper.WrongQuestionMapper">
 
-    <select id="getWrongQuestion" parameterType="int" resultType="wrongQuestion">
+    <select id="getWrongQuestion" parameterType="WrongQuestion" resultType="WrongQuestion">
         select *
-        from question
-        where questionId=#{questionId}
+        from wrongQuestion
+        where questionId = #{questionId}
+        and userId = #{userId}
     </select>
 
-    <insert id="postWrongQuestion" parameterType="wrongQuestion">
+    <insert id="postWrongQuestion" parameterType="WrongQuestion">
         insert into wrongQuestion(userId, questionId)
         values (#{userId}, #{questionId})
     </insert>
 
     <select id="getWrongQuestionList" parameterType="int" resultType="WrongQuestion">
         select *
-        from question
-        where userId=#{userId}
+        from wrongQuestion
+        where userId = #{userId}
     </select>
 
-    <delete id="deleteWrongQuestion" parameterType="wrongQuestion">
+    <delete id="deleteWrongQuestion" parameterType="WrongQuestion">
         delete from wrongQuestion
-        where userId=#{userId}, questionId=#{questionId}
+        where userId = #{userId}
+        and questionId = #{questionId}
     </delete>
 
 </mapper>
