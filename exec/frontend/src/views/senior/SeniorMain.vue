@@ -15,6 +15,7 @@
 <script>
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
+import axios from '@/service/axios.service.js'
 import '@/components/css/senior/seniorMain.scss';
 import TitleBox from '@/components/senior/common/TitleBox.vue';
 import DailyExerciseMenu from '@/components/senior/main/DailyExerciseMenu.vue';
@@ -36,11 +37,19 @@ export default {
     }
   },
   created() {
+    axios.get('/user',{
+      params:{
+        userId:this.$store.state.userId
+      }
+    }).then((res) => {
+      this.username = res.data.userName
+    })
+
     this.connect();
   },
   methods:{
     connect() {
-      const serverURL = "http://localhost:8000/itda/vuejs";
+      const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
       
       let Socket = new SockJS(serverURL);
       this.StompClient = Stomp.over(Socket);
