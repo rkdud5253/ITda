@@ -42,8 +42,8 @@
                 <h2>{{ year }}년 {{ month }}월 {{ day }}일</h2>
                 <h1>평균 정확도</h1>
                 <h1 style="color: #FC5355; font-size: xxx-large;">{{this.accuracyAverage}}%</h1>
-                <h5 style="color: #FC5355;">[12가지의 신체 부위별 평균 정확도]</h5>
-                <h5 style="color: #FC5355;">{{this.exerciseAccuracy}}</h5>
+                <h5 style="color: #FC5355;">[어깨, 위팔(좌), 옆구리(좌), 위팔(우), 옆구리(우), 아래팔(좌), 아래팔(우), 엉덩이, 허벅지(좌), 허벅지(우), 종아리(좌), 종아리(우)]</h5>
+                <h3 style="color: #FC5355;">{{this.exerciseAccuracy}}</h3>
                 <link rel="stylesheet" href="">
               </div>
             </v-row>
@@ -95,7 +95,7 @@ export default {
     },
     getExerciseAccuracy: function() {
       if (this.myDailyReport.exerciseAccuracy) {
-        this.exerciseAccuracy = this.myDailyReport.exerciseAccuracy.split('/')
+        this.exerciseAccuracy = this.myDailyReport.exerciseAccuracy.split('/');
         let sum = 0;
         for (let index = 0; index < this.exerciseAccuracy.length; index++) {
           sum += Number(this.exerciseAccuracy[index]);
