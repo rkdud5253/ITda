@@ -32,20 +32,46 @@
             height="105%"
             color="#FFFFFF"
           >
-            <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-            >
-              <div style="color: black; text-align: center;">
+            <v-row>
+              <v-col class="my-8" cols="12"></v-col>
+              <v-col class="mt-10" style="text-align: center;" cols="12">
                 <v-icon class="mb-3" color="#FEA601" size="xxx-large">mdi-trophy</v-icon>
-                <h2>{{ year }}년 {{ month }}월 {{ day }}일</h2>
-                <h1>평균 정확도</h1>
+                <h2 style="color: black">{{ year }}년 {{ month }}월 {{ day }}일</h2>
+                <h1 style="color: black">평균 정확도</h1>
                 <h1 style="color: #FC5355; font-size: xxx-large;">{{this.accuracyAverage}}%</h1>
-                <h5 style="color: #FC5355;">[어깨, 위팔(좌), 옆구리(좌), 위팔(우), 옆구리(우), 아래팔(좌), 아래팔(우), 엉덩이, 허벅지(좌), 허벅지(우), 종아리(좌), 종아리(우)]</h5>
-                <h3 style="color: #FC5355;">{{this.exerciseAccuracy}}</h3>
-                <link rel="stylesheet" href="">
-              </div>
+              </v-col>
+              <v-col cols="12">
+                <!-- 정확도 표 -->
+                <v-simple-table class="mx-15" light>
+                  <template v-slot:default>
+                    <tbody style="text-align: center;">
+                      <tr>
+                        <td
+                          class="mx-1"
+                          v-for="item in results"
+                          :key="item.bodyPart"
+                        >
+                          {{ item.bodyPart }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          class="mx-1"
+                          v-for="item in results"
+                          :key="item.bodyPart"
+                        >
+                          <v-chip
+                            :color="getColor(item.accuracy)"
+                            dark
+                          >
+                            {{ item.accuracy }}
+                          </v-chip>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-col>
             </v-row>
           </v-sheet>
         </v-carousel-item>
@@ -74,6 +100,56 @@ export default {
         exerciseAccuracy: [],
         accuracyAverage: '',
         exercises: [],
+        results: [
+          {
+            bodyPart: '어깨',
+            accuracy: '',
+          },
+          {
+            bodyPart: '위팔(좌)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '옆구리(좌)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '위팔(우)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '옆구리(우)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '아래팔(좌)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '아래팔(우)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '엉덩이',
+            accuracy: '',
+          },
+          {
+            bodyPart: '허벅지(좌)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '허벅지(우)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '종아리(좌)',
+            accuracy: '',
+          },
+          {
+            bodyPart: '종아리(우)',
+            accuracy: '',
+          },
+        ]
       }
   },
   computed: {
@@ -99,8 +175,10 @@ export default {
         let sum = 0;
         for (let index = 0; index < this.exerciseAccuracy.length; index++) {
           sum += Number(this.exerciseAccuracy[index]);
+          this.results[index].accuracy = this.exerciseAccuracy[index]
         }
         this.accuracyAverage = sum / this.exerciseAccuracy.length;
+        this.accuracyAverage = Math.round(this.accuracyAverage)
       }
     },
     getExercise() { 
@@ -117,18 +195,16 @@ export default {
           console.log(error);
         });
     },
+    getColor (accuracy) {
+        if (accuracy < 40) return 'red'
+        else if (accuracy < 70) return 'orange'
+        else return 'green'
+    },
   },
 }
 </script>
 
 <style>
-  /* .v-window__container {
-    position: relative;
-    width: 100%;
-    height: 0;
-    overflow: hidden;
-    padding-bottom: 56.26%;
-  } */
   .v-img {
     display: block;
     width: 100vw;
