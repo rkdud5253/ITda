@@ -77,7 +77,7 @@ export default {
     this.sendCommand();
     // 체조 사진 
     // for문으로 10초 마다 다음 동작으로 axios.get
-    setTimeout(()=>this.sendCommand(),7000);
+    setTimeout(()=>this.sendCommand(),3000);
     setTimeout(()=>this.getFileInfo(),7000);
     
     setTimeout(()=>this.getFileInfo(),17000);
@@ -123,7 +123,7 @@ export default {
     })
     },
     connect() {
-        const serverURL = "http://localhost:8000/itda/vuejs";
+        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
