@@ -157,7 +157,6 @@ export default {
       ],
       passwordRules: [
         (v) => !!v || "비밀번호를 입력해주세요",
-        // (v) => (v && v.length >= 8 && v.length <= 20) || "8~20자리 입력",
         (v) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{8,20}$/.test(v) || "문자, 숫자 조합 8~20자리 입력",
       ],
       nameRules: [
@@ -199,7 +198,7 @@ export default {
             adminPhone:this.member.phone,
           }).then((res2) => {
             if(res2.data == "success"){
-            // 회원 가입이 완료되었습니다
+            // 회원 가입 완료
               this.goLogin();
             }
             else 

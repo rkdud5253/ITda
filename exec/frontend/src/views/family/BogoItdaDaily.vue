@@ -75,6 +75,7 @@ export default {
     };
   },
   created() {
+    // 날짜 정보 저장
     this.arrayDate = this.$route.query.date.split('-')
     this.year = this.arrayDate[0]
     this.month = this.arrayDate[1]

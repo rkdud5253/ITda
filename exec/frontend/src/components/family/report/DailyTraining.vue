@@ -6,7 +6,8 @@
       <h4>오늘의 체조 결과를 분석해 신체 부위별 정확도와 전체 평균 정확도를 제공합니다.</h4>
       <h4>슬라이드를 넘겨서 오늘의 체조 동작을 살펴보세요.</h4>
     </div>
-
+    
+    <!-- 오늘의 체조 사용하지 않았을 때 -->
     <v-card
       class="mx-5 my-5"
       flat
@@ -15,6 +16,7 @@
     >
       <h2 class="px-5 py-10">오늘 어르신께서 체조 기능을 사용하지 않으셨어요😮</h2>
     </v-card>
+    <!-- 오늘의 체조 사용하셨을 때 -->
     <v-card
       class="mx-5 my-5"
       elevation="5"
@@ -165,11 +167,8 @@ export default {
     },
   },
   methods: {
-    goTrainingLink: function() {
-      window.open(this.exerciseUrl)
-      // 백에서 매일 체조링크 가져와서 보여주기
-    },
     getExerciseAccuracy: function() {
+      // 신체부위별 정확도 가져오기
       if (this.myDailyReport.exerciseAccuracy) {
         this.exerciseAccuracy = this.myDailyReport.exerciseAccuracy.split('/');
         let sum = 0;
@@ -178,6 +177,7 @@ export default {
           this.results[index].accuracy = this.exerciseAccuracy[index]
         }
         this.accuracyAverage = sum / this.exerciseAccuracy.length;
+        // 정확도 반올림
         this.accuracyAverage = Math.round(this.accuracyAverage)
       }
     },
@@ -195,6 +195,7 @@ export default {
           console.log(error);
         });
     },
+    // 정확도별 색상 다르게 표시 (0~39:빨강, 40~69:주황, 70~100:초록)
     getColor (accuracy) {
         if (accuracy < 40) return 'red'
         else if (accuracy < 70) return 'orange'

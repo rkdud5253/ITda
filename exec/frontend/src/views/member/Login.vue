@@ -8,6 +8,7 @@
           class="login-img"
           :src="require('@/assets/family/itda2.png')"
         ></v-img>
+        <!-- 로그인 폼 -->
         <v-form class="mx-10 my-5" ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="member.email"
@@ -115,10 +116,6 @@ export default {
   methods: {
     login(){
       if(this.$refs.form.validate()) {
-      // axios.get -> 
-      // store.state 저장
-      // 홈으로 가기
-      
       axios.post("/admin/login", {
         adminEmail: this.member.email,
         adminPwd: this.member.password,
@@ -131,7 +128,6 @@ export default {
               adminEmail: this.member.email
             }
           }).then((res2) => {
-            console.log(res2)
             this.$store.commit("adminLogin", res2.data.adminId);
             this.getUserId()
             this.$router.push({name: 'Main'});
@@ -155,7 +151,6 @@ export default {
           adminId: Number(this.$store.state.adminId)
         }
       }).then((res) => {
-        console.log(res.data[0].userId)
         if(res.data != "") {
           this.$store.commit("userLogin",res.data[0].userId)
         }
