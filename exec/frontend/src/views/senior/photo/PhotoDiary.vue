@@ -75,10 +75,45 @@ export default {
     this.getFileInfo();
   },
   mounted() {
-    this.$store.commit("TTS", "왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
-    // setTimeout(()=>this.send("smileNetRun"), 6000); // 대사 끝나고 smileNet 실행
+    this.sendCommand("왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
+    setTimeout(()=>this.sendCommand("smileNetRun"), 6000); // 대사 끝나고 smileNet 실행
   },
   methods: {
+    sendCommand(text){
+      axios.get("/order",{
+      params:{
+        hashIp:this.$store.state.ipHash
+      }
+    }).then((res) => {
+      console.log(res);
+      if(res.data.command != null) {
+          axios.delete("/order",{
+            params:{
+              hashIp:this.$store.state.ipHash
+            }
+          }).then(() => {
+            
+            // userId 전달
+            axios.post("/order",{
+              hashIp:this.$store.state.ipHash,
+              command:text
+            }).then(() => {
+
+            })
+          })
+        }
+        else{
+          
+         // userId 전달  
+          axios.post("/order",{
+            hashIp:this.$store.state.ipHash,
+            command:text
+          }).then(() => {
+
+          })
+        }
+    })
+    },
     getFileInfo(){
       axios
       .get('/files',{
