@@ -72,18 +72,18 @@ export default {
     this.connect();
   },
   mounted() {
-    // 사진 배열로 몇 개 하기 - 일단 3장
-    // this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
-    this.sendCommand();
     // 체조 사진 
-    // for문으로 10초 마다 다음 동작으로 axios.get
     setTimeout(()=>this.sendCommand(),3000);
     setTimeout(()=>this.getFileInfo(),7000);
     
     setTimeout(()=>this.getFileInfo(),17000);
 
     setTimeout(()=>this.getFileInfo(),27000);
-
+    setTimeout(() => {
+      if (this.StompClient !== null) {
+        this.StompClient.disconnect();
+      } 
+    }, 36000);
     setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),37000);
   },
   methods: {
