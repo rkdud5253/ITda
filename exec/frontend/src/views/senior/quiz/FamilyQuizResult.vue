@@ -1,7 +1,7 @@
 <template>
   <div class="familyQuizResult">
     <TitleBox title="오늘의 두뇌 운동이 모두 끝났습니다." />
-    <img class="seniorExercise"
+    <img class="seniorQuiz"
       src="@/assets/senior/SeniorQuiz.jpg"
     >
     <p class="explain">참 잘하셨습니다!</p>
