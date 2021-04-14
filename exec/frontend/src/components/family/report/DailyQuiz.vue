@@ -133,16 +133,18 @@ export default {
       if (this.myDailyReport.question1Id) {
         this.arrayWrong = this.myDailyReport.wrongNumbers.split('/')
         this.arrayRight = this.myDailyReport.rightNumbers.split('/')
-        for (let i = 0; i < this.arrayWrong.length; i++) {
+        for (let i = 1; i < this.arrayWrong.length; i++) {
           let ei = this.arrayWrong[i];
+          this.setWrongResult(this.arrayWrong[i]);
           for (let j = 0; j < this.questions.length; j++) {
             if(ei == this.qId[j]){
               this.questions[j].passNonpass = 'X';
             }
           }
         }
-        for (let i = 0; i < this.arrayRight.length; i++) {
+        for (let i = 1; i < this.arrayRight.length; i++) {
           let ei = this.arrayRight[i];
+          this.setRightResult(this.arrayRight[i]);
           for (let j = 0; j < this.questions.length; j++) {
             if(ei == this.qId[j]){
               this.questions[j].passNonpass = 'O';
@@ -157,6 +159,68 @@ export default {
       } else{
         this.$router.push({path: `/family/quiz/detail/${this.qId[idx.No-1]}`})
       }
+    },
+    setWrongResult: function(wrongQid) {
+      axios
+        .get(`/wrong`, {
+           params: {
+              questionId: wrongQid,
+              userId: this.$store.state.userId,
+           }
+        })
+        .then((response) => {
+          if(response.data == ''){
+            this.postWrongQid(wrongQid); 
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    postWrongQid: function(wrongQid) {
+      axios
+        .post(`/wrong`, {
+            questionId: wrongQid,
+            userId: this.$store.state.userId,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    setRightResult: function(rightQid) {
+      axios
+        .get(`/wrong`, {
+           params: {
+              questionId: rightQid,
+              userId: this.$store.state.userId,
+           }
+        })
+        .then((response) => {
+          if(response.data != ''){
+            this.deleteWrongQid(rightQid);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deleteWrongQid: function(rightQid) {
+      axios
+        .delete(`/wrong`, {
+          params: {
+            questionId: rightQid,
+            userId: this.$store.state.userId,
+          }
+        })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 }
