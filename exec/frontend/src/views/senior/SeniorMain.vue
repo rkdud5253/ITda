@@ -15,7 +15,6 @@
 <script>
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
-import axios from '@/service/axios.service.js'
 import '@/components/css/senior/seniorMain.scss';
 import TitleBox from '@/components/senior/common/TitleBox.vue';
 import DailyExerciseMenu from '@/components/senior/main/DailyExerciseMenu.vue';
