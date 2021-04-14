@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="party-popper">📸</div>
+  <img class="party-popper" src="@/assets/senior/CameraIcon.png">
   <div class="cannon">
     <div class="cannon__path cannon__path--sm cannon__path--angle-2">
       <div class="cannon__confetti cannon__confetti--flake cannon__confetti--color-3"></div>

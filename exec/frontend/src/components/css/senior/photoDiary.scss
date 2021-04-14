@@ -40,11 +40,22 @@
         height: 371.25px;
       }
     }
-  
-    .seniorPhoto {
-      .image {
+
+    .seniorSilhouette {
+      position: relative;
+
+      .seniorPhoto {
         width: 660px;
         height: 371.25px;
+        background-color: grey;
+      }
+
+      .silhouetteIcon {
+        width: 350px;
+        position: absolute;
+        left: 50%;
+        top: 55%;
+        transform: translate(-50%, -50%);
       }
     }
   }
