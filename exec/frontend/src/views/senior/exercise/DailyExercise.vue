@@ -77,18 +77,18 @@ export default {
   },
   mounted() {
     // 체조 사진 
-    setTimeout(()=>this.sendCommand(),3000);
-    setTimeout(()=>this.getFileInfo(),7000);
+    setTimeout(()=>this.sendCommand());
+    setTimeout(()=>this.getFileInfo(),4000);
     
-    setTimeout(()=>this.getFileInfo(),17000);
+    setTimeout(()=>this.getFileInfo(),14000);
 
-    setTimeout(()=>this.getFileInfo(),27000);
+    setTimeout(()=>this.getFileInfo(),24000);
     setTimeout(() => {
       if (this.StompClient !== null) {
         this.StompClient.disconnect();
       } 
-    }, 36000);
-    setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),37000);
+    }, 33000);
+    setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),34000);
   },
   methods: {
     sendCommand(){
