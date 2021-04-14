@@ -14,7 +14,7 @@ export default {
     MenuLoading,
   },
   created(){
-    setTimeout(()=>this.goDailyExercise(), 5000);
+    setTimeout(()=>this.goDailyExercise(), 8000);
   },
   methods:{
     goDailyExercise(){
