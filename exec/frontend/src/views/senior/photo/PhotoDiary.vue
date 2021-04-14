@@ -124,10 +124,8 @@ export default {
       axios
       .get('/files',{
         params:{
-          // 이거는 연습용
-          fileDate: "2021-04-09"
           // 원래는 이거
-          // fileDate: this.date
+          fileDate: this.date
         }
       }).then((res) => {
         this.fileInfo.fileUrl = res.data.fileUrl;
