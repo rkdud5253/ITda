@@ -9,7 +9,7 @@
           </v-card>
         </v-card-title>
         
-        <!-- 이미지 있을때 보여주고, 아니면 안보여지게 해야함 -->
+        <!-- 이미지 있을때 보여주고, 아니면 안 보임-->
         <v-img v-if="imageUrl" :src="imageUrl"></v-img>
         <!-- 보기 -->
         <div class="mx-10 my-10">
@@ -59,6 +59,14 @@
       >
         수정하기
       </v-btn>
+      <v-btn
+        class="mx-2 my-10"
+        color="#FC5355"
+        dark
+        @click="deleteQuiz"
+      >
+        삭제하기
+      </v-btn>
     </div>
   </v-card>
 </template>
@@ -90,6 +98,7 @@ export default {
                 questionId: Number(this.$route.params.questionId)
             }
         }).then((res) => {
+            // 문제 제목, 이미지, 보기, 정답 가져오기
             this.content = res.data.questionContent;
             this.imageUrl = res.data.questionImageUrl;
             this.example1 = res.data.example1;

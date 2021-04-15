@@ -38,23 +38,41 @@
       width: 660px;
       height: 371.25px;
     }
-  
-    .video {
-      width: 660px;
-      height: 371.25px;
-      text-align: center;
-      position: relative;
-      background-color: $basic-black;
 
-      .explain {
-        color: $basic-white;
+    .seniorExercise {
+      position: relative;
+
+      .seniorPhoto {
+        width: 660px;
+        height: 371.25px;
+        background-color: grey;
+      }
+
+      .exerciseIcon {
+        width: 450px;
         position: absolute;
         left: 50%;
-        top: 50%;
+        top: 58%;
         transform: translate(-50%, -50%);
-        font-size: 22px;
       }
     }
+  
+    // .video {
+    //   width: 660px;
+    //   height: 371.25px;
+    //   text-align: center;
+    //   position: relative;
+    //   background-color: $basic-black;
+
+    //   .explain {
+    //     color: $basic-white;
+    //     position: absolute;
+    //     left: 50%;
+    //     top: 50%;
+    //     transform: translate(-50%, -50%);
+    //     font-size: 22px;
+    //   }
+    // }
   }
 
   .explainBox {
@@ -80,9 +98,6 @@
     margin-left: 10px;
     margin-bottom: 10px;
     position: absolute;
-    // left: 50%;
-    // top: 50%;
-    // transform: translate(-50%, -50%);
   }
 }
 

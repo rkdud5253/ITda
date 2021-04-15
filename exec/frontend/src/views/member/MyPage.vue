@@ -1,12 +1,14 @@
 <template>
   <v-app>
-    <!-- 어르신등록 -->
+    <!-- 어르신등록 페이지-->
     <FamilyAppBar />
     <v-container class="my-15" style="text-align: -webkit-center;">
+      <!-- 어르신 등록 후 -->
       <v-card class="senior-name-card1" v-if="this.$store.state.userId >= 1">
         <h1 class="pt-10 pb-2" style="color: #FEA601">어르신 등록</h1>
         <h2 class="pt-15"><span style="color: #FC5355">{{ this.userName }}</span>님이 연결되었습니다.</h2>
       </v-card>
+      <!-- 어르신 등록 전 -->
       <v-card class="senior-name-card2" v-if="this.$store.state.userId == 0">
         <h1 class="pt-10 pb-2" style="color: #FEA601">어르신 등록</h1>
         <v-form>
@@ -133,6 +135,7 @@ export default {
     passDialog: false,
   }),
   created() {
+    // 어르신이 등록되어 있으면 어르신 성함을 불러온다
     if (this.$store.state.userId >= 1) {
       this.getUserName()
     }
@@ -162,10 +165,8 @@ export default {
               adminId: Number(this.$store.state.adminId)
             }
           }).then((res2) => {
-            console.log(res2.data);
             // 있다면 제거 후 재등록
             if(res2.data != "") {
-              console.log(res2.data);
               axios.delete('/AccessCheck/',{
                 params:{
                   adminId: res2.data.adminId,
@@ -175,7 +176,7 @@ export default {
                 console.log(error);
               });
             }
-            console.log(Number(this.$store.state.adminId));
+            // console.log(Number(this.$store.state.adminId));
             axios.post('/AccessCheck/', {
               adminId: Number(this.$store.state.adminId),
               userName: this.seniorName,              
@@ -192,8 +193,6 @@ export default {
       }).catch(error => {
         console.log(error);
       })
-
-      
     },
     startTimer: function() {
       if(!this.clickButtonSeeTimer)
@@ -215,7 +214,6 @@ export default {
           console.log(res.data[0].userId)
           if(res.data != "") {
             this.$store.commit("userLogin",res.data[0].userId)
-            // this.$store.state.userId = res.data[0].userId;
             this.totalTime = 0;
             this.clickButtonSeeTimer = false;
             // 등록완료
@@ -257,7 +255,6 @@ export default {
           userId: Number(this.$store.state.userId)
         }
       }).then((res) => {
-        console.log(res.data.userName)
         this.userName = res.data.userName
       })
     },

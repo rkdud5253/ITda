@@ -156,7 +156,7 @@
 
       <v-divider></v-divider>
 
-      <!-- 로그인, 로그이웃, 회원가입, 어르신등록 -->
+      <!-- 로그인 시 -->
       <v-list dense>
         <v-list-item
           link
@@ -186,7 +186,7 @@
         </v-list-item>
       </v-list>
 
-      <!-- 비 로그인시 이거 보이게.. -->
+      <!-- 비로그인 시 -->
       <v-list dense>
         <v-list-item
           link
@@ -260,6 +260,7 @@ export default {
     }
   },
   computed: {
+    // 로그인 여부 판단
     loginStateResult : function () {
       if(this.$store.state.adminId >= 1) {
         return true
@@ -271,7 +272,6 @@ export default {
   methods: {
     goMain() {
       this.$router.go(this.$router.push({name: 'Main'}))
-      // this.$vuetify.goTo(0)
     },
     goReport() {
       if (this.$store.state.adminId >= 1) {
@@ -306,7 +306,6 @@ export default {
       this.$router.go(this.$router.push({name: 'MyPage'}))
     },
     logout() {
-      // this.$store.state.adminId == 0
       localStorage.clear()
       this.$router.go(this.$router.push({name: 'Main'}))
     },

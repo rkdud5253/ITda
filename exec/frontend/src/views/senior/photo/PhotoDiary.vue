@@ -4,7 +4,13 @@
       <TitleBox title="왼쪽 사진의 동작을 따라한 뒤 웃어주세요!"/>
       <div class="photos">
         <ExampleImage :fileInfo = "fileInfo"/>
-        <SeniorPhoto />
+        <!-- 윤여정 선생님 사진으로 대체하려면 아래 SeniorPhoto 관련 주석들을 해제하면 됩니다.
+        단, scss 파일의 수정도 동반되어야 이미지를 원하는대로 볼 수 있습니다. -->
+        <!-- <SeniorPhoto /> -->
+        <div class="seniorSilhouette">
+          <div class="seniorPhoto"></div>
+          <img class="silhouetteIcon" src="@/assets/senior/UserSilhouette.png">
+        </div>
       </div>
       <div class="loaderExplain">
         <Loader />
@@ -25,7 +31,7 @@ import '@/components/css/senior/photoDiary.scss';
 import Loader from '@/components/senior/photo/Loader.vue';
 import TitleBox from '@/components/senior/common/TitleBox.vue';
 import ExampleImage from '@/components/senior/photo/ExampleImage.vue';
-import SeniorPhoto from '@/components/senior/photo/SeniorPhoto.vue';
+// import SeniorPhoto from '@/components/senior/photo/SeniorPhoto.vue';
 import GoToMainBlue from '@/components/senior/common/GoToMainBlue.vue';
 import axios from '@/service/axios.service.js'
 import Stomp from "webstomp-client";
@@ -37,7 +43,7 @@ export default {
     Loader,
     TitleBox,
     ExampleImage,
-    SeniorPhoto,
+    // SeniorPhoto,
     GoToMainBlue,
   },
   data() {
@@ -73,23 +79,58 @@ export default {
     }
     this.date = this.year + '-' + this.month + '-' + this.day;
     this.getFileInfo();
-    this.onChangeImages();
   },
   mounted() {
-    this.$store.commit("TTS", "왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
-    // setTimeout(()=>this.send("smileNetRun"), 6000); // 대사 끝나고 smileNet 실행
+    this.sendCommand("왼쪽 사진의 동작을 따라해보세요. 활짝 웃으면 사진이 찍혀요!");
+    setTimeout(()=>this.sendCommand("smileNetRun"), 6000); // 대사 끝나고 smileNet 실행
   },
   methods: {
+    sendCommand(text){
+      axios.get("/order",{
+      params:{
+        hashIp:this.$store.state.ipHash
+      }
+    }).then((res) => {
+      console.log(res);
+      if(res.data.command != null) {
+          axios.delete("/order",{
+            params:{
+              hashIp:this.$store.state.ipHash
+            }
+          }).then(() => {
+            
+            // userId 전달
+            axios.post("/order",{
+              hashIp:this.$store.state.ipHash,
+              command:text
+            }).then(() => {
+
+            })
+          })
+        }
+        else{
+          
+         // userId 전달  
+          axios.post("/order",{
+            hashIp:this.$store.state.ipHash,
+            command:text
+          }).then(() => {
+
+          })
+        }
+    })
+    },
     getFileInfo(){
       axios
       .get('/files',{
         params:{
-          fileDate: this.date,
+          // 원래는 이거
+          fileDate: this.date
         }
       }).then((res) => {
-        this.fileInfo.fileUrl = res.data[0].fileUrl;
-        this.fileInfo.fileId = res.data[0].fileId;
-        this.fileInfo.fileName = res.data[0].fileName;
+        this.fileInfo.fileUrl = res.data.fileUrl;
+        this.fileInfo.fileId = res.data.fileId;
+        this.fileInfo.fileName = res.data.fileName;
         console.log(this.date)
       }).catch(error => {
           console.log(error);
@@ -112,10 +153,20 @@ export default {
                   (res) => {
                     console.log(res.body);
                     
-                    if(res.body == "그만")
+                    if(res.body == "그만") {
+                      
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'SeniorMain'});
-                    else if(res.body == "찰칵") // 넘겨받음
+                    }
+                    else if(res.body == "찰칵"){
+                      
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'PhotoDiaryResult'});
+                    }
                   }
               );
             },
@@ -124,15 +175,6 @@ export default {
               console.log("소켓 연결 실패", error);
             }
         );
-    },
-    onChangeImages(e) {
-      const file = e;
-      let reader = new FileReader()
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.fileInfo.fileUrl = reader.result
-      }
-     
     },
   }
 }

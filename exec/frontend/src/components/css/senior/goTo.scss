@@ -34,3 +34,21 @@
   @include goTo($secondary-red);
   color: $basic-white;
 }
+
+.again {
+  @include goTo($secondary-red);
+  color: $basic-white;
+
+  .goMessage {
+    width: 100px;
+  }
+}
+
+.save {
+  @include goTo($secondary-blue);
+  color: $basic-white;
+
+  .goMessage {
+    width: 100px;
+  }
+}

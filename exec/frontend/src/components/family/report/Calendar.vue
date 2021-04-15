@@ -64,6 +64,7 @@
             <v-card-title style="justify-content: center; color: #FEA601;">
               <h2 class="modalFont">일일 보고서</h2>
             </v-card-title>
+            <!-- 세가지 기능 중 하나라도 사용하셨을 때 -->
             <v-card-text 
               class="modalFont my-2" 
               style="text-align-last: center;"
@@ -71,6 +72,7 @@
             >
               <h3>오늘의 보고서를 확인하시려면<br><span style="color: #FEA601">보고서 보기</span>를 클릭하세요!</h3>
             </v-card-text>
+            <!-- 세가지 기능 모두 사용하지 않았을 때 -->
             <v-card-text 
               class="modalFont my-2" 
               style="text-align-last: center;"
@@ -129,6 +131,7 @@ export default {
       }
     },
     mounted () {
+      // 캘린더 정보 불러오기
       this.load = true;
       this.$refs.calendar.checkChange()
     },
@@ -146,7 +149,7 @@ export default {
         this.dialog = true
         this.todaydate = date
 
-        // 체조, 퀴즈
+        // 오늘의 체조, 가족 오락관
         axios
           .get(`/report/daily`, {
             params: {
@@ -155,16 +158,13 @@ export default {
             }
           })
           .then((response) => {
-            console.log(response);
             this.reportData1 = response.data
-            console.log(this.$store.state.userId)
-            
           })
           .catch((error) => {
             console.log(error);
           });
 
-        // 사진
+        // 사진 일기장
         axios
           .get(`/files/daily`, {
             params: {
@@ -173,7 +173,6 @@ export default {
             }
           })
           .then((response) => {
-            console.log(response);
             this.reportData2 = response.data
           })
           .catch((error) => {

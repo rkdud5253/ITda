@@ -2,8 +2,8 @@
   <div class="familyQuiz">
     <div class="wrap" v-if="items.length > 0">
       <TitleBox :title="items[idx].questionContent"/>
-      <img v-if="items[idx].questionImageUrl" class="question" :src="items[idx].questionImageUrl">
-      <img v-if="!items[idx].questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg">
+      <img v-if="items[idx].questionImageUrl" class="question" :src="items[idx].questionImageUrl" alt="">
+      <img v-if="!items[idx].questionImageUrl" class="defaultImage" src="@/assets/senior/SeniorGame.jpg" alt="">
       <ExampleBox 
         :example1="items[idx].example1"
         :example2="items[idx].example2"
@@ -59,12 +59,48 @@ export default {
   mounted() {
     this.getDate();
     this.getQuiz();
-    setTimeout(()=>this.$store.commit("TTS", this.items[this.idx].questionContent),500);
-    
+    this.connect();
+    console.log(this.idx);
     // 2번으로 찍는 Interval
-    // setInterval(()=>this.solving(2),1500);
+    //setInterval(()=>this.solving(2),1500);
   },
   methods: {
+    sendCommand(){
+      axios.get("/order",{
+        params:{
+          hashIp:this.$store.state.ipHash
+        }
+      }).then((res) => {
+        console.log(res);
+        if(res.data.command != null) {
+          axios.delete("/order",{
+            params:{
+              hashIp:this.$store.state.ipHash
+            }
+          }).then(() => {
+            
+            // userId 전달
+            axios.post("/order",{
+              hashIp:this.$store.state.ipHash,
+              command:this.items[this.idx].questionContent
+            }).then(() => {
+
+            })
+          })
+        }
+        else{
+          
+         // userId 전달  
+          axios.post("/order",{
+            hashIp:this.$store.state.ipHash,
+            command:this.items[this.idx].questionContent
+          }).then(() => {
+
+          })
+        }
+      })
+
+    },
     getDate() {
       this.date = new Date();
       this.year = this.date.getFullYear();
@@ -100,12 +136,14 @@ export default {
             answer: res.data[i].answer,
           });
         }
+        setTimeout(() => this.sendCommand(), 1500);
+        
       }).catch(error => {
           console.log(error);
       });
     },
     connect() {
-        const serverURL = "http://:8000/itda/vuejs";
+        const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
         
         let Socket = new SockJS(serverURL);
         this.StompClient = Stomp.over(Socket);
@@ -121,8 +159,15 @@ export default {
                   (res) => {
                     console.log(res.body);
                     
-                    if(res.body == "그만")
+                    if(res.body == "그만") {
+                      
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'SeniorMain'});
+                    }
+                    if(res.body == "다음")
+                      this.solving(5);
                     if(res.body == "1번" || res.body == "1" || res.body == "일" || res.body == "일번") // 넘겨받음
                       this.solving(1);
                     if(res.body == "2번" || res.body == "2" || res.body == "이" || res.body == "이번") // 넘겨받음
@@ -143,25 +188,27 @@ export default {
     solving(answer){
       console.log(answer);
 
-      if(this.items[this.idx].answer == answer)  // 정답
+      if(this.items[this.idx].answer == answer)  // 정답  
         this.right.push(this.items[this.idx].questionId);
       else // 오답
         this.wrong.push(this.items[this.idx].questionId);
+
+      //idx가 5일
+      if(this.idx < 4) {
+        this.idx+=1;
         
-      // 정답은 ~번입니다 TTS
-      this.$store.commit("TTS", "정답은" + answer + "번입니다.");
-
-      //idx가 5일때 
-      this.idx+=1;
-
-      if(this.idx < 5)
-        setTimeout(()=> this.$store.commit("TTS", "다음 문제입니다. " + this.items[this.idx].questionContent),2000);
-
+        this.sendCommand();
+      }
       else {
         this.getWrong();
         this.getRight();
 
         this.setQuizResult();
+
+        
+        if (this.StompClient !== null) {
+          this.StompClient.disconnect();
+        } 
 
         setTimeout(() => this.$router.push({name:"FamilyQuizResult"}), 500);
       }
@@ -184,6 +231,14 @@ export default {
       }).catch(error => {
           console.log(error);
       });
+      // 1) 맞춘 문제들 중 틀린 문제가 있다면
+      // 틀린 문제에서 제거!
+      // 2) 틀린 문제들 중 틀린 문제에 없다면
+      // 틀린 문제에 등록!
+      
+      // axios.get('/wrong',{
+        
+      // })
     },
     getWrong(){
       for (let index = 0; index < this.right.length; index++) {
@@ -194,16 +249,7 @@ export default {
       for (let index = 0; index < this.wrong.length; index++) {
         this.wrongNumbers += "/" + this.wrong[index];
       }
-    },
-    onChangeImages(e) {
-      const file = e;
-    
-      let reader = new FileReader()
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.items[this.i].questionImageUrl = reader.result
-      }
-    },
+    }
   },  
 }
 </script>

@@ -8,13 +8,17 @@
         :src="fileInfo[0].fileUrl"
         alt=""
         >
-        <div class="video">
+        <div class="seniorExercise">
+          <div class="seniorPhoto"></div>
+          <img class="exerciseIcon" src="@/assets/senior/ExerciseIcon.png">
+        </div>
+        <!-- <div class="video">
           <h3 class="explain">
             이곳에는 PoseNet을 이용한<br> 어르신 실시간 영상이 들어갑니다.<br>
             실행을 위해서는<br> Raspberry Pi가 필요하므로,<br>
             발표 시 시연으로<br> 보여드릴 예정입니다.
           </h3>
-        </div>
+        </div> -->
       </div>
       <div class="explainBox">
         <div class="explainLine">
@@ -72,28 +76,55 @@ export default {
     this.connect();
   },
   mounted() {
-    // 사진 배열로 몇 개 하기 - 일단 3장
-    this.$store.commit("TTS", "잠시 후 오늘의 체조를 시작합니다. 왼쪽 사진의 동작에 집중하며 체조를 따라해보세요.");
-    setTimeout(()=>this.send({ sttMessage: "poseNetRun"}),7000); // 대사 끝나면 poseNet 실행
-    
     // 체조 사진 
-    // for문으로 15초 마다 다음 동작으로 axios.get
+    setTimeout(()=>this.sendCommand());
+    setTimeout(()=>this.getFileInfo(),4000);
     
-    setTimeout(()=>this.getFileInfo(),7000);
-    
-    setTimeout(()=>this.getFileInfo(),17000);
-    // setTimeout(()=>this.send({ sttMessage: "nextPose"}),11000);
+    setTimeout(()=>this.getFileInfo(),14000);
 
-    setTimeout(()=>this.getFileInfo(),27000);
-    // setTimeout(()=>this.send({ sttMessage: "nextPose"}),15000);
-
-    // setTimeout(()=>this.send({ sttMessage: "poseNetStop"}),20000);
-
-    setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),37000);
+    setTimeout(()=>this.getFileInfo(),24000);
+    setTimeout(() => {
+      if (this.StompClient !== null) {
+        this.StompClient.disconnect();
+      } 
+    }, 33000);
+    setTimeout(()=>this.$router.push({name:"DailyExerciseResult"}),34000);
   },
   methods: {
-    send(msg){
-        this.StompClient.send("/socket/" + this.$store.state.ipHash + "/receive", JSON.stringify(msg), {});
+    sendCommand(){
+      axios.get("/order",{
+      params:{
+        hashIp:this.$store.state.ipHash
+      }
+    }).then((res) => {
+      console.log(res);
+      if(res.data.command != null) {
+          axios.delete("/order",{
+            params:{
+              hashIp:this.$store.state.ipHash
+            }
+          }).then(() => {
+            
+            // userId 전달
+            axios.post("/order",{
+              hashIp:this.$store.state.ipHash,
+              command:"exercise"
+            }).then(() => {
+
+            })
+          })
+        }
+        else{
+          
+         // userId 전달  
+          axios.post("/order",{
+            hashIp:this.$store.state.ipHash,
+            command:"exercise"
+          }).then(() => {
+
+          })
+        }
+    })
     },
     connect() {
         const serverURL = "http://j4a404.p.ssafy.io:8000/itda/vuejs";
@@ -112,8 +143,12 @@ export default {
                   (res) => {
                     console.log(res.body);
                     
-                    if(res.body == "그만")
+                    if(res.body == "그만"){
+                      if (this.StompClient !== null) {
+                        this.StompClient.disconnect();
+                      } 
                       this.$router.push({name: 'SeniorMain'});
+                    }
                   }
               );
             },
@@ -127,7 +162,8 @@ export default {
       axios
       .get('/files/exercise',{
         params:{
-          fileDate: this.date,
+          // 원래는 이거
+          fileDate: this.date
         }
       }).then((res) => {
         console.log(res.data);
@@ -135,20 +171,10 @@ export default {
         this.fileInfo[0].fileId = res.data[this.i].fileId;
         this.fileInfo[0].fileName = res.data[this.i].fileName;
         this.i+=1;
-        this.onChangeImages();
       }).catch(error => {
           console.log(error);
       });
     },
-    onChangeImages(e) {
-      const file = e;
-    
-      let reader = new FileReader()
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.fileInfo[0].fileUrl = reader.result
-      }
-    }
   }
 }
 </script>

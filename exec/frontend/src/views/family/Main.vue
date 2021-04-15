@@ -26,7 +26,7 @@ export default {
     Footer,
   },
   mounted(){
-    console.log(this.$store.state.adminId);
+    // console.log(this.$store.state.adminId);
   }
 }
 </script>

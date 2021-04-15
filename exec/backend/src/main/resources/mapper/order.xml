@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.itda.mapper.OrderMapper">
+    <select id="getOrder" parameterType="String" resultType="Order">
+        select *
+        from `order`
+        where hashIp = #{hashIp}
+    </select>
+
+    <insert id="postOrder" parameterType="Order">
+        insert into `order`(hashIp, command)
+        values(#{hashIp}, #{command})
+    </insert>
+
+    <delete id="deleteOrder" parameterType="String">
+        delete from `order`
+        where hashIp = #{hashIp}
+    </delete>
+</mapper>

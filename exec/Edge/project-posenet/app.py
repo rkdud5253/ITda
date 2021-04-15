@@ -1,20 +1,50 @@
 import mypose
 import mysmile
 import STT
+import requests
 
 import random
 import stomper
 import websocket
 import time
 import RPi.GPIO as GPIO
-from requests import get
+from requests import get, delete
 import hashlib
 import threading
 import multiprocessing
 from multiprocessing import freeze_support
 
+import pyglet
+from google.cloud import texttospeech
 
-# Sending some message
+# TTS
+client = texttospeech.TextToSpeechClient()
+voice = texttospeech.VoiceSelectionParams(
+    language_code="ko-kr", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+)
+audio_config = texttospeech.AudioConfig(
+    audio_encoding=texttospeech.AudioEncoding.MP3
+)
+
+
+# function
+# def play():
+#     # 읽기
+
+
+def tts(message):
+    # 저장
+    synthesis_input = texttospeech.SynthesisInput(text=message)
+    response = client.synthesize_speech(
+        input=synthesis_input, voice=voice, audio_config=audio_config
+    )
+    with open("output.wav", "wb") as out:
+        # Write the response to the output file.
+        out.write(response.audio_content)
+
+    pyglet.resource.media('output.wav').play()
+    pyglet.app.run()
+
 
 def posenet():
     return mypose.main()
@@ -44,6 +74,17 @@ def sensor():
 
     return distance
 
+def getOrder(hash_ip):
+    data = {
+        "hashIp": hash_ip
+    }
+
+    while True:
+        res = requests.get('http://j4a404.p.ssafy.io:8000/itda/report/exercise', json=data)
+
+        if res.data.command != None:
+            requests.delete('http://j4a404.p.ssafy.io:8000/itda/report/exercise', json=data)
+            return res.data.command
 
 if __name__ == '__main__':
     # Connecting to websocket
@@ -75,35 +116,47 @@ if __name__ == '__main__':
         if distance < 50:
             print("RUN SENSOR")
             ws.send(stomper.send(f"/socket/{hash_ip}/send", "ready"))
-            user_id = ws.recv(stomper.send(f"/socket/{hash_ip}/receive"))
+            # user_id = ws.recv(stomper.send(f"/socket/{hash_ip}/receive"))
+            user_id = getOrder(hash_ip)
             if not user_id:
                 pass
             else:
                 # 로그인 확인 후 메인페이지로 이동
+                time.sleep(3)
+                multiprocessing.Process(target=tts("안녕하세요! 나리를 불러서 원하는 기능을 실행하세요!")).start()
+                print("1")
+                time.sleep(5)
+                print("5")
                 while True:
-                    distance = sensor()
                     if distance < 50:
                         print("LOGIN")
                         message = STT.run()
                         print(message)
                         enter_time = time.time()
                         if message == "나리야":
+                            multiprocessing.Process(target=tts("네, 말씀하세요!")).start()
                             elapsed_time = time.time() - enter_time
                             while elapsed_time < 5:
                                 elapsed_time = time.time() - enter_time
                                 message = STT.run()
+                                if message == "나리야":
+                                    enter_time = time.time()
                                 if message == "오늘의 체조":
                                     ws.send(stomper.send(f"/socket/{hash_ip}/send", message))
                                     # MYPOSE
+                                    time.sleep(8)
                                     pose = multiprocessing.Process(target=posenet)
                                     pose.start()
                                     while True:
-                                        next_pose = ws.recv()
-                                        if next_pose == "nextPose":
-                                            break
+                                        # next_pose = ws.recv()
+                                        # if next_pose == "nextPose":
+                                        #     break
+                                        # distance = sensor()
+                                        # if distance < 50:
+                                        #     break
 
                                         message = STT.run()
-                                        if message == "그만":
+                                        if message in ("그만", "나리야"):
                                             pose.terminate()
                                             break
                                     break
@@ -111,16 +164,29 @@ if __name__ == '__main__':
                                     ws.send(stomper.send(f"/socket/{hash_ip}/send", message))
                                     # 가족오락관
                                     while True:
-                                        stop_signal = ws.recv()
-                                        if stop_signal:
-                                            break
+                                        # stop_signal = ws.recv()
+                                        # if stop_signal:
+                                        #     break
+                                        message = STT.run()
+                                        cnt = 0
+                                        if message in (
+                                        '1번', '이번', '3번', '4번', '다음', '그만', '1', '2', '3', '4', '일', '이', '삼', '사'):
+                                            print("번호")
+                                            ws.send(stomper.send(f"/socket/{hash_ip}/send", message))
+                                            cnt += 1
+                                            if cnt == 5:
+                                                break
+                                            if message in ("그만", "나리야"):
+                                                break
+
                                     break
                                 elif message == "사진 일기장":
                                     ws.send(stomper.send(f"/socket/{hash_ip}/send", message))
                                     # MYSMILE
-                                    smile = multiprocessing.Process(target=smile)
+                                    smile = multiprocessing.Process(target=smile_detection())
                                     smile.start()
-                                    while True:
+                                    b = False
+                                    while not b:
                                         message = STT.run()
                                         if message == "그만":
                                             ws.send(stomper.send(f"/socket/{hash_ip}/send", message))
@@ -128,11 +194,19 @@ if __name__ == '__main__':
                                             break
                                         elif message == "다시":
                                             ws.send(stomper.send(f"/socket/{hash_ip}/send", message))
-                                        elif message == "저장":
+                                        elif message == "찰칵":
                                             ws.send(stomper.send(f"/socket/{hash_ip}/send", message))
-                                        stop_signal = ws.recv()
-                                        if stop_signal:
-                                            break
+                                            while True:
+                                                message = STT.run()
+                                                if message == '저장':
+                                                    b = True
+                                                    break
+                                        # stop_signal = ws.recv()
+                                        # if stop_signal:
+                                        #     break
+                                        # distance = sensor()
+                                        # if distance < 50:
+                                        #     break
                                     break
 
-                                # 분기
+                    # distance = sensor()

@@ -43,8 +43,13 @@ export default {
                         (res) => {
                             console.log(res.body);
                             
-                            if(res.body == "ready")
+                            if(res.body == "ready"){
+                                
+                                if (this.StompClient !== null) {
+                                    this.StompClient.disconnect();
+                                } 
                                 this.$router.push({name: 'Splash'});
+                            }
                         }
                     );
                 },

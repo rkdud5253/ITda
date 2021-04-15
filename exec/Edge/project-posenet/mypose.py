@@ -35,6 +35,7 @@ import requests
 # from flask import Flask
 # app = Flask(__name__)
 
+t = 0
 
 EDGES = (
     (KeypointType.NOSE, KeypointType.LEFT_EYE),
@@ -92,6 +93,7 @@ def joint_degree(joint_b, joint_a, threshold=0.4):
     else:
         return result + 360
 
+
 # custom
 def check_posture(target, correct, allow=15):
     if target == "NaN" or correct == "NaN":
@@ -112,7 +114,9 @@ def shadow_text(dwg, x, y, text, font_size=16):
                      font_size=font_size, style='font-family:sans-serif'))
 
 
-def draw_pose(dwg, pose, src_size, inference_box, targets, color='yellow', threshold=0.4):
+def draw_pose(dwg, pose, src_size, inference_box, targets_list, color='yellow', threshold=0.4):
+    global t
+
     box_x, box_y, box_w, box_h = inference_box
     scale_x, scale_y = src_size[0] / box_w, src_size[1] / box_h
     box_x, box_y, scale_x, scale_y = 0, 0, 1, 1
@@ -141,8 +145,8 @@ def draw_pose(dwg, pose, src_size, inference_box, targets, color='yellow', thres
         bx, by = xys[b][:2]
         mypose = joint_degree(xys[a], xys[b])
         print('  %-15s - %-15s : %s' %
-            (str(a)[13:], str(b)[13:], mypose))
-        check = check_posture(targets[i], mypose)
+              (str(a)[13:], str(b)[13:], mypose))
+        check = check_posture(targets_list[t][i], mypose)
         frame = f'{str(a)[13:]} - {str(b)[13:]}'
         if check == 'correct':
             color = "green"
@@ -154,8 +158,9 @@ def draw_pose(dwg, pose, src_size, inference_box, targets, color='yellow', thres
             color = "yellow"
             report[frame] += 0.5
         dwg.add(dwg.line(start=(ax, ay), end=(bx, by), stroke=color, stroke_width=2))
-    # print(report)
-    # print("---------------------------------------------------------")
+    print(report)
+    print("---------------------------------------------------------")
+    print(t)
 
 
 def avg_fps_counter(window_size):
@@ -201,13 +206,13 @@ def run(inf_callback, render_callback):
     inference_size = (input_shape[2], input_shape[1])
 
     gstreamer.run_pipeline(partial(inf_callback, engine), partial(render_callback, engine),
-                        src_size, inference_size,
-                        #    mirror=args.mirror,
-                        mirror=True,
-                        videosrc=args.videosrc,
-                        h264=args.h264,
-                        jpeg=args.jpeg
-                        )
+                           src_size, inference_size,
+                           #    mirror=args.mirror,
+                           mirror=True,
+                           videosrc=args.videosrc,
+                           h264=args.h264,
+                           jpeg=args.jpeg
+                           )
 
 
 def main():
@@ -239,59 +244,78 @@ def main():
 
         shadow_text(svg_canvas, 10, 20, text_line)
         for pose in outputs:
-            draw_pose(svg_canvas, pose, src_size, inference_box, targets)
+            draw_pose(svg_canvas, pose, src_size, inference_box, targets_list)
             # for label, keypoint in pose.keypoints.items():
             #     print('  %-20s x=%-4d y=%-4d score=%.1f' %
             #         (label.name, keypoint.point[0], keypoint.point[1], keypoint.score))
         return (svg_canvas.tostring(), False)
 
-    pil_image = Image.open('./media/yoga.jpg').convert('RGB')
+    pil_image1 = Image.open('./media/pose2.jpg').convert('RGB')
+    pil_image2 = Image.open('./media/pose1.jpg').convert('RGB')
+    # pil_image3 = Image.open('./media/pose3.jpg').convert('RGB')
+    pil_image3 = Image.open('./media/pose4.jpg').convert('RGB')
+    pil_list = [pil_image1, pil_image2, pil_image3]
     engine = PoseEngine(
         'models/mobilenet/posenet_mobilenet_v1_075_481_641_quant_decoder_edgetpu.tflite')
-    poses, inference_time = engine.DetectPosesInImage(pil_image)
-    print('Inference time: %.f ms' % (inference_time * 1000))
+    poses, inference_time = engine.DetectPosesInImage(pil_image1)
+    poses_list = [engine.DetectPosesInImage(pil_image)[0] for pil_image in pil_list]
+    print(poses_list)
+    # print('Inference time: %.f ms' % (inference_time * 1000))
+    targets_list = []
+    for poses in poses_list:
+        targets = []
+        for pose in poses:
+            if pose.score < 0.4: continue
+            print('\nPose Score: ', pose.score)
+            # for label, keypoint in pose.keypoints.items():
+            #     print('  %-20s x=%-4d y=%-4d score=%.1f' %
+            #         (label.name, keypoint.point[0], keypoint.point[1], keypoint.score))
 
-    for pose in poses:
-        if pose.score < 0.4: continue
-        print('\nPose Score: ', pose.score)
-        # for label, keypoint in pose.keypoints.items():
-        #     print('  %-20s x=%-4d y=%-4d score=%.1f' %
-        #         (label.name, keypoint.point[0], keypoint.point[1], keypoint.score))
+            threshold = 0.4
+            box_x = box_y = 0
+            scale_x = scale_y = 1
 
-        threshold = 0.4
-        box_x = box_y = 0
-        scale_x = scale_y = 1
+            xys = {}
+            for label, keypoint in pose.keypoints.items():
+                # if keypoint.score < threshold: continue
+                # Offset and scale to source coordinate space.
+                kp_x = int((keypoint.point[0] - box_x) * scale_x)
+                kp_y = int((keypoint.point[1] - box_y) * scale_y)
+                score = keypoint.score
 
-        xys = {}
-        for label, keypoint in pose.keypoints.items():
-            # if keypoint.score < threshold: continue
-            # Offset and scale to source coordinate space.
-            kp_x = int((keypoint.point[0] - box_x) * scale_x)
-            kp_y = int((keypoint.point[1] - box_y) * scale_y)
-            score = keypoint.score
+                xys[label] = (kp_x, kp_y, score)
 
-            xys[label] = (kp_x, kp_y, score)
+            for a, b in EDGES[7:]:
+                # if a not in xys or b not in xys: continue
+                target = joint_degree(xys[a], xys[b])
+                targets.append(target)
+                print('  %-15s - %-15s : %s' %
+                      (str(a)[13:], str(b)[13:], target))
+        # print(targets)
+        targets_list.append(targets)
+    print(targets_list)
 
-        for a, b in EDGES[7:]:
-            # if a not in xys or b not in xys: continue
-            target = joint_degree(xys[a], xys[b])
-            targets.append(target)
-            print('  %-15s - %-15s : %s' %
-                (str(a)[13:], str(b)[13:], target))
-    print(targets)
+    def next_pose():
+        global t
+        for _ in range(3):
+            time.sleep(10)
+            t += 1
 
     def pose_run():
         run(run_inference, render_overlay)
-    
+
     pose_thread = threading.Thread(target=pose_run)
     pose_thread.daemon = True
     pose_thread.start()
-    time.sleep(15)
+    nxt = threading.Thread(target=next_pose())
+    nxt.daemon = True
+    nxt.start()
+    # time.sleep(20)
     print("쓰레드종료")
     print(report)
     data = ""
     for val in report.values():
-        data += str(int(val*100/report["TOTAL_TIME"]))
+        data += str(int(val * 100 / report["TOTAL_TIME"]))
         data += "/"
     data = {
         "exerciseAccuracy": data[:-5],

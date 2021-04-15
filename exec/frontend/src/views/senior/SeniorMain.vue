@@ -37,20 +37,15 @@ export default {
     }
   },
   created() {
-    this.connect();
-    axios.get("/user", {
-      params: {
-        userId : this.$store.state.userId
+    axios.get('/user',{
+      params:{
+        userId:this.$store.state.userId
       }
     }).then((res) => {
-      this.username = res.data.userName;
-      // console.log(this.username)
-      if (this.username) {
-      this.$store.commit("TTS", this.username + "님 나리를 불러서 원하는 기능을 실행하세요.");
-    } else {
-      this.$store.commit("TTS", "어르신 등록 후 잇다를 이용해주세요.");
-    }
+      this.username = res.data.userName
     })
+
+    this.connect();
   },
   methods:{
     connect() {
@@ -71,14 +66,25 @@ export default {
             (res) => {
               console.log(res.body);
               
-              if(res.body == "오늘의 체조")
+              if(res.body == "오늘의 체조"){  
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                }
+
                 this.$router.push({name: 'DailyExerciseLoading'});
-                
-              if(res.body == "가족오락관")
+              }                
+              if(res.body == "가족오락관"){
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                }
                 this.$router.push({name: 'FamilyQuizLoading'});
-                
-              if(res.body == "사진 일기장")
+              }
+              if(res.body == "사진 일기장"){
+                if (this.StompClient !== null) {
+                  this.StompClient.disconnect();
+                } 
                 this.$router.push({name: 'PhotoDiaryLoading'});
+              }
             }
           );
         },

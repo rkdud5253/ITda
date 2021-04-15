@@ -34,7 +34,7 @@
         </v-col>
       </v-row>
       <v-divider class="my-10"></v-divider>
-      <DailyTraining :year="year" :month="month" :day="day" :dailyReport="dailyReport" :exercise="exercise"/>
+      <DailyTraining :year="year" :month="month" :day="day" :dailyReport="dailyReport"/>
       <v-divider class="my-10"></v-divider>
       <DailyPhoto :year="year" :month="month" :day="day" :image="image"/>
       <v-divider class="my-10"></v-divider>
@@ -75,14 +75,13 @@ export default {
     };
   },
   created() {
+    // 날짜 정보 저장
     this.arrayDate = this.$route.query.date.split('-')
-    console.log(this.arrayDate)
     this.year = this.arrayDate[0]
     this.month = this.arrayDate[1]
     this.day = this.arrayDate[2]
     this.getDailyReport()
     this.getImage()
-    this.getExercise()
   },
   methods: {
     goCalendar() {
@@ -113,20 +112,6 @@ export default {
         })
         .then((response) => {
           this.image = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    getExercise() { 
-      axios
-        .get(`/files/exercise`, {
-          params: {
-            fileDate : this.$route.query.date,
-          }
-        })
-        .then((response) => {
-          this.exercise = response.data;
         })
         .catch((error) => {
           console.log(error);

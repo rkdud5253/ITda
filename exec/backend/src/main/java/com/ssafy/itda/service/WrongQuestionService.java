@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class WrongQuestionService {
@@ -15,8 +16,8 @@ public class WrongQuestionService {
     @Autowired
     public WrongQuestionService(SqlSession sqlSession) { this.sqlSession = sqlSession; }
 
-    public WrongQuestion getWrongQuestion(int userId, int questionId) throws Exception{
-        return sqlSession.getMapper(WrongQuestionMapper.class).getWrongQuestion(userId, questionId);
+    public WrongQuestion getWrongQuestion(WrongQuestion wrongQuestion) throws Exception{
+        return sqlSession.getMapper(WrongQuestionMapper.class).getWrongQuestion(wrongQuestion);
     }
 
     public List<WrongQuestion> getWrongQuestionList(int userId) throws Exception{
@@ -24,10 +25,10 @@ public class WrongQuestionService {
     }
 
     public boolean postWrongQuestion(WrongQuestion wrongQuestion) throws Exception{
-        return sqlSession.getMapper(WrongQuestionMapper.class).postWrongQuestion(wrongQuestion);
+        return sqlSession.getMapper(WrongQuestionMapper.class).postWrongQuestion(wrongQuestion) == 1;
     }
 
     public boolean deleteWrongQuestion(WrongQuestion wrongQuestion) throws Exception{
-        return sqlSession.getMapper(WrongQuestionMapper.class).deleteWrongQuestion(wrongQuestion);
+        return sqlSession.getMapper(WrongQuestionMapper.class).deleteWrongQuestion(wrongQuestion) == 1;
     }
 }

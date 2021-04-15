@@ -6,6 +6,8 @@
   height: 100vh;
   position: relative;
   text-align: center;
+  display: flex;
+  flex-direction: column-reverse;
 
   .wrap {
     position: absolute;
@@ -15,7 +17,7 @@
   }
 
   .titleBox {
-    @include titleBox($primary-yellow2, $basic-black, 1320px, 75px);
+    @include titleBox($primary-yellow2, $basic-black, 1320px, 0px);
   }
 
   .nari {
@@ -27,22 +29,33 @@
   }
 
   .seniorPhoto {
-    .image {
-      width: 660px;
-      height: 371.25px;
-    }
+    width: 660px;
   }
 
   .explain {
     font-size: 50px;
-    margin-top: 50px;
+    margin-top: 30px;
   }
 
   .line1 {
-    @include line(770px);
+    @include line(620px);
   }
 
   .line2 {
-    @include line(690px);
+    @include line(510px);
+  }
+
+  .goBox {
+    display: flex;
+    justify-content: space-between;
+
+    .again {
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+  
+    .save {
+      margin-right: 10px;
+    }
   }
 }

@@ -6,9 +6,20 @@
       <h4>매일 기록되는 웃음 가득한 사진을 확인해 보세요😊</h4>
     </div>
 
+    <!-- 사진 일기장 사용하지 않았을 때 -->
+    <v-card
+      class="mx-5 my-5"
+      flat
+      style="text-align: center;"
+      v-if="myImage.fileUrl == undefined"
+    >
+      <h2 class="px-5 py-10">오늘 어르신께서 찍은 사진이 없어요😯</h2>
+    </v-card>
+    <!-- 사진 일기장 사용하셨을 때 -->
     <v-card
       class="mx-5 my-5"
       elevation="5"
+      v-if="myImage != undefined"
     >
       <v-img
         :src="myImage.fileUrl"
@@ -29,23 +40,15 @@ export default {
   props: ['year', 'month', 'day', 'image'],
   computed: {
     myImage: function() {
-      return this.image[0]
+      return this.image
     },
   },
   created() {
-    this.onChangeImages();
+  },
+  mounted() {
   },
   methods: {
-    onChangeImages(e) {
-      const file = e;
-    
-      let reader = new FileReader()
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.myImage.fileUrl = reader.result
-      }
-      // this.myImage.fileUrl = "data:image/jpeg;base64," + this.myImage.fileUrl;
-    },
+   
   },
 }
 </script>
