@@ -1,3 +1,0 @@
-# pycoral
-
-*   Initial pycoral release
