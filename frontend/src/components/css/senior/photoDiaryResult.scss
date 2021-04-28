@@ -1,0 +1,61 @@
+@import 'titleBox';
+@import 'line';
+
+.photoDiaryResult {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column-reverse;
+
+  .wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .titleBox {
+    @include titleBox($primary-yellow2, $basic-black, 1320px, 0px);
+  }
+
+  .nari {
+    @include nari;
+  }
+
+  .title {
+    @include title(55px, 55px);
+  }
+
+  .seniorPhoto {
+    width: 660px;
+  }
+
+  .explain {
+    font-size: 50px;
+    margin-top: 30px;
+  }
+
+  .line1 {
+    @include line(620px);
+  }
+
+  .line2 {
+    @include line(510px);
+  }
+
+  .goBox {
+    display: flex;
+    justify-content: space-between;
+
+    .again {
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+  
+    .save {
+      margin-right: 10px;
+    }
+  }
+}

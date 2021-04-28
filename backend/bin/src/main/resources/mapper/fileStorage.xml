@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.itda.mapper.FileStorageMapper">
+
+	<insert id="saveFile" parameterType="FileStorage">
+		insert into
+		fileStorage(userId, fileDate, fileName, fileUrl, fileUse)
+		values (#{userId}, #{fileDate}, #{fileName}, #{fileUrl}, #{fileUse})
+	</insert>
+	
+	<select id="getFile" parameterType="FileStorage" resultType="FileStorage">
+		select *
+		from fileStorage
+		where userId = #{userId}
+		and fileDate like #{fileDate}
+		and fileUse like #{fileUse}
+	</select>
+	
+	<select id="getFileCnt" parameterType="FileStorage" resultType="int">
+		select count(*)
+		from fileStorage
+		where userId = #{userId}
+		and fileDate like #{fileDate}
+		and fileUse like #{fileUse}
+	</select>
+
+</mapper>
